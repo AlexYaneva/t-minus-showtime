@@ -1,0 +1,16 @@
+h1, h2 {
+	font-family: 'Lucida sans', 'lucida console', courier;
+	font-variant: small-caps;
+	font-size-adjust: 16px;
+	color: #ADD0E2;
+	background-color: #E2AFAF;
+	padding: 10px;
+}
+
+ul {
+	font-family: 'Lucida sans', 'lucida console', courier;
+	font-size-adjust: 10px;
+	color: #7C1111;
+	background-color: #ADD0E2;
+	padding: 10px;
+}
