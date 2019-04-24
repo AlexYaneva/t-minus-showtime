@@ -15,9 +15,16 @@ body {
     align-items: center;
 }
 
-.container {
+.container-fluid {
 	margin-top: 1em;
 	background-image: url('flowers.jpg');
 	text-align: center;
 
 }
+
+.form-inline .my-2 .my-lg-0 {
+	align-content: center;
+	margin-bottom: 1em;
+}
+
+

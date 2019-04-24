@@ -2,14 +2,12 @@
 
 
 {% block content %} 
-<h1>I'm gonna make this work!</h1><br>
 
-<h2> I definitely will.</h2>
+	<h1>Find your favourite film!</h1>
 
-<ul>
-	<li>Because I'm awesome.</li>
-	<li>Because I can.</li>
-	<li>Because.</li>
-</ul>
+	<form class="form-inline my-2 my-lg-0" method='POST' action='/results'>
+      <input class="form-control mr-sm-2" type="text" placeholder="Star Wars" name='title'>
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
 
 {% endblock %}
