@@ -3,6 +3,8 @@
 .navbar-brand {
     float: left;
     font-family: Arial, sans-serif;
+    font-variant: small-caps;
+    font-size: 1.35rem;
 }
 
 
@@ -16,15 +18,23 @@ body {
 }
 
 .container-fluid {
-	margin-top: 1em;
+	padding: : 10px;
 	background-image: url('flowers.jpg');
 	text-align: center;
 
 }
 
-.form-inline .my-2 .my-lg-0 {
-	align-content: center;
-	margin-bottom: 1em;
+form {
+    justify-content: center;
+    padding: 10px;
 }
+
+h1 {
+    padding: 10px;
+    color: #222223;
+    font-weight: bold;
+}
+
+
 
 
