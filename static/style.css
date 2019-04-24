@@ -1,16 +1,23 @@
-h1, h2 {
-	font-family: 'Lucida sans', 'lucida console', courier;
-	font-variant: small-caps;
-	font-size-adjust: 16px;
-	color: #ADD0E2;
-	background-color: #E2AFAF;
-	padding: 10px;
+
+
+.navbar-brand {
+    float: left;
+    font-family: Arial, sans-serif;
 }
 
-ul {
-	font-family: 'Lucida sans', 'lucida console', courier;
-	font-size-adjust: 10px;
-	color: #7C1111;
-	background-color: #ADD0E2;
-	padding: 10px;
+
+body {
+    font-family: 'Lucida console',Arial,sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #2e2e30;
+    background-color: #fefe;
+    align-items: center;
+}
+
+.container {
+	margin-top: 1em;
+	background-image: url('flowers.jpg');
+	text-align: center;
+
 }
