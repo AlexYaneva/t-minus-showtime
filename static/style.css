@@ -19,8 +19,8 @@ body {
 
 .container-fluid {
 	padding: : 10px;
-/*	background-image: url('flowers.jpg');
-	text-align: center;*/
+	/*background-image: url('flowers.jpg');*/
+	text-align: center;
 
 }
 
@@ -31,7 +31,7 @@ form {
 
 h1 {
     padding: 10px;
-    color: #222223;
+    color: #48484a;
     font-weight: bold;
 }
 
