@@ -1,24 +1,12 @@
 
 
-/*.navbar-brand {
-    float: left;
-    font-family: Arial, sans-serif;
-    font-variant: small-caps;
-    font-size: 1.35rem;
-}
 
 
 body {
-    font-family: 'Lucida console',Arial,sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #2e2e30;
-    background-color: #fefe;
     align-items: center;
 }
 
 .container-fluid {
-	padding: : 10px;
 	text-align: center;
 
 }
@@ -26,7 +14,7 @@ body {
 form {
     justify-content: center;
     padding: 10px;
-}*/
+}
 
 h1 {
     padding: 10px;
