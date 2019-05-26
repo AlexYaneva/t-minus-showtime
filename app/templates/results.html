@@ -7,9 +7,13 @@
 	</head>
 	<body>
 		<h1>Results:</h1><br>
-		<img src='{{ img }}' class='poster'>
+		<!-- <img src='{{ img }}' class='poster'> -->
 		<p>
-			{{ result }}
+			{% for key, value in results.items() %} 
+				<img src='{{ value }}' class='poster'>
+				<p>{{ key }}</p>
+			{% endfor %}	
+	
 		</p>
 	</body>
 

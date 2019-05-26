@@ -1,4 +1,4 @@
-# from app import app
+
 import requests
 import json
 from config import API_key
@@ -8,17 +8,22 @@ base_url = 'https://api.themoviedb.org/3'
 
 class API():
 
-	def search(title):
+	def search_film(title):
 		r = requests.get(f'{base_url}/search/movie?api_key={API_key}&language=en-US&page=1&query={title}&include_adult=false')
 		json_obj = r.json()
 
-		film_title = json_obj['results'][0]['title']
-		summary = json_obj['results'][0]['overview']
-		poster_path = json_obj['results'][0]['poster_path']
-		img = f'{images_url}{poster_path}'
-		result = f'{film_title} {summary}'
+		results = {}
+		for film in range(0, 13):
+			film_title = json_obj['results'][film]['title']
+			poster_path = json_obj['results'][film]['poster_path']
 
-		return result, img
+			img = f'{images_url}{poster_path}'
+
+			results[film_title] = img #adding each key-value pair to the results dict
+
+		return results
+
+
 
 
 
