@@ -2,12 +2,17 @@
 
 
 {% block content %} 
+	    <div class="jumbotron" text-align="left">
+	        <h1 class="display-3">Track your favourite shows</h1>
+	        <p class="lead">Never miss an episode ever again</p>
+	        <hr class="my-4">
+	        <p>T-minus Showtime helps you keep track of release dates - just add your favourite films and series to your dashboard and get notified of all new releases, where to watch them and much more.</p>
+        </div>
+	
 
-	<h1>Find your favourite film!</h1>
-
-	<form class="form-inline my-2 my-lg-0" method='POST' action='/results'>
-      <input class="form-control mr-sm-2" type="text" placeholder="Avengers..." name='title'>
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
+		<form class="form-inline my-2 my-lg-0" method='POST' action='/results'>
+	      <input class="form-control mr-sm-2" type="text" placeholder="Avengers..." name='title'>
+	      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Find films</button>
+	    </form>
 
 {% endblock %}
