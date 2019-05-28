@@ -14,3 +14,13 @@ def results():
 	results = API.search_film(title)
 
 	return render_template('results.html', results=results)
+
+
+@app.route('/films', methods=['GET', 'POST'])
+def films():
+	return render_template('films.html')
+
+
+@app.route('/tvseries', methods=['GET', 'POST'])
+def tvseries():
+	return render_template('tvseries.html')

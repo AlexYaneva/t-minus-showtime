@@ -4,6 +4,8 @@ body {
 
 .container-fluid {
 	/*text-align: center;*/
+	width: 80%;
+    margin: auto;
 
 }
 
@@ -16,6 +18,13 @@ h1 {
     padding: 10px;
     color: #48484a;
     font-weight: bold;
+}
+
+.btn-secondary {
+    color: #1a1a1a;
+    background-color: #ff6666;
+    border-color: #ff6666;
+    margin-right: 1rem;
 }
 
 
