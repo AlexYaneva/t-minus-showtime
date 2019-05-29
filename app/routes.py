@@ -18,7 +18,8 @@ def results():
 
 @app.route('/films', methods=['GET', 'POST'])
 def films():
-	return render_template('films.html')
+	results = API.popular_films()
+	return render_template('films.html', results=results)
 
 
 @app.route('/tvseries', methods=['GET', 'POST'])

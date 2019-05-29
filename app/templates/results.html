@@ -5,8 +5,8 @@
 <h1>Results:</h1><br>
 <p>
 	{% for key, value in results.items() %} 
-		<img src='{{ value }}' class='poster'>
-		<p>{{ key }}</p>
+		<img src='{{ key }}' class='poster'>
+		<p>{{ value }}</p>
 	{% endfor %}	
 </p>
 	

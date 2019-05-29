@@ -22,7 +22,7 @@ class API():
 			img = f'{images_url}{poster_path}'
 
 			# adding each key-value pair to the results dict
-			results[film_title] = img 
+			results[img] = film_title 
 
 		return results
 
@@ -32,6 +32,17 @@ class API():
 		json_obj = r.json()
 
 		results = {}
+		for film in range(0, len(json_obj['results'])):
+			film_title = json_obj['results'][film]['title']
+			poster_path = json_obj['results'][film]['poster_path']
+
+			img = f'{images_url}{poster_path}'
+			results[img] = film_title
+
+		return results
+
+
+
 
 
 
