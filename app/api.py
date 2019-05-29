@@ -12,9 +12,10 @@ class API():
 		r = requests.get(f'{base_url}/search/movie?api_key={API_key}&language=en-US&page=1&query={film_title}&include_adult=false')
 		json_obj = r.json()
 
-		# there could be hundreds of results from a search, for the time being i'm just showing the first 12
+		# there could be hundreds of results from a search, for the time being i'm just showing the 1st page
+		# need to also extract the film id's and see how to store/render
 		results = {}
-		for film in range(0, 13):
+		for film in range(0, len(json_obj['results'])):
 			film_title = json_obj['results'][film]['title']
 			poster_path = json_obj['results'][film]['poster_path']
 
@@ -24,6 +25,15 @@ class API():
 			results[film_title] = img 
 
 		return results
+
+
+	def popular_films():
+		r = requests.get(f'{base_url}/movie/popular?api_key={API_key}&language=en-US&page=1&include_adult=false')
+		json_obj = r.json()
+
+		results = {}
+
+
 
 
 
