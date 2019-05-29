@@ -1,18 +1,15 @@
 {% extends 'base.html' %}
 
 
-{% block content %} 
+{% block content %}  
 
 	    <div class="jumbotron" text-align="left">
 	        <h1 class="display-3">Track the shows you love</h1>
 	        <p class="lead">Bla bla bla bla bla bla bla bla bla bla bla and some more bla. </p>
 	        <hr class="my-4">
 	        <p>T-minus Showtime helps you keep track of release dates - just add your favourite films and series to your dashboard and get notified for new releases, where to watch them and much more.</p>
-	        <!-- <form class="form-inline my-2 my-lg-0" method='POST' action='/results'> -->
-	        	<a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find films</a>
-	        	<a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find series</a>
-	      		<!-- <input class="form-control mr-sm-2" type="text" placeholder="Avengers..." name='title'> -->
-	    	<!-- </form> -->
-        </div>
+	        <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find films</a>
+	        <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find series</a>
+		</div>
 
 {% endblock %}

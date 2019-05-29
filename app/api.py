@@ -8,8 +8,8 @@ base_url = 'https://api.themoviedb.org/3'
 
 class API():
 
-	def search_film(title):
-		r = requests.get(f'{base_url}/search/movie?api_key={API_key}&language=en-US&page=1&query={title}&include_adult=false')
+	def search_film(film_title):
+		r = requests.get(f'{base_url}/search/movie?api_key={API_key}&language=en-US&page=1&query={film_title}&include_adult=false')
 		json_obj = r.json()
 
 		# there could be hundreds of results from a search, for the time being i'm just showing the first 12

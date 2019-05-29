@@ -10,8 +10,8 @@ def index():
 
 @app.route('/results', methods=['GET', 'POST'])
 def results():
-	title = request.form['title']
-	results = API.search_film(title)
+	film_title = request.form['film_title']
+	results = API.search_film(film_title)
 
 	return render_template('results.html', results=results)
 

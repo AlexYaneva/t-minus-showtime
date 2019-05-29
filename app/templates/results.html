@@ -2,18 +2,13 @@
 
 {% block content %}
 
-	<head>
-		<title>Search results</title>
-	</head>
-	<body>
-		<h1>Results:</h1><br>
-		<p>
-			{% for key, value in results.items() %} 
-				<img src='{{ value }}' class='poster'>
-				<p>{{ key }}</p>
-			{% endfor %}	
+<h1>Results:</h1><br>
+<p>
+	{% for key, value in results.items() %} 
+		<img src='{{ value }}' class='poster'>
+		<p>{{ key }}</p>
+	{% endfor %}	
+</p>
 	
-		</p>
-	</body>
 
 {% endblock %}
