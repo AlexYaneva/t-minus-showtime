@@ -41,6 +41,22 @@ class API():
 		return results
 
 
+	def search_series(series_title):
+		r = requests.get(f'{BASE_URL}/search/tv?api_key={API_key}&language=en-US&page=1&query={series_title}&include_adult=false')
+		json_obj = r.json()
+
+		results = {}
+		for series in range(0, len(json_obj['results'])):
+			series_title = json_obj['results'][series]['name']
+			poster_path = json_obj['results'][series]['poster_path']
+
+			img = f'{IMAGES_URL}{poster_path}'
+
+			results[img] = series_title 
+
+		return results
+
+
 	def popular_films():
 		r = requests.get(f'{BASE_URL}/movie/popular?api_key={API_key}&language=en-US&page=1&include_adult=false')
 		json_obj = r.json()
@@ -57,6 +73,19 @@ class API():
 
 
 
+	def popular_series():
+		r = requests.get(f'{BASE_URL}/tv/popular?api_key={API_key}&language=en-US&page=1&include_adult=false')
+		json_obj = r.json()
+
+		results = {}
+		for series in range(0, len(json_obj['results'])):
+			series_title = json_obj['results'][series]['name']
+			poster_path = json_obj['results'][series]['poster_path']
+
+			img = f'{IMAGES_URL}{poster_path}'
+			results[img] = series_title
+
+		return results
 
 
 

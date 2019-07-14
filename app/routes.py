@@ -10,8 +10,12 @@ def index():
 
 @app.route('/results', methods=['GET', 'POST'])
 def results():
-	film_title = request.form['film_title']
-	results = API.search_film(film_title)
+	if request.form['film_title']:
+		film_title = request.form['film_title']
+		results = API.search_film(film_title)
+	elif request.form['series_title']:
+		series_title = request.form['series_title']
+		results = API.search_series(series_title)
 
 	return render_template('results.html', results=results)
 
@@ -24,4 +28,5 @@ def films():
 
 @app.route('/tvseries', methods=['GET', 'POST'])
 def tvseries():
-	return render_template('tvseries.html')
+	results = API.popular_series()
+	return render_template('tvseries.html', results=results)
