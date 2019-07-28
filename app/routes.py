@@ -10,11 +10,11 @@ def index():
 
 @app.route('/results', methods=['GET', 'POST'])
 def results():
-	if request.form['film_title']:
+	if request.form.get('film_title'):
 		film_title = request.form['film_title']
 		obj = API()
 		results = obj.search_film(film_title)
-	elif request.form['series_title']:
+	elif request.form.get('series_title'):
 		series_title = request.form['series_title']
 		obj = API()
 		results = obj.search_series(series_title)
