@@ -1,6 +1,8 @@
 from app import app
 from app.api import API
+from app.models import User
 from flask import render_template, url_for, request, redirect
+from flask_login import current_user, login_user
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -34,3 +36,9 @@ def tvseries():
 	obj = API()
 	results = obj.popular_series()
 	return render_template('tvseries.html', results=results)
+
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+	pass
