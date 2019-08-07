@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="text-center">Sign in</h1>
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-4">
+                <form  action="" method="post" role="form">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                    {{ form.username.label }}<br>
+                    {{ form.username(class='form-control', size=32, placeholder='Enter username here') }}<br>
+<!--                     {% for error in form.username.errors %}
+                        <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>{{ error }}</div>
+                    {% endfor %} -->
+
+                    {{ form.password.label }}<br>
+                    {{ form.password(class='form-control', size=32, placeholder='Enter password here') }}<br>
+<!--                     {% for error in form.password.errors %}
+                        <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>{{ error }}</div>
+                    {% endfor %} -->
+                    
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                     </div>
+                </form>
+            </div>
+        </div>
+    <br>
+
+    <p class="text-center"><strong>New User? <a href="#">Register here.</a></strong></p>
+
+    <p class="text-center"><strong>Forgot Your Password? <a href="#">Reset it.</a></strong></p>
+
+{% endblock %}

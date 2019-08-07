@@ -1,5 +1,6 @@
 from app import app
 from app.api import API
+from app.forms import LoginForm
 from app.models import User
 from flask import render_template, url_for, request, redirect
 from flask_login import current_user, login_user
@@ -41,4 +42,6 @@ def tvseries():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-	pass
+	form = LoginForm()
+	return render_template('login.html', title='Sign In', form=form)
+	
