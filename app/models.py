@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 class User(UserMixin, db.Model):
-	user_id = db.Column(db.Integer, primary_key=True)
+	id = db.Column(db.Integer, primary_key=True)
 	username = db.Column(db.String(64), index=True, unique=True)
 	email = db.Column(db.String(120), index=True, unique=True)
 	password_hash = db.Column(db.String(128))
@@ -21,14 +21,14 @@ class User(UserMixin, db.Model):
 		
 
 @login.user_loader
-def load_user(id):
-	return User.query.get(int(id))
+def load_user(user_id):
+	return User.query.get(int(user_id))
 
 
 class TrackedFilms(db.Model):
 	film_id = db.Column(db.Integer, primary_key=True)
 	film_title = db.Column(db.String(140), index=True)
-	user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 	def __repr__(self):
 		return f'<TrackedFilm {self.film_title}'
@@ -37,7 +37,7 @@ class TrackedFilms(db.Model):
 class TrackedSeries(db.Model):
 	series_id = db.Column(db.Integer, primary_key=True)
 	series_title = db.Column(db.String(140), index=True)
-	user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 	def __repr__(self):
 		return f'<TrackedSeries {self.series_title}'
