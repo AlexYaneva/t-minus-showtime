@@ -6,4 +6,6 @@
 *.db
 logs/
 *.env
+.vscode
+settings.json
 ISSUES.txt
