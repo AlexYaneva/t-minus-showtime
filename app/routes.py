@@ -1,9 +1,9 @@
 from app import app
 from app.api import API
 from app.forms import LoginForm
-from app.models import User
+from app.models import User, TrackedFilms, TrackedSeries
 from flask import render_template, url_for, request, redirect
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -42,7 +42,7 @@ def tvseries():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for("index"))
+        return redirect(url_for("user"))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -57,9 +57,20 @@ def login():
         # # The parse and netloc are security checks
         # if not next_page or url_parse(next_page).netloc != '':
         # 	next_page = url_for('main.index')
-        return redirect(url_for("index"))
+        return redirect(url_for("user", username=user))
 
     return render_template("login.html", title="Sign In", form=form)
+
+
+@app.route("/user/<username>")
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    films = current_user.trackedfilms()
+    series = current_user.trackedseries()
+    return render_template(
+        "user.html", user=user, trackedfilms=films.items, trackedseries=series.items
+    )
 
 
 @app.route("/logout", methods=["GET", "POST"])

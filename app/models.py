@@ -23,6 +23,12 @@ class User(UserMixin, db.Model):
     def get_id(self):
         return self.user_id
 
+    def trackedfilms(self):
+        return self.TrackedFilms.filter(TrackedFilms.user_id == self.user_id)
+
+    def trackedseries(self):
+        return self.TrackedSeries.filter(TrackedSeries.user_id == self.user_id)
+
 
 @login.user_loader
 def load_user(user_id):
