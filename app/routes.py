@@ -49,7 +49,7 @@ def login():
         if user is None or not user.check_password(form.password.data):
             print("Invalid username or password")
             return redirect(url_for("login"))
-        login_user(user, remember=form.remember_me.data)
+        login_user(user)
 
         # # Storing the value of 'next' i.e. which page the user wanted to see but was prompted to log in first
         # next_page = request.args.get('next')
@@ -57,7 +57,7 @@ def login():
         # # The parse and netloc are security checks
         # if not next_page or url_parse(next_page).netloc != '':
         # 	next_page = url_for('main.index')
-        return redirect(url_for("user", username=user))
+        return redirect(url_for("user", username=current_user.username))
 
     return render_template("login.html", title="Sign In", form=form)
 
@@ -69,7 +69,7 @@ def user(username):
     films = current_user.trackedfilms()
     series = current_user.trackedseries()
     return render_template(
-        "user.html", user=user, trackedfilms=films.items, trackedseries=series.items
+        "user.html", user=user, trackedfilms=films, trackedseries=series
     )
 
 
