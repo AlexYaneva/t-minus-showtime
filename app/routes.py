@@ -15,28 +15,33 @@ def index():
 def results():
     if request.form.get("film_title"):
         film_title = request.form["film_title"]
-        obj = API()
-        results = obj.search_film(film_title)
+        tmdb_api = API()
+        results = tmdb_api.search_film(film_title)
     elif request.form.get("series_title"):
         series_title = request.form["series_title"]
-        obj = API()
-        results = obj.search_series(series_title)
+        tmdb_api = API()
+        results = tmdb_api.search_series(series_title)
 
     return render_template("results.html", results=results)
 
 
 @app.route("/films", methods=["GET", "POST"])
 def films():
-    obj = API()
-    results = obj.popular_films()
+    tmdb_api = API()
+    results = tmdb_api.popular_films()
     return render_template("films.html", results=results)
 
 
 @app.route("/tvseries", methods=["GET", "POST"])
 def tvseries():
-    obj = API()
-    results = obj.popular_series()
+    tmdb_api = API()
+    results = tmdb_api.popular_series()
     return render_template("tvseries.html", results=results)
+
+
+@app.route("/viewitem", methods=["GET", "POST"])
+def viewfilm():
+    return render_template("viewitem.html")
 
 
 @app.route("/login", methods=["GET", "POST"])

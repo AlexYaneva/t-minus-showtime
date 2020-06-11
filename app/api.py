@@ -29,6 +29,7 @@ class API:
 		results = {}
 		for item in range(0, len(json_obj['results'])):
 			item_name = json_obj['results'][item][name]
+			item_id = json_obj['results'][item]['id']
 			poster_path = json_obj['results'][item]['poster_path']
 			img = f'{self.images_url}{poster_path}'
 			results[img] = item_name
@@ -58,6 +59,20 @@ class API:
 		path = self.paths.get('popular_series')
 		name = 'name'
 		return self.request(path=path, name=name)
+
+	def view_film(self, film_id):
+		pass
+
+	def view_series(self, series_id):
+		pass
+
+	def track_film(self, film_id):
+		pass
+
+	def track_series(self, series_id):
+		pass
+
+
 
 
 
