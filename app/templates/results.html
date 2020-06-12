@@ -4,9 +4,11 @@
 
 <h1>Results:</h1><br>
 <p>
-	{% for key, value in results.items() %}
-	<img src='{{ key }}' class='poster'>
-<p>{{ value }}</p>
+	{% for i in results %}
+	<img src='{{ i.poster_path }}' class='poster'>
+<p>{{ i.title }}</p>
+<p>{{ i.id }}</p>
+<p>{{ i.overview }}</p>
 <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('viewitem') }}">View</a>
 {% endfor %}
 </p>

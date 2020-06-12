@@ -4,6 +4,17 @@ import json
 from config import API_key
 
 
+class Film:
+
+	def __init__(self, item_id, title, overview, poster_path, backdrop_path, release_date, status=None):
+		self.id = item_id
+		self.title = title
+		self.overview = overview
+		self.poster_path = poster_path
+		self.backdrop_path = backdrop_path
+		self.status = status
+		self.release_date = release_date
+
 class API:
 
 
@@ -21,18 +32,24 @@ class API:
 
 	def request(self, path, name, title=None):
 		if title:
-			r = requests.get(f'{self.base_url}{path}{API_key}&language=en-US&page=1&query={title}&include_adult=false')
+			r = requests.get(f'{self.base_url}{path}{API_key}&language=en-US&page=1&query={title}&include_adult=false').json()
 		else:
-			r = requests.get(f'{self.base_url}{path}{API_key}&language=en-US&page=1&include_adult=false')
+			r = requests.get(f'{self.base_url}{path}{API_key}&language=en-US&page=1&include_adult=false').json()
 		
-		json_obj = r.json()
-		results = {}
-		for item in range(0, len(json_obj['results'])):
-			item_name = json_obj['results'][item][name]
-			item_id = json_obj['results'][item]['id']
-			poster_path = json_obj['results'][item]['poster_path']
-			img = f'{self.images_url}{poster_path}'
-			results[img] = item_name
+		json_obj = r['results']
+		results = []
+		for item in json_obj:
+			item_id = item.get('id')
+			title = item.get('title')
+			overview = item.get('overview')
+			poster = item.get('poster_path')
+			poster_path = f'{self.images_url}{poster}'
+			backdrop = item.get('backdrop_path')
+			release_date = item.get('release_date')
+			
+			film_obj = Film(item_id, title, overview, poster_path, backdrop, release_date)
+			results.append(film_obj)
+			
 
 		return results
 
@@ -60,17 +77,6 @@ class API:
 		name = 'name'
 		return self.request(path=path, name=name)
 
-	def view_film(self, film_id):
-		pass
-
-	def view_series(self, series_id):
-		pass
-
-	def track_film(self, film_id):
-		pass
-
-	def track_series(self, series_id):
-		pass
 
 
 

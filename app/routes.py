@@ -40,7 +40,7 @@ def tvseries():
 
 
 @app.route("/viewitem", methods=["GET", "POST"])
-def viewfilm():
+def viewitem():
     return render_template("viewitem.html")
 
 
