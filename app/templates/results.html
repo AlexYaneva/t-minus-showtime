@@ -9,7 +9,7 @@
 <p>{{ i.title }}</p>
 <p>{{ i.id }}</p>
 <p>{{ i.overview }}</p>
-<a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('viewitem') }}">View</a>
+<a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('viewitem', id = i.id) }}">View</a>
 {% endfor %}
 </p>
 

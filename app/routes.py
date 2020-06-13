@@ -2,7 +2,7 @@ from app import app
 from app.api import API
 from app.forms import LoginForm
 from app.models import User, TrackedFilms, TrackedSeries
-from flask import render_template, url_for, request, redirect
+from flask import render_template, url_for, request, redirect, session
 from flask_login import current_user, login_user, logout_user, login_required
 
 
@@ -39,9 +39,9 @@ def tvseries():
     return render_template("tvseries.html", results=results)
 
 
-@app.route("/viewitem", methods=["GET", "POST"])
-def viewitem():
-    return render_template("viewitem.html")
+@app.route("/viewitem/<int:id>", methods=["GET", "POST"])
+def viewitem(id):
+    return render_template("viewitem.html", id=id, results=results)
 
 
 @app.route("/login", methods=["GET", "POST"])
