@@ -16,11 +16,11 @@ def results():
     if request.form.get("film_title"):
         film_title = request.form["film_title"]
         tmdb_api = API()
-        results = tmdb_api.search_film(film_title)
+        results = tmdb_api.get_films(film_title)
     elif request.form.get("series_title"):
         series_title = request.form["series_title"]
         tmdb_api = API()
-        results = tmdb_api.search_series(series_title)
+        results = tmdb_api.get_series(series_title=series_title)
 
     return render_template("results.html", results=results)
 
@@ -28,20 +28,27 @@ def results():
 @app.route("/films", methods=["GET", "POST"])
 def films():
     tmdb_api = API()
-    results = tmdb_api.popular_films()
+    results = tmdb_api.get_films()
     return render_template("films.html", results=results)
 
 
 @app.route("/tvseries", methods=["GET", "POST"])
 def tvseries():
     tmdb_api = API()
-    results = tmdb_api.popular_series()
+    results = tmdb_api.get_series()
     return render_template("tvseries.html", results=results)
 
 
-@app.route("/viewitem/<int:id>", methods=["GET", "POST"])
-def viewitem(id):
-    return render_template("viewitem.html", id=id, results=results)
+# makign 'title' optional parameter
+@app.route("/viewitem/<int:item_id>/", methods=["GET", "POST"])
+@app.route("/viewitem/<int:item_id>/<title>", methods=["GET", "POST"])
+def viewitem(item_id, title=None):
+    tmdb_api = API()
+    if title:
+        results = tmdb_api.get_by_id(item_id=item_id, title=title)
+    else:
+        results = tmdb_api.get_by_id(item_id=item_id)
+    return render_template("viewitem.html", item_id=item_id, results=results)
 
 
 @app.route("/login", methods=["GET", "POST"])

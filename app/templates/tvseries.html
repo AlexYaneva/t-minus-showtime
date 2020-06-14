@@ -13,9 +13,9 @@
 <div class='container'>
 	{% for i in results %}
 	<img src='{{ i.poster_path }}' class='poster'>
-	{{ i.title }}
-	{{ i.overview }}
-	{{ i.id }}
+	<p>{{ i.name }}</p>
+	<p>{{ i.overview }}</p>
+	<p>{{ i.id }}</p>
 	{% endfor %}
 </div>
 

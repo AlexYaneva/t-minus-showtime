@@ -2,8 +2,9 @@
 
 {% block content %}
 
-<h1 class='text-center'>The Film</h1>
-
+<p>{{ results.id }}</p>
+<p>{{ results.overview }}</p>
+<img src='{{ results.poster_path }}' class='poster'>
 
 
 {% endblock %}
