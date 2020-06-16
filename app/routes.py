@@ -1,5 +1,5 @@
 from app import app
-from app.api import API
+from app.api import Films, Series
 from app.forms import LoginForm
 from app.models import User, TrackedFilms, TrackedSeries
 from flask import render_template, url_for, request, redirect, session
@@ -15,27 +15,27 @@ def index():
 def results():
     if request.form.get("film_title"):
         film_title = request.form["film_title"]
-        tmdb_api = API()
-        results = tmdb_api.get_films(film_title)
+        films = Films()
+        results = films.search_films(film_title)
     elif request.form.get("series_title"):
         series_title = request.form["series_title"]
-        tmdb_api = API()
-        results = tmdb_api.get_series(series_title=series_title)
+        series = Series()
+        results = series.search_series(series_title)
 
     return render_template("results.html", results=results)
 
 
 @app.route("/films", methods=["GET", "POST"])
 def films():
-    tmdb_api = API()
-    results = tmdb_api.get_films()
+    films = Films()
+    results = films.popular_films()
     return render_template("films.html", results=results)
 
 
 @app.route("/tvseries", methods=["GET", "POST"])
 def tvseries():
-    tmdb_api = API()
-    results = tmdb_api.get_series()
+    series = Series()
+    results = series.popular_series()
     return render_template("tvseries.html", results=results)
 
 
@@ -43,11 +43,12 @@ def tvseries():
 @app.route("/viewitem/<int:item_id>/", methods=["GET", "POST"])
 @app.route("/viewitem/<int:item_id>/<title>", methods=["GET", "POST"])
 def viewitem(item_id, title=None):
-    tmdb_api = API()
     if title:
-        results = tmdb_api.get_by_id(item_id=item_id, title=title)
+        film = Films()
+        results = film.film_details(item_id=item_id)
     else:
-        results = tmdb_api.get_by_id(item_id=item_id)
+        series = Series()
+        results = series.series_details(item_id=item_id)
     return render_template("viewitem.html", item_id=item_id, results=results)
 
 
