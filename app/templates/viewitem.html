@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<p>{{ results.id }}</p>
-<p>{{ results.overview }}</p>
-<img src='{{ results.poster_path }}' class='poster'>
-
+<div class='container'>
+    <p>{{ results.id }}</p>
+    {% if results.title %}
+    <p>{{ results.title }}</p>
+    {% else %}
+    <p>{{ results.name }}</p>
+    {% endif %}
+    <p>{{ results.overview }}</p>
+    <img src='{{ results.poster_path }}' class='poster'>
+    <img src='{{ results.backdrop_path }}' class='poster'>
+</div>
 
 {% endblock %}

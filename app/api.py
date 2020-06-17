@@ -32,7 +32,7 @@ class TMDB:
         if obj.poster_path:
             obj.poster_path = f"{obj.IMAGES_URL}{obj.poster_path}"
         if obj.backdrop_path:
-            obj.backdrop_path = f"{obj.IMAGES_URL}{obj.poster_path}"
+            obj.backdrop_path = f"{obj.BACKDROPS_URL}{obj.backdrop_path}"
         return obj
 
     def _process_multiple_items(self, response):

@@ -3,20 +3,19 @@
 {% block content %}
 
 <h1>Results:</h1><br>
-<p>
-	{% for i in results %}
-	<img src='{{ i.poster_path }}' class='poster'>
-	{% if i.title %}
-<p>{{ i.title }}</p>
-{% else %}
-<p>{{ i.name }}</p>
-{% endif %}
-<p>{{ i.id }}</p>
-<p>{{ i.overview }}</p>
-<a class="btn btn-secondary my-2 my-sm-0" role='button'
-	href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">View</a>
-{% endfor %}
-</p>
 
+<div class='row'>
+	{% for i in results %}
+	<div class='col-sm-2'>
+		<div class='card'>
+			<img src='{{ i.poster_path }}' class='card-img-top'>
+			<div class='card-body'>
+				<a class="btn btn-secondary my-2 my-sm-0" role='button'
+					href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">View</a>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
 
 {% endblock %}
