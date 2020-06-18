@@ -1,7 +1,7 @@
 from app import app, cache
-from app.api import Films, Series
+from app.api import GetFilms, GetSeries
 from app.forms import LoginForm
-from app.models import User, TrackedFilms, TrackedSeries
+from app.models import User, Films, Series
 from flask import render_template, url_for, request, redirect, session
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
@@ -17,11 +17,11 @@ def index():
 def results():
     if request.form.get("film_title"):
         film_title = request.form["film_title"]
-        films = Films()
+        films = GetFilms()
         results = films.search_films(film_title)
     elif request.form.get("series_title"):
         series_title = request.form["series_title"]
-        series = Series()
+        series = GetSeries()
         results = series.search_series(series_title)
 
     return render_template("results.html", results=results)
@@ -31,7 +31,7 @@ def results():
 @login_required
 @cache.cached(timeout=100)
 def films():
-    films = Films()
+    films = GetFilms()
     results = films.popular_films()
     return render_template("films.html", results=results)
 
@@ -40,7 +40,7 @@ def films():
 @login_required
 @cache.cached(timeout=100)
 def tvseries():
-    series = Series()
+    series = GetSeries()
     results = series.popular_series()
     return render_template("tvseries.html", results=results)
 
@@ -50,10 +50,10 @@ def tvseries():
 @app.route("/viewitem/<int:item_id>/<title>", methods=["GET", "POST"])
 def viewitem(item_id, title=None):
     if title:
-        film = Films()
+        film = GetFilms()
         results = film.film_details(item_id=item_id)
     else:
-        series = Series()
+        series = GetSeries()
         results = series.series_details(item_id=item_id)
     return render_template("viewitem.html", item_id=item_id, results=results)
 

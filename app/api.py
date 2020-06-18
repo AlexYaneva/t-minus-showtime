@@ -45,7 +45,7 @@ class TMDB:
         return obj_list
 
 
-class Films(TMDB):
+class GetFilms(TMDB):
 
     paths = {
         "search_film": "/search/movie",
@@ -72,7 +72,7 @@ class Films(TMDB):
         return self._process_by_id(response)
 
 
-class Series(TMDB):
+class GetSeries(TMDB):
 
     paths = {
         "search_series": "/search/tv",

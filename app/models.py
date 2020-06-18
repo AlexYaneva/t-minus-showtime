@@ -5,13 +5,13 @@ from flask_login import UserMixin
 
 tracked_films = db.Table(
     "tracked_films",
-    db.Column("film_id", db.Integer, db.ForeignKey("trackedfilms.film_id")),
+    db.Column("film_id", db.Integer, db.ForeignKey("films.film_id")),
     db.Column("user_id", db.Integer, db.ForeignKey("user.user_id")),
 )
 
 tracked_series = db.Table(
     "tracked_series",
-    db.Column("series_id", db.Integer, db.ForeignKey("trackedseries.series_id")),
+    db.Column("series_id", db.Integer, db.ForeignKey("series.series_id")),
     db.Column("user_id", db.Integer, db.ForeignKey("user.user_id")),
 )
 
