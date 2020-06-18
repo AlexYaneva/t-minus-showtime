@@ -16,4 +16,6 @@ class Config:
         "DATABASE_URL"
     ) or "sqlite:///" + os.path.join(base_dir, "app.db")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    CACHE_TYPE = "simple"
+    CACHE_DEFAULT_TIMEOUT = 300
 

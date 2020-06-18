@@ -1,12 +1,14 @@
-from app import app
+from app import app, cache
 from app.api import Films, Series
 from app.forms import LoginForm
 from app.models import User, TrackedFilms, TrackedSeries
 from flask import render_template, url_for, request, redirect, session
 from flask_login import current_user, login_user, logout_user, login_required
+from werkzeug.urls import url_parse
 
 
 @app.route("/", methods=["GET", "POST"])
+@app.route("/index", methods=["GET", "POST"])
 def index():
     return render_template("index.html")
 
@@ -26,6 +28,8 @@ def results():
 
 
 @app.route("/films", methods=["GET", "POST"])
+@login_required
+@cache.cached(timeout=100)
 def films():
     films = Films()
     results = films.popular_films()
@@ -33,6 +37,8 @@ def films():
 
 
 @app.route("/tvseries", methods=["GET", "POST"])
+@login_required
+@cache.cached(timeout=100)
 def tvseries():
     series = Series()
     results = series.popular_series()
@@ -63,27 +69,29 @@ def login():
             print("Invalid username or password")
             return redirect(url_for("login"))
         login_user(user)
-
-        # # Storing the value of 'next' i.e. which page the user wanted to see but was prompted to log in first
-        # next_page = request.args.get('next')
-
-        # # The parse and netloc are security checks
-        # if not next_page or url_parse(next_page).netloc != '':
-        # 	next_page = url_for('main.index')
-        return redirect(url_for("user", username=current_user.username))
+        next_page = request.args.get("next")
+        if not next_page or url_parse(next_page).netloc != "":
+            next_page = url_for("index")
+        return redirect(next_page)
 
     return render_template("login.html", title="Sign In", form=form)
 
 
-@app.route("/user/<username>")
+@app.route("/user/<username>", methods=["GET", "POST"])
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     films = current_user.trackedfilms()
     series = current_user.trackedseries()
     return render_template(
-        "user.html", user=user, trackedfilms=films, trackedseries=series
+        "user.html", user=current_user, trackedfilms=films, trackedseries=series
     )
+
+
+@app.route("/track/<int:item_id>", methods=["GET", "POST"])
+def track(item_id):
+    print(f"Tracking this film: {item_id}")
+    return render_template("user.html", user=user)
 
 
 @app.route("/logout", methods=["GET", "POST"])

@@ -12,6 +12,9 @@
 			<div class='card-body'>
 				<a class="btn btn-secondary my-2 my-sm-0" role='button'
 					href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">View</a>
+				<form action="{{ url_for('track', item_id=i.id) }}" , method="POST">
+					<input type="submit" value="Track">
+				</form>
 			</div>
 		</div>
 	</div>
