@@ -2,15 +2,16 @@
 
 {% block content %}
 <div class='container'>
-    <p>{{ results.id }}</p>
     {% if results.title %}
     <p>{{ results.title }}</p>
+    <p>Release date: {{ results.release_date }}</p>
     {% else %}
     <p>{{ results.name }}</p>
+    <p>Last episode to air: {{ results.last_episode_to_air.air_date }}</p>
+    <p>Next episode to air: {{ results.next_episode_to_air.air_date }}</p>
     {% endif %}
     <p>{{ results.overview }}</p>
     <img src='{{ results.poster_path }}' class='poster'>
-    <img src='{{ results.backdrop_path }}' class='poster'>
     <form action="{{ url_for('track', item_id=results.id) }}" , method="POST">
         <input type="submit" value="Track">
 </div>
