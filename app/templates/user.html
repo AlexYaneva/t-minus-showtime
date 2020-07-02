@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<h1>Hey, {{ current_user.username }}!</h1>
-<!-- {% for tracked in films %}
-        {% include '_film.html' %}
-    {% endfor %} -->
+<h1>Hey, {{ current_user.username }} - you are now tracking {{ item_id }}!</h1>
+{% for tracked in series %}
+<h2>{{ tracked }}</h2>
+{% endfor %}
 
 {% endblock %}

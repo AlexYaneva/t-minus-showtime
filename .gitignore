@@ -9,3 +9,5 @@ logs/
 .vscode
 settings.json
 ISSUES.txt
+DynamoDB/
+table.json

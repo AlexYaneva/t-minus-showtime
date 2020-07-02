@@ -1,10 +1,11 @@
-from app import app, cache
+from app import app, cache, dynamo, table
 from app.api import GetFilms, GetSeries
 from app.forms import LoginForm
-from app.models import User, Films, Series
+from app.models import User
 from flask import render_template, url_for, request, redirect, session
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
+from werkzeug.security import generate_password_hash
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -64,10 +65,14 @@ def login():
         return redirect(url_for("user"))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
+        # user = User.query.filter_by(username=form.username.data).first()
+        find_user = table.get_item(Key={"Email": form.email.data})
+        user_item = find_user["Item"]
+
+        if user_item is None or not User.check_password(user_item["password_hash"], form.password.data):
             print("Invalid username or password")
             return redirect(url_for("login"))
+        user = User(email=user_item["Email"])
         login_user(user)
         next_page = request.args.get("next")
         if not next_page or url_parse(next_page).netloc != "":
@@ -80,18 +85,20 @@ def login():
 @app.route("/user/<username>", methods=["GET", "POST"])
 @login_required
 def user(username):
-    user = User.query.filter_by(username=username).first_or_404()
-    films = current_user.trackedfilms()
-    series = current_user.trackedseries()
-    return render_template(
-        "user.html", user=current_user, trackedfilms=films, trackedseries=series
-    )
+    films = current_user.get_trackedfilms()
+    series = current_user.get_trackedseries()
+    return render_template("user.html", user=current_user, films=films, series=series)
 
 
 @app.route("/track/<int:item_id>", methods=["GET", "POST"])
-def track(item_id):
-    print(f"Tracking this film: {item_id}")
-    return render_template("user.html", user=user)
+def track(item_id, title=None):
+    if title:
+        current_user.track_film(item_id)
+    else:
+        current_user.track_series(item_id)
+    films = current_user.get_trackedfilms()
+    series = current_user.get_trackedseries()
+    return render_template("user.html", user=current_user, item_id=item_id, films=films, series=series)
 
 
 @app.route("/logout", methods=["GET", "POST"])
