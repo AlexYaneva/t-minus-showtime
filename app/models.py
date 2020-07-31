@@ -38,19 +38,25 @@ class User(UserMixin):
     def track_film(self, film_id):
         table.update_item(
             Key={"Email": self.email},
-            UpdateExpression="SET Tracked_films = list_append(Tracked_films, :addfilm)",
-            ExpressionAttributeValues={":addfilm": str(film_id)})
+            UpdateExpression="ADD Tracked_films :addfilm",
+            ExpressionAttributeValues={":addfilm" : set([str(film_id)])}
+            )
 
 
     def track_series(self, series_id):
         table.update_item(
             Key={"Email": self.email},
-            UpdateExpression="SET Tracked_series = list_append(Tracked_series, :addseries)",
-            ExpressionAttributeValues={":addseries": [str(series_id)]})
+            UpdateExpression="ADD Tracked_series :addseries",
+            ExpressionAttributeValues={":addseries" : set([str(series_id)])}
+            )
 
 
     def get_trackedfilms(self):
-        pass
+        response = table.get_item(
+            Key={"Email": self.email}, 
+            ProjectionExpression="Tracked_films")
+        series = response['Item']['Tracked_films']
+        return series
 
 
     def get_trackedseries(self):

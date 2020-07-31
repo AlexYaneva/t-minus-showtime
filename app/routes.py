@@ -65,7 +65,6 @@ def login():
         return redirect(url_for("user"))
     form = LoginForm()
     if form.validate_on_submit():
-        # user = User.query.filter_by(username=form.username.data).first()
         find_user = table.get_item(Key={"Email": form.email.data})
         user_item = find_user["Item"]
 
@@ -90,7 +89,8 @@ def user(username):
     return render_template("user.html", user=current_user, films=films, series=series)
 
 
-@app.route("/track/<int:item_id>", methods=["GET", "POST"])
+@app.route("/track/<int:item_id>/", methods=["GET", "POST"])
+@app.route("/track/<int:item_id>/<title>", methods=["GET", "POST"])
 def track(item_id, title=None):
     if title:
         current_user.track_film(item_id)
@@ -98,7 +98,7 @@ def track(item_id, title=None):
         current_user.track_series(item_id)
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
-    return render_template("user.html", user=current_user, item_id=item_id, films=films, series=series)
+    return render_template("user.html", user=current_user, films=films, series=series)
 
 
 @app.route("/logout", methods=["GET", "POST"])

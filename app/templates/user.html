@@ -2,7 +2,11 @@
 
 {% block content %}
 
-<h1>Hey, {{ current_user.username }} - you are now tracking {{ item_id }}!</h1>
+<h1>Hey, {{ current_user.username }}! Here are your favourite films and series</h1>
+{% for tracked in films %}
+<h2>{{ tracked }}</h2>
+{% endfor %}
+
 {% for tracked in series %}
 <h2>{{ tracked }}</h2>
 {% endfor %}
