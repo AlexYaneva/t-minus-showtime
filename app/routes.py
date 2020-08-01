@@ -72,7 +72,7 @@ def login():
             print("Invalid username or password")
             return redirect(url_for("login"))
         user = User(email=user_item["Email"])
-        login_user(user)
+        login_user(user, remember=False)
         next_page = request.args.get("next")
         if not next_page or url_parse(next_page).netloc != "":
             next_page = url_for("index")

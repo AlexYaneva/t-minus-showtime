@@ -2,13 +2,25 @@
 
 {% block content %}
 
-<h1>Hey, {{ current_user.username }}! Here are your favourite films and series</h1>
+<h1>Hey, {{ current_user.username }}! Here's what you're currently tracking:</h1>
+<h6>Films</h6>
 {% for tracked in films %}
-<h2>{{ tracked }}</h2>
+<div class='col-sm-2'>
+    <div class='card'>
+        <img src='{{ tracked.poster_path }}' class='card-img-top'>
+    </div>
+    <p>{{ tracked.title }}</p>
+</div>
 {% endfor %}
 
+<h6>Series</h6>
 {% for tracked in series %}
-<h2>{{ tracked }}</h2>
+<div class='col-sm-2'>
+    <div class='card'>
+        <img src='{{ tracked.poster_path }}' class='card-img-top'>
+    </div>
+    <p>{{ tracked.name }}</p>
+</div>
 {% endfor %}
 
 {% endblock %}

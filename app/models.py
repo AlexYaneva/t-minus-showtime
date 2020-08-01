@@ -1,4 +1,5 @@
 from app import login, table
+from app.api import GetFilms, GetSeries
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -55,8 +56,15 @@ class User(UserMixin):
         response = table.get_item(
             Key={"Email": self.email}, 
             ProjectionExpression="Tracked_films")
-        series = response['Item']['Tracked_films']
-        return series
+        films = response['Item']['Tracked_films']
+        obj_list = []
+        for i in films:
+            obj = GetFilms()
+            # calling the tmdb api 
+            film_obj = obj.film_details(item_id=i)
+            obj_list.append(film_obj)
+
+        return obj_list
 
 
     def get_trackedseries(self):
@@ -64,7 +72,14 @@ class User(UserMixin):
             Key={"Email": self.email}, 
             ProjectionExpression="Tracked_series")
         series = response['Item']['Tracked_series']
-        return series
+        obj_list = []
+        for i in series:
+            obj = GetSeries()
+            # calling the tmdb api 
+            series_obj = obj.series_details(item_id=i)
+            obj_list.append(series_obj)
+
+        return obj_list
 
 
 @login.user_loader
