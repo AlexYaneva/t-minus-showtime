@@ -8,7 +8,11 @@
     {% else %}
     <p>{{ results.name }}</p>
     <p>Last episode to air: {{ results.last_episode_to_air.air_date }}</p>
+    {% if results.next_episode_to_air.air_date %}
     <p>Next episode to air: {{ results.next_episode_to_air.air_date }}</p>
+    {% else %}
+    <p>This show has no new episodes currently airing.</p>
+    {% endif %}
     {% endif %}
     <p>{{ results.overview }}</p>
     <img src='{{ results.poster_path }}' class='poster'>

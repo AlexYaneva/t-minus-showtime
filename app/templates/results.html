@@ -2,7 +2,25 @@
 
 {% block content %}
 
-<h1>Results:</h1><br>
+{% if results[0].name %}
+<div class='container'>
+	<form class="form-inline my-2 my-lg-0" method='POST' action='/results'>
+		<input class="form-control mr-sm-2" type="text" placeholder="Find Series" name='series_title'>
+		<button class="btn btn-secondary my-2 my-sm-0" role='button' type='submit'>Search</button>
+	</form>
+</div>
+<br>
+{% else %}
+<div class='container'>
+	<form class="form-inline my-2 my-lg-0" method='POST' action='/results'>
+		<input class="form-control mr-sm-2" type="text" placeholder="Find Films" name='film_title'>
+		<button class="btn btn-secondary my-2 my-sm-0" role='button' type='submit'>Search</button>
+	</form>
+</div>
+<br>
+{% endif %}
+
+<h5 class='text-center'>search results</h5><br>
 
 <div class='row'>
 	{% for i in results %}
@@ -13,7 +31,7 @@
 				<a class="btn btn-secondary my-2 my-sm-0" role='button'
 					href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">View</a>
 				<form action="{{ url_for('track', item_id=i.id) }}" , method="POST">
-					<input type="submit" value="Track">
+					<input class='btn btn-secondary my-2 my-sm-0' type="submit" value="Track">
 				</form>
 			</div>
 		</div>
