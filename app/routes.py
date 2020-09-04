@@ -4,6 +4,7 @@ from app.forms import LoginForm
 from app.models import User
 from flask import render_template, url_for, request, redirect, session
 from flask_login import current_user, login_user, logout_user, login_required
+from app.utils import countdown
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash
 
@@ -86,7 +87,7 @@ def login():
 def user(username):
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
-    return render_template("user.html", user=current_user, films=films, series=series)
+    return render_template("user.html", user=current_user, films=films, series=series, countdown=countdown)
 
 
 @app.route("/track/<int:item_id>/", methods=["GET", "POST"])

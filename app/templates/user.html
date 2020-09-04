@@ -3,7 +3,7 @@
 
 
 {% block content %}
-<h6>My Films</h6>
+<h4>My Films</h4><br>
 
 <div class='row'>
     {% for tracked in films %}
@@ -13,12 +13,13 @@
 
         </div>
         <p>{{ tracked.title }}</p>
+        <p>{{ countdown(tracked.release_date) }}</p>
     </div>
     {% endfor %}
 </div>
 
 
-<h6>My Series</h6>
+<h4>My Series</h4><br>
 
 <div class='row'>
     {% for tracked in series %}
@@ -28,6 +29,12 @@
 
         </div>
         <p>{{ tracked.name }}</p>
+        {% if tracked.next_episode_to_air.air_date %}
+        <p>{{ tracked.next_episode_to_air.air_date}}</p>
+        <p>{{ countdown(tracked.next_episode_to_air.air_date) }}</p>
+        {% else %}
+        <p>No new episodes</p>
+        {% endif %}
     </div>
     {% endfor %}
 </div>

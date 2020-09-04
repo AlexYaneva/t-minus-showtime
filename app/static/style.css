@@ -20,6 +20,12 @@ h1 {
     font-weight: bold;
 }
 
+h4 {
+    padding: 10px;
+    color: #48484a;
+    font-weight: bold;
+}
+
 .btn-secondary {
     color: #1a1a1a;
     background-color: #ff6666;
