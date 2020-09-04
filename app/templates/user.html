@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 
+
+
 {% block content %}
-<h1>Hey, {{ current_user.username }}! Here's what you're currently tracking:</h1>
-<h6>Films</h6>
+<h6>My Films</h6>
 
 <div class='row'>
     {% for tracked in films %}
     <div class='col-sm-2'>
         <div class='card'>
             <img src='{{ tracked.poster_path }}' class='card-img-top'>
-            <div class="countdown"></div>
+
         </div>
         <p>{{ tracked.title }}</p>
     </div>
@@ -17,19 +18,18 @@
 </div>
 
 
-<h6>Series</h6>
+<h6>My Series</h6>
 
 <div class='row'>
     {% for tracked in series %}
     <div class='col-sm-2'>
         <div class='card'>
             <img src='{{ tracked.poster_path }}' class='card-img-top'>
-            <div class="countdown"></div>
+
         </div>
         <p>{{ tracked.name }}</p>
     </div>
     {% endfor %}
 </div>
-
 
 {% endblock %}
