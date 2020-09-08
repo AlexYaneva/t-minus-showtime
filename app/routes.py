@@ -1,6 +1,6 @@
 from app import app, cache, dynamo, table
 from app.api import GetFilms, GetSeries
-from app.forms import LoginForm
+from app.forms import LoginForm, RegistrationForm
 from app.models import User
 from flask import render_template, url_for, request, redirect, session
 from flask_login import current_user, login_user, logout_user, login_required
@@ -80,6 +80,29 @@ def login():
         return redirect(next_page)
 
     return render_template("login.html", title="Sign In", form=form)
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for("user"))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = table.put_item(
+                    Item={
+                        "Email": form.email.data,
+                        "Username": form.username.data},)
+        password_hash = generate_password_hash(form.password.data)
+        table.update_item(
+            Key={"Email": form.email.data},
+            UpdateExpression="SET password_hash = :setpass",
+            ExpressionAttributeValues={":setpass": password_hash},)
+        return redirect(url_for('login'))
+        
+    return render_template('register.html', title='Register', form=form)
+
+
+    
 
 
 @app.route("/user/<username>", methods=["GET", "POST"])
