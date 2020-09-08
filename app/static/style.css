@@ -39,4 +39,14 @@ h4 {
 }
 
 
+.days {
+    font-size: x-large;
+    color: #ff6666;
+    font-weight: bold;
+
+}
+
+.quote {
+    font-family: "Lucida Calligraphy", cursive;
+}
 

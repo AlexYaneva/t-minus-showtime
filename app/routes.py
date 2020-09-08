@@ -99,7 +99,7 @@ def track(item_id, title=None):
         current_user.track_series(item_id)
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
-    return render_template("user.html", user=current_user, films=films, series=series)
+    return render_template("user.html", user=current_user, films=films, series=series, countdown=countdown)
 
 
 @app.route("/logout", methods=["GET", "POST"])

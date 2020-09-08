@@ -31,7 +31,7 @@
         <p>{{ tracked.name }}</p>
         {% if tracked.next_episode_to_air.air_date %}
         <p>{{ tracked.next_episode_to_air.air_date}}</p>
-        <p>{{ countdown(tracked.next_episode_to_air.air_date) }}</p>
+        <p>T-minus <span class='days'>{{ countdown(tracked.next_episode_to_air.air_date) }}</span> days</p>
         {% else %}
         <p>No new episodes</p>
         {% endif %}
