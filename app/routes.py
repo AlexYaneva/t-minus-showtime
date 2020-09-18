@@ -12,6 +12,8 @@ from werkzeug.security import generate_password_hash
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
+    find_user = table.get_item(Key={"Email": "bob@email.com"})
+    print(find_user)
     return render_template("index.html")
 
 
