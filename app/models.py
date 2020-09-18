@@ -52,10 +52,16 @@ class User(UserMixin):
             )
 
 
+
     def get_trackedfilms(self):
+
         response = table.get_item(
             Key={"Email": self.email}, 
             ProjectionExpression="Tracked_films")
+
+        if "Tracked_films" not in response["Item"]:
+            return None
+
         films = response['Item']['Tracked_films']
         obj_list = []
         for i in films:
@@ -67,10 +73,17 @@ class User(UserMixin):
         return obj_list
 
 
+
+
     def get_trackedseries(self):
+
         response = table.get_item(
             Key={"Email": self.email}, 
             ProjectionExpression="Tracked_series")
+
+        if "Tracked_series" not in response["Item"]:
+            return None
+        
         series = response['Item']['Tracked_series']
         obj_list = []
         for i in series:

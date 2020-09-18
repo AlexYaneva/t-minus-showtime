@@ -49,7 +49,7 @@ def tvseries():
     return render_template("tvseries.html", results=results)
 
 
-# makign 'title' optional parameter
+# makign 'title' an optional parameter
 @app.route("/viewitem/<int:item_id>/", methods=["GET", "POST"])
 @app.route("/viewitem/<int:item_id>/<title>", methods=["GET", "POST"])
 def viewitem(item_id, title=None):

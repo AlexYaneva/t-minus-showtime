@@ -6,6 +6,7 @@
 <h4>My Films</h4><br>
 
 <div class='row'>
+    {% if films%}
     {% for tracked in films %}
     <div class='col-sm-2'>
         <div class='card'>
@@ -16,12 +17,16 @@
         <p>{{ countdown(tracked.release_date) }}</p>
     </div>
     {% endfor %}
+    {% else %}
+    <p>You are not tracking any films yet</p>
+    {% endif %}
 </div>
 
 
 <h4>My Series</h4><br>
 
 <div class='row'>
+    {% if series %}
     {% for tracked in series %}
     <div class='col-sm-2'>
         <div class='card'>
@@ -37,6 +42,9 @@
         {% endif %}
     </div>
     {% endfor %}
+    {% else %}
+    <p>You are not tracking any series yet</p>
+    {% endif %}
 </div>
 
 {% endblock %}
