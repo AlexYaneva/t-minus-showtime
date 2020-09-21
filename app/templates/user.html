@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
 
 
-
 {% block content %}
-<h4>My Films</h4><br>
+
+<div class='container'>
+    <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find films</a>
+    <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find series</a>
+</div>
+
+{% if films%}
+<h4 class='text-center'>My Films</h4><br>
 
 <div class='row'>
-    {% if films%}
     {% for tracked in films %}
     <div class='col-sm-2'>
         <div class='card'>
@@ -17,16 +22,15 @@
         <p>{{ countdown(tracked.release_date) }}</p>
     </div>
     {% endfor %}
-    {% else %}
-    <p>You are not tracking any films yet</p>
-    {% endif %}
 </div>
+{% endif %}
 
 
-<h4>My Series</h4><br>
+
+{% if series %}
+<h4 class='text-center'>My Series</h4><br>
 
 <div class='row'>
-    {% if series %}
     {% for tracked in series %}
     <div class='col-sm-2'>
         <div class='card'>
@@ -35,16 +39,14 @@
         </div>
         <p>{{ tracked.name }}</p>
         {% if tracked.next_episode_to_air.air_date %}
-        <p>{{ tracked.next_episode_to_air.air_date}}</p>
         <p>T-minus <span class='days'>{{ countdown(tracked.next_episode_to_air.air_date) }}</span> days</p>
         {% else %}
         <p>No new episodes</p>
         {% endif %}
     </div>
     {% endfor %}
-    {% else %}
-    <p>You are not tracking any series yet</p>
-    {% endif %}
 </div>
+{% endif %}
+
 
 {% endblock %}

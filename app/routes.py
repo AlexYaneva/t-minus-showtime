@@ -2,7 +2,7 @@ from app import app, cache, dynamo, table
 from app.api import GetFilms, GetSeries
 from app.forms import LoginForm, RegistrationForm
 from app.models import User
-from flask import render_template, url_for, request, redirect, session
+from flask import flash, render_template, url_for, request, redirect, session
 from flask_login import current_user, login_user, logout_user, login_required
 from app.utils import countdown
 from werkzeug.urls import url_parse
@@ -12,8 +12,6 @@ from werkzeug.security import generate_password_hash
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
-    find_user = table.get_item(Key={"Email": "bob@email.com"})
-    print(find_user)
     return render_template("index.html")
 
 
@@ -72,7 +70,6 @@ def login():
         user_item = find_user["Item"]
 
         if user_item is None or not User.check_password(user_item["password_hash"], form.password.data):
-            print("Invalid username or password")
             return redirect(url_for("login"))
         user = User(email=user_item["Email"])
         login_user(user, remember=False)
@@ -99,6 +96,7 @@ def register():
             Key={"Email": form.email.data},
             UpdateExpression="SET password_hash = :setpass",
             ExpressionAttributeValues={":setpass": password_hash},)
+        flash('You have successfully registered!')
         return redirect(url_for('login'))
         
     return render_template('register.html', title='Register', form=form)
@@ -120,8 +118,10 @@ def user(username):
 def track(item_id, title=None):
     if title:
         current_user.track_film(item_id)
+        flash('Success! You are now tracking this.')
     else:
         current_user.track_series(item_id)
+        flash('Success! You are now tracking this.')
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
     return render_template("user.html", user=current_user, films=films, series=series, countdown=countdown)

@@ -3,11 +3,22 @@ body {
 }
 
 .container-fluid {
-	/*text-align: center;*/
 	width: 80%;
     margin: auto;
 
 }
+
+.container {
+    padding: 10px;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
 
 form {
     justify-content: center;
@@ -46,7 +57,5 @@ h4 {
 
 }
 
-.quote {
-    font-family: "Lucida Calligraphy", cursive;
-}
+
 
