@@ -16,8 +16,8 @@
     {% endif %}
     <p>{{ results.overview }}</p>
     <img src='{{ results.poster_path }}' class='poster'>
-    <form action="{{ url_for('track', item_id=results.id, title=results.title) }}" , method="POST">
-        <input type="submit" value="Track">
+    <form action="{{ url_for('track', item_id=results.id, title=results.title) }}" method="POST">
+        <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
 </div>
 
 {% endblock %}

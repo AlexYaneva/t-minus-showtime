@@ -28,11 +28,11 @@
 		<div class='card'>
 			<img src='{{ i.poster_path }}' class='card-img-top'>
 			<div class='card-body'>
-				<a class="btn btn-secondary my-2 my-sm-0" role='button'
-					href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">View</a>
-				<form action="{{ url_for('track', item_id=i.id) }}" , method="POST">
+				<form action="{{ url_for('track', item_id=i.id, title=i.title) }}" method="POST">
 					<input class='btn btn-secondary my-2 my-sm-0' type="submit" value="Track">
 				</form>
+				<a class="btn btn-secondary my-2 my-sm-0" role='button'
+					href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">Info</a>
 			</div>
 		</div>
 	</div>

@@ -9,10 +9,13 @@ from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash
 
 
+
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
     return render_template("index.html")
+
+
 
 
 @app.route("/results", methods=["GET", "POST"])
@@ -29,6 +32,8 @@ def results():
     return render_template("results.html", results=results)
 
 
+
+
 @app.route("/films", methods=["GET", "POST"])
 @login_required
 @cache.cached(timeout=100)
@@ -38,6 +43,8 @@ def films():
     return render_template("films.html", results=results)
 
 
+
+
 @app.route("/tvseries", methods=["GET", "POST"])
 @login_required
 @cache.cached(timeout=100)
@@ -45,6 +52,8 @@ def tvseries():
     series = GetSeries()
     results = series.popular_series()
     return render_template("tvseries.html", results=results)
+
+
 
 
 # makign 'title' an optional parameter
@@ -58,6 +67,9 @@ def viewitem(item_id, title=None):
         series = GetSeries()
         results = series.series_details(item_id=item_id)
     return render_template("viewitem.html", item_id=item_id, results=results)
+
+
+
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -81,6 +93,9 @@ def login():
     return render_template("login.html", title="Sign In", form=form)
 
 
+
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
@@ -102,8 +117,6 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-    
-
 
 @app.route("/user/<username>", methods=["GET", "POST"])
 @login_required
@@ -113,18 +126,21 @@ def user(username):
     return render_template("user.html", user=current_user, films=films, series=series, countdown=countdown)
 
 
+
+
 @app.route("/track/<int:item_id>/", methods=["GET", "POST"])
 @app.route("/track/<int:item_id>/<title>", methods=["GET", "POST"])
 def track(item_id, title=None):
     if title:
         current_user.track_film(item_id)
-        flash('Success! You are now tracking this.')
+        flash("Success! We've added this film to your dashboard.")
     else:
         current_user.track_series(item_id)
-        flash('Success! You are now tracking this.')
+        flash("Success! We've added this series to your dashboard.")
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
     return render_template("user.html", user=current_user, films=films, series=series, countdown=countdown)
+
 
 
 @app.route("/logout", methods=["GET", "POST"])
