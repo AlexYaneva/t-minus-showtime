@@ -15,11 +15,14 @@
 	{% for i in results %}
 	<div class='col-sm-2'>
 		<div class='card'>
-			<img class='card-img-top' src='{{ i.poster_path }}'>
+			<a href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">
+				<img src='{{ i.poster_path }}' class='card-img-top'>
+			</a>
 		</div>
 	</div>
 	{% endfor %}
 </div>
+
 
 
 {% endblock %}

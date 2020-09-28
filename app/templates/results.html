@@ -26,14 +26,9 @@
 	{% for i in results %}
 	<div class='col-sm-2'>
 		<div class='card'>
-			<img src='{{ i.poster_path }}' class='card-img-top'>
-			<div class='card-body'>
-				<form action="{{ url_for('track', item_id=i.id, title=i.title) }}" method="POST">
-					<input class='btn btn-secondary my-2 my-sm-0' type="submit" value="Track">
-				</form>
-				<a class="btn btn-secondary my-2 my-sm-0" role='button'
-					href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">Info</a>
-			</div>
+			<a href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">
+				<img src='{{ i.poster_path }}' class='card-img-top'>
+			</a>
 		</div>
 	</div>
 	{% endfor %}

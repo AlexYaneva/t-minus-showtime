@@ -10,14 +10,17 @@
 <div class='row'>
     {% for tracked in films %}
     <div class='col-sm-2'>
-        <div class='card'>
+        <div class='card text-center'>
             <img src='{{ tracked.poster_path }}' class='card-img-top'>
+            {% if countdown(tracked.release_date) == 'Released' %}
+            <p>{{ countdown(tracked.release_date) }}</p>
+            {% else %}
+            <p>T-minus <span class='days'>{{ countdown(tracked.release_date) }}</span> days</p>
+            {% endif %}
             <form action="{{ url_for('untrack', item_id=tracked.id, title=tracked.title) }}" method="POST">
-                <input class='btn btn-secondary my-2 my-sm-0' type="submit" value="Remove">
+                <input class='btn btn-secondary btn-sm my-2 my-sm-0' type="submit" value="Remove">
             </form>
         </div>
-        <p>{{ tracked.title }}</p>
-        <p>{{ countdown(tracked.release_date) }}</p>
     </div>
     {% endfor %}
 </div>
@@ -31,19 +34,17 @@
 <div class='row'>
     {% for tracked in series %}
     <div class='col-sm-2'>
-        <div class='card'>
+        <div class='card text-center'>
             <img src='{{ tracked.poster_path }}' class='card-img-top'>
+            {% if tracked.next_episode_to_air.air_date %}
+            <p>T-minus <span class='days'>{{ countdown(tracked.next_episode_to_air.air_date) }}</span> days</p>
+            {% else %}
+            <p>No new episodes</p>
+            {% endif %}
             <form action="{{ url_for('untrack', item_id=tracked.id) }}" method="POST">
-                <input class='btn btn-secondary my-2 my-sm-0' type="submit" value="Remove">
+                <input class='btn btn-secondary btn-sm my-2 my-sm-0' type="submit" value="Remove">
             </form>
-
         </div>
-        <p>{{ tracked.name }}</p>
-        {% if tracked.next_episode_to_air.air_date %}
-        <p>T-minus <span class='days'>{{ countdown(tracked.next_episode_to_air.air_date) }}</span> days</p>
-        {% else %}
-        <p>No new episodes</p>
-        {% endif %}
     </div>
     {% endfor %}
 </div>
