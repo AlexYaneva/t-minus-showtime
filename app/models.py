@@ -51,6 +51,21 @@ class User(UserMixin):
             ExpressionAttributeValues={":addseries" : set([str(series_id)])}
             )
 
+    def untrack_film(self, film_id):
+        table.update_item(
+            Key={"Email": self.email},
+            UpdateExpression="DELETE Tracked_films :deletefilm",
+            ExpressionAttributeValues={":deletefilm" : set([str(film_id)])}
+            )
+
+
+    def untrack_series(self, series_id):
+        table.update_item(
+            Key={"Email": self.email},
+            UpdateExpression="DELETE Tracked_series :deleteseries",
+            ExpressionAttributeValues={":deleteseries" : set([str(series_id)])}
+            )
+
 
 
     def get_trackedfilms(self):

@@ -111,7 +111,7 @@ def register():
             Key={"Email": form.email.data},
             UpdateExpression="SET password_hash = :setpass",
             ExpressionAttributeValues={":setpass": password_hash},)
-        flash('You have successfully registered!')
+        flash('You are now registered! Welcome on board.')
         return redirect(url_for('login'))
         
     return render_template('register.html', title='Register', form=form)
@@ -141,6 +141,20 @@ def track(item_id, title=None):
     series = current_user.get_trackedseries()
     return render_template("user.html", user=current_user, films=films, series=series, countdown=countdown)
 
+
+
+@app.route("/untrack/<int:item_id>/", methods=["GET", "POST"])
+@app.route("/untrack/<int:item_id>/<title>", methods=["GET", "POST"])
+def untrack(item_id, title=None):
+    if title:
+        current_user.untrack_film(item_id)
+        flash("You're no longer tracking this film.")
+    else:
+        current_user.untrack_series(item_id)
+        flash("You're no longer tracking this series.")
+    films = current_user.get_trackedfilms()
+    series = current_user.get_trackedseries()
+    return render_template("user.html", user=current_user, films=films, series=series, countdown=countdown)
 
 
 @app.route("/logout", methods=["GET", "POST"])

@@ -3,10 +3,6 @@
 
 {% block content %}
 
-<div class='container'>
-    <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find films</a>
-    <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find series</a>
-</div>
 
 {% if films%}
 <h4 class='text-center'>My Films</h4><br>
@@ -16,7 +12,9 @@
     <div class='col-sm-2'>
         <div class='card'>
             <img src='{{ tracked.poster_path }}' class='card-img-top'>
-
+            <form action="{{ url_for('untrack', item_id=tracked.id, title=tracked.title) }}" method="POST">
+                <input class='btn btn-secondary my-2 my-sm-0' type="submit" value="Remove">
+            </form>
         </div>
         <p>{{ tracked.title }}</p>
         <p>{{ countdown(tracked.release_date) }}</p>
@@ -35,6 +33,9 @@
     <div class='col-sm-2'>
         <div class='card'>
             <img src='{{ tracked.poster_path }}' class='card-img-top'>
+            <form action="{{ url_for('untrack', item_id=tracked.id) }}" method="POST">
+                <input class='btn btn-secondary my-2 my-sm-0' type="submit" value="Remove">
+            </form>
 
         </div>
         <p>{{ tracked.name }}</p>
@@ -48,5 +49,9 @@
 </div>
 {% endif %}
 
+<div class='container'>
+    <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find films</a>
+    <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find series</a>
+</div>
 
 {% endblock %}
