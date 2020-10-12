@@ -5,7 +5,7 @@ from config import API_key
 class CreateObj:
 
     IMAGES_URL = "http://image.tmdb.org/t/p/w185"
-    BACKDROPS_URL = "http://image.tmdb.org/t/p/w300"
+    BACKDROPS_URL = "http://image.tmdb.org/t/p/w780"
 
     def __init__(self, **data):
         for key in data:
