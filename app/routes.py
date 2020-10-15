@@ -1,7 +1,7 @@
 from app import app, cache, dynamo, table
 from app.api import GetFilms, GetSeries
 from app.email import send_password_reset_email
-from app.forms import LoginForm, RegistrationForm, ResetPasswordForm
+from app.forms import LoginForm, RegistrationForm, ResetPasswordForm, ResetPasswordRequestForm
 from app.models import User
 from flask import flash, render_template, url_for, request, redirect, session
 from flask_login import current_user, login_user, logout_user, login_required
@@ -120,11 +120,11 @@ def register():
 
 
 
-@app.route('/reset_password', methods=['GET', 'POST'])
+@app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
-    form = ResetPasswordForm()
+    form = ResetPasswordRequestForm()
     if form.validate_on_submit():
         find_user = table.get_item(Key={"Email": form.email.data})
         user = find_user['Item']
@@ -132,7 +132,25 @@ def reset_password_request():
             send_password_reset_email(user)
         flash('Check your email for the instructions to reset your password')
         return redirect(url_for('login'))
-    return render_template('reset_password.html', form=form)
+    return render_template('reset_password_request.html', form=form)
+
+
+
+@app.route('reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    user = User.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('index'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        flash('Success! Your password has been reset.')
+        return redirect(url_for('login'))
+    return render_template('reset_paswword.html', form=form)
+
+
 
 
 @app.route("/user/<username>", methods=["GET", "POST"])

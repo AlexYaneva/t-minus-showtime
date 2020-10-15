@@ -2,6 +2,8 @@ from app import login, table
 from app.api import GetFilms, GetSeries
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from time import time
+import jwt
 
 
 class User(UserMixin):
@@ -34,6 +36,25 @@ class User(UserMixin):
         response = table.get_item(Key={"Email": email}, ProjectionExpression="Username")
         username = response["Item"]["Username"]
         return username
+
+    
+    def get_reset_password_token(self, expires_in=600):
+        return jwt.encode(
+            {'reset_password': self.email, 'exp': time() + expires_in},
+            app.config['SECRET_KEY'],
+            algorithm='HS256'
+        ).decode('utf-8')
+
+
+    @staticmethod
+    def verify_reset_token(token):
+        try:
+            user_email = jwt.decode(token, app.config['SECRET_KEY'],
+                                algorithms=['HS256'])['reset_password']
+        except:
+            return
+        
+        return table.get_item(Key={"Email": user_email})['Item']
 
 
     def track_film(self, film_id):
