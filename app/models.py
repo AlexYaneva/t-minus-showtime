@@ -115,5 +115,5 @@ def load_user(email):
     u = table.get_item(Key={"Email": email})
     user = u["Item"]
     if not user:
-        print("no user found")
+        print("no user found") # change this
     return User(email=user["Email"])

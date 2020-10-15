@@ -1,6 +1,7 @@
 from app import app, cache, dynamo, table
 from app.api import GetFilms, GetSeries
-from app.forms import LoginForm, RegistrationForm
+from app.email import send_password_reset_email
+from app.forms import LoginForm, RegistrationForm, ResetPasswordForm
 from app.models import User
 from flask import flash, render_template, url_for, request, redirect, session
 from flask_login import current_user, login_user, logout_user, login_required
@@ -116,6 +117,22 @@ def register():
         
     return render_template('register.html', title='Register', form=form)
 
+
+
+
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_password_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        find_user = table.get_item(Key={"Email": form.email.data})
+        user = find_user['Item']
+        if user:
+            send_password_reset_email(user)
+        flash('Check your email for the instructions to reset your password')
+        return redirect(url_for('login'))
+    return render_template('reset_password.html', form=form)
 
 
 @app.route("/user/<username>", methods=["GET", "POST"])

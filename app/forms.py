@@ -28,3 +28,9 @@ class RegistrationForm(FlaskForm):
         user = table.get_item(Key={"Email": email.data})
         if 'Item' in user:
             raise ValidationError('Please use a different email address.')
+
+
+class ResetPasswordForm(FlaskForm):
+    
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Reset your password')
