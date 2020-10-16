@@ -25,6 +25,7 @@
 
 <p class="text-center"><strong>New User? <a href="{{ url_for('register') }}">Register here.</a></strong></p>
 
-<p class="text-center"><strong>Forgot Your Password? <a href="#">Reset it.</a></strong></p>
+<p class="text-center"><strong>Forgot Your Password? <a href="{{ url_for('reset_password_request') }}">Reset
+            it.</a></strong></p>
 
 {% endblock %}

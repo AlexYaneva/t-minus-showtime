@@ -1,4 +1,4 @@
-from app import login, table
+from app import app, login, table
 from app.api import GetFilms, GetSeries
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -47,7 +47,7 @@ class User(UserMixin):
 
 
     @staticmethod
-    def verify_reset_token(token):
+    def verify_reset_password_token(token):
         try:
             user_email = jwt.decode(token, app.config['SECRET_KEY'],
                                 algorithms=['HS256'])['reset_password']

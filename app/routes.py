@@ -127,16 +127,21 @@ def reset_password_request():
     form = ResetPasswordRequestForm()
     if form.validate_on_submit():
         find_user = table.get_item(Key={"Email": form.email.data})
-        user = find_user['Item']
-        if user:
-            send_password_reset_email(user)
+        try:
+            user = find_user['Item']
+        except KeyError:
+            flash('No user found')
+            return render_template('login.html')
+        user_obj = User(email=user["Email"])
+        if user_obj:
+            send_password_reset_email(user_obj)
         flash('Check your email for the instructions to reset your password')
         return redirect(url_for('login'))
     return render_template('reset_password_request.html', form=form)
 
 
 
-@app.route('reset_password/<token>', methods=['GET', 'POST'])
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -145,10 +150,11 @@ def reset_password(token):
         return redirect(url_for('index'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
-        user.set_password(form.password.data)
+        user_obj = User(email=user["Email"])
+        user_obj.set_password(form.password.data)
         flash('Success! Your password has been reset.')
         return redirect(url_for('login'))
-    return render_template('reset_paswword.html', form=form)
+    return render_template('reset_password.html', form=form)
 
 
 
