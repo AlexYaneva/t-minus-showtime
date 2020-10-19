@@ -4,6 +4,7 @@ from flask_login import LoginManager
 from flask_caching import Cache
 from flask_dynamo import Dynamo
 from flask_mail import Mail
+from celery import Celery
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -13,6 +14,9 @@ cache = Cache(app)
 dynamo = Dynamo(app)
 table = dynamo.tables["Users"]
 mail = Mail(app)
-
+celery = Celery(app.import_name, 
+                backend=app.config['CELERY_RESULT_BACKEND'],
+                broker=app.config(['CELERY_BROKER_URL']))
+celery.conf.update(app.config)
 
 from app import routes, models, api

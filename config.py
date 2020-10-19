@@ -12,7 +12,9 @@ class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY") or "han-shot-first"
     MAIL_SERVER = os.environ.get("MAIL_SERVER")
     MAIL_PORT = int(os.environ.get("MAIL_PORT") or 25)
-    ADMINS = ['no-reply@tminusshowtime.com']
+    ADMIN = os.environ.get("ADMIN")
+    CELERY_BROKER_URL = 'redis://localhost:6379'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
     CACHE_TYPE = "simple"
     CACHE_DEFAULT_TIMEOUT = 300
     DYNAMO_TABLES = [
