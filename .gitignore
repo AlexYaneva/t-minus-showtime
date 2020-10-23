@@ -11,3 +11,4 @@ settings.json
 ISSUES.txt
 DynamoDB/
 table.json
+rundb.bat

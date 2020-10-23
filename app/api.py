@@ -19,10 +19,10 @@ class TMDB:
     LANGUAGE = "&language=en-US"
     PAGES = "&page=1"
 
-    def _request(self, path, item_id, query):
+    def _request(self, path, path2, item_id, query):
 
         response = requests.get(
-            f"{self.BASE_URL}{path}{item_id}{self.APIKEY}{self.LANGUAGE}{self.PAGES}{query}"
+            f"{self.BASE_URL}{path}{item_id}{path2}{self.APIKEY}{self.LANGUAGE}{self.PAGES}{query}"
         ).json()
         return response
 
@@ -51,25 +51,33 @@ class GetFilms(TMDB):
         "search_film": "/search/movie",
         "popular_films": "/movie/popular",
         "film_details": "/movie/",
+        "recommendations": "/recommendations"
     }
 
     def popular_films(self):
         path = self.paths.get("popular_films")
-        response = self._request(path=path, item_id="", query="")
+        response = self._request(path=path, path2="", item_id="", query="")
         response = response["results"]
         return self._process_multiple_items(response)
 
     def search_films(self, query):
         query = f"&query={query}"
         path = self.paths.get("search_film")
-        response = self._request(path=path, item_id="", query=query)
+        response = self._request(path=path, path2="", item_id="", query=query)
         response = response["results"]
         return self._process_multiple_items(response)
 
     def film_details(self, item_id):
         path = self.paths.get("film_details")
-        response = self._request(path=path, item_id=item_id, query="")
+        response = self._request(path=path, path2="", item_id=item_id, query="")
         return self._process_by_id(response)
+
+    def film_recommendations(self, item_id):
+        path = self.paths.get("film_details")
+        path2 = self.paths.get("recommendations")
+        response = self._request(path=path, path2=path2, item_id=item_id, query="")
+        response = response["results"]
+        return self._process_multiple_items(response)
 
 
 class GetSeries(TMDB):
@@ -78,22 +86,31 @@ class GetSeries(TMDB):
         "search_series": "/search/tv",
         "popular_series": "/tv/popular",
         "series_details": "/tv/",
+        "recommendations": "/recommendations"
     }
 
     def popular_series(self):
         path = self.paths.get("popular_series")
-        response = self._request(path=path, item_id="", query="")
+        response = self._request(path=path, path2="", item_id="", query="")
         response = response["results"]
         return self._process_multiple_items(response)
 
     def search_series(self, query):
         query += f"&query={query}"
         path = self.paths.get("search_series")
-        response = self._request(path=path, item_id="", query=query)
+        response = self._request(path=path, path2="", item_id="", query=query)
         response = response["results"]
         return self._process_multiple_items(response)
 
     def series_details(self, item_id):
         path = self.paths.get("series_details")
-        response = self._request(path=path, item_id=item_id, query="")
+        response = self._request(path=path, path2="", item_id=item_id, query="")
         return self._process_by_id(response)
+
+
+    def series_recommendations(self, item_id):
+        path = self.paths.get("series_details")
+        path2 = self.paths.get("recommendations")
+        response = self._request(path=path, path2=path2, item_id=item_id, query="")
+        response = response["results"]
+        return self._process_multiple_items(response)

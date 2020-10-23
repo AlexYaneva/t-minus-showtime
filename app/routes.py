@@ -14,6 +14,7 @@ from werkzeug.security import generate_password_hash
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
+
     return render_template("index.html")
 
 
@@ -29,6 +30,8 @@ def results():
         series_title = request.form["series_title"]
         series = GetSeries()
         results = series.search_series(series_title)
+    if not results:
+        return render_template("notfound.html")
 
     return render_template("results.html", results=results)
 
@@ -41,6 +44,7 @@ def results():
 def films():
     films = GetFilms()
     results = films.popular_films()
+
     return render_template("films.html", results=results)
 
 
@@ -52,6 +56,7 @@ def films():
 def tvseries():
     series = GetSeries()
     results = series.popular_series()
+
     return render_template("tvseries.html", results=results)
 
 
@@ -64,10 +69,13 @@ def viewitem(item_id, title=None):
     if title:
         film = GetFilms()
         results = film.film_details(item_id=item_id)
+        recommends = film.film_recommendations(item_id=item_id)
     else:
         series = GetSeries()
         results = series.series_details(item_id=item_id)
-    return render_template("viewitem.html", item_id=item_id, results=results)
+        recommends = series.series_recommendations(item_id=item_id)
+
+    return render_template("viewitem.html", item_id=item_id, results=results, recommends=recommends)
 
 
 
@@ -137,6 +145,7 @@ def reset_password_request():
             send_password_reset_email(user_obj)
         flash('Check your email for the instructions to reset your password')
         return redirect(url_for('login'))
+
     return render_template('reset_password_request.html', form=form)
 
 
@@ -154,6 +163,7 @@ def reset_password(token):
         user_obj.set_password(form.password.data)
         flash('Success! Your password has been reset.')
         return redirect(url_for('login'))
+
     return render_template('reset_password.html', form=form)
 
 
@@ -164,6 +174,7 @@ def reset_password(token):
 def user(username):
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
+
     return render_template("user.html", user=current_user, films=films, series=series, countdown=countdown)
 
 
@@ -180,6 +191,7 @@ def track(item_id, title=None):
         flash("Success! We've added this series to your dashboard.")
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
+
     return render_template("user.html", user=current_user, films=films, series=series, countdown=countdown)
 
 
@@ -195,10 +207,12 @@ def untrack(item_id, title=None):
         flash("You're no longer tracking this series.")
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
+
     return render_template("user.html", user=current_user, films=films, series=series, countdown=countdown)
 
 
 @app.route("/logout", methods=["GET", "POST"])
 def logout():
     logout_user()
+
     return redirect(url_for("index"))

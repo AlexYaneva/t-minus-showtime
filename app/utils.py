@@ -10,3 +10,7 @@ def countdown(release):
     difference = release_date - today
     countdown = difference.days
     return countdown if countdown > 0 else 'Released'
+
+
+def order_by_date(obj_list):
+    pass

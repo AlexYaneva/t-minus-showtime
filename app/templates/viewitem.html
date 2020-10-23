@@ -20,5 +20,19 @@
     <form action="{{ url_for('track', item_id=results.id, title=results.title) }}" method="POST">
         <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
 </div>
+<br>
+
+<h4>You might also like these:</h4><br>
+<div class='row'>
+    {% for i in recommends %}
+    <div class='col-sm-2'>
+        <div class='card'>
+            <a href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">
+                <img src='{{ i.poster_path }}' class='card-img-top'>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock %}
