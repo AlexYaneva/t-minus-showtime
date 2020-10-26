@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class='text-center'>UPCOMING FILMS</h1>
+
+<div class='row'>
+    {% for i in results %}
+    <div class='col-sm-2'>
+        <div class='card'>
+            <a href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">
+                <img src='{{ i.poster_path }}' class='card-img-top'>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class='container'>
+    <form class="form-inline my-2 my-lg-0" method='POST' action='/results'>
+        <input class="form-control mr-sm-2" type="text" placeholder="Avengers..." name='film_title'>
+        <button class="btn btn-secondary my-2 my-sm-0" role='button' type='submit'>Search Films</button>
+    </form>
+</div>
+
+{% endblock %}

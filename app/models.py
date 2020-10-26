@@ -105,8 +105,9 @@ class User(UserMixin):
             # calling the tmdb api 
             film_obj = obj.film_details(item_id=i)
             obj_list.append(film_obj)
+        sorted_list = sorted(obj_list, key=lambda film: film.release_date)
 
-        return obj_list
+        return sorted_list
 
 
 

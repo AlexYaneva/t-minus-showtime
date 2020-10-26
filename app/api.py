@@ -51,7 +51,9 @@ class GetFilms(TMDB):
         "search_film": "/search/movie",
         "popular_films": "/movie/popular",
         "film_details": "/movie/",
-        "recommendations": "/recommendations"
+        "recommendations": "/recommendations",
+        "in_theaters" : "/movie/now_playing",
+        "upcoming" : "/movie/upcoming" 
     }
 
     def popular_films(self):
@@ -79,6 +81,19 @@ class GetFilms(TMDB):
         response = response["results"]
         return self._process_multiple_items(response)
 
+    def upcoming_films(self):
+        path = self.paths.get("upcoming")
+        response = self._request(path=path, path2="", item_id="", query="")
+        response = response["results"]
+        return self._process_multiple_items(response)
+
+    def films_in_theaters(self):
+        path = self.paths.get("in_theaters")
+        response = self._request(path=path, path2="", item_id="", query="")
+        response = response["results"]
+        return self._process_multiple_items(response)
+
+
 
 class GetSeries(TMDB):
 
@@ -86,7 +101,9 @@ class GetSeries(TMDB):
         "search_series": "/search/tv",
         "popular_series": "/tv/popular",
         "series_details": "/tv/",
-        "recommendations": "/recommendations"
+        "recommendations": "/recommendations",
+        "airing_today": "/tv/airing_today",
+        "on_the_air": "/tv/on_the_air"
     }
 
     def popular_series(self):
@@ -112,5 +129,19 @@ class GetSeries(TMDB):
         path = self.paths.get("series_details")
         path2 = self.paths.get("recommendations")
         response = self._request(path=path, path2=path2, item_id=item_id, query="")
+        response = response["results"]
+        return self._process_multiple_items(response)
+
+
+    def series_airing_today(self, item_id):
+        path = self.paths.get("airing_today")
+        response = self._request(path=path, path2="", item_id="", query="")
+        response = response["results"]
+        return self._process_multiple_items(response)
+
+
+    def series_on_the_air(self, item_id):
+        path = self.paths.get("on_the_air")
+        response = self._request(path=path, path2="", item_id="", query="")
         response = response["results"]
         return self._process_multiple_items(response)
