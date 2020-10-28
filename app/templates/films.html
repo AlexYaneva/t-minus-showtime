@@ -8,18 +8,17 @@
 		<input class="form-control mr-sm-2" type="text" placeholder="Avengers..." name='film_title'>
 		<button class="btn btn-secondary my-2 my-sm-0" role='button' type='submit'>Search</button>
 	</form>
-</div>
 
-<div class='row'>
-	{% for i in results %}
-	<div class='col-sm-2'>
-		<div class='card'>
+
+	<div class='row'>
+		{% for i in results %}
+		<div class='col-sm-2'>
 			<a href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">
-				<img src='{{ i.poster_path }}' class='card-img-top'>
+				<img src='{{ i.poster_path }}' class='my-img img-fluid'>
 			</a>
 		</div>
+		{% endfor %}
 	</div>
-	{% endfor %}
 </div>
 
 {% endblock %}

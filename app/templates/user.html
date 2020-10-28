@@ -3,15 +3,14 @@
 
 {% block content %}
 
+<div class='container'>
+    {% if films%}
+    <h4 class='text-center'>My Films</h4><br>
 
-{% if films%}
-<h4 class='text-center'>My Films</h4><br>
-
-<div class='row'>
-    {% for tracked in films %}
-    <div class='col-sm-2'>
-        <div class='card text-center'>
-            <img src='{{ tracked.poster_path }}' class='card-img-top'>
+    <div class='row'>
+        {% for tracked in films %}
+        <div class='col-sm-2'>
+            <img src='{{ tracked.poster_path }}' class='my-img img-fluid'>
             {% if countdown(tracked.release_date) == 'Released' %}
             <p>{{ countdown(tracked.release_date) }}</p>
             {% else %}
@@ -21,21 +20,19 @@
                 <input class='btn btn-secondary btn-sm my-2 my-sm-0' type="submit" value="Remove">
             </form>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
-{% endif %}
+    {% endif %}
 
 
 
-{% if series %}
-<h4 class='text-center'>My Series</h4><br>
+    {% if series %}
+    <h4 class='text-center'>My Series</h4><br>
 
-<div class='row'>
-    {% for tracked in series %}
-    <div class='col-sm-2'>
-        <div class='card text-center'>
-            <img src='{{ tracked.poster_path }}' class='card-img-top'>
+    <div class='row'>
+        {% for tracked in series %}
+        <div class='col-sm-2'>
+            <img src='{{ tracked.poster_path }}' class='my-img img-fluid'>
             {% if tracked.next_episode_to_air.air_date %}
             <p>T-minus <span class='days'>{{ countdown(tracked.next_episode_to_air.air_date) }}</span> days</p>
             {% else %}
@@ -45,9 +42,9 @@
                 <input class='btn btn-secondary btn-sm my-2 my-sm-0' type="submit" value="Remove">
             </form>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+    {% endif %}
 </div>
-{% endif %}
 
 {% endblock %}

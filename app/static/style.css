@@ -3,13 +3,8 @@ body {
 }
 
 .container-fluid {
-	width: 80%;
     margin: auto;
 
-}
-
-.footer {
-    background-color: #f5f5f5;
 }
 
 .container {
@@ -65,12 +60,18 @@ h4 {
 
 }
 
+.my-img {
+    border: none;
+    border-radius: 15px;
+}
+
 .card {
     border: none;
     border-radius: 15px;
 }
 
-.card img {
+.card-img-top {
+    border: none;
     border-radius: 15px;
 }
 
@@ -79,19 +80,13 @@ h4 {
     box-shadow: 5px 0 0px 5px #ff6666;
 }
 
-.card-img-top {
-    max-width: 100%;
-    height: 40vh;
-    }
+.my-img:hover {
+    transition: 0.3s;
+    box-shadow: 5px 0 0px 5px #ff6666;
+}
+
+
 
 .col-sm-2 {
     padding: 10px;
 }
-
-
-.img-poster {
-     position:absolute; 
-     top: 70px; 
-     left: 100px; 
-     z-index: 3; 
-    } 

@@ -60,14 +60,14 @@ def tvseries():
     return render_template("tvseries.html", results=results)
 
 
-@app.route("/upcoming_films", methods=["GET", "POST"])
+@app.route("/top_rated", methods=["GET", "POST"])
 @login_required
 @cache.cached(timeout=100)
-def upcoming_films():
+def top_rated():
     films = GetFilms()
-    results = films.upcoming_films()
+    results = films.top_rated()
 
-    return render_template("upcoming_films.html", results=results)
+    return render_template("top_rated_films.html", results=results)
 
 
 # makign 'title' an optional parameter

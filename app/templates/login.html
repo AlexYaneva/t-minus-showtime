@@ -2,30 +2,30 @@
 
 {% block content %}
 
+<div class='container'>
+    <h1 class="text-center">Sign in</h1>
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-4">
+            <form action="" method="post" role="form">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.email.label }}<br>
+                    {{ form.email(class='form-control', size=32, placeholder='Enter email here') }}<br>
 
-<h1 class="text-center">Sign in</h1>
-<div class="row align-items-center justify-content-center">
-    <div class="col-md-4">
-        <form action="" method="post" role="form">
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                {{ form.email.label }}<br>
-                {{ form.email(class='form-control', size=32, placeholder='Enter email here') }}<br>
 
+                    {{ form.password.label }}<br>
+                    {{ form.password(class='form-control', size=32, placeholder='Enter password here') }}<br>
 
-                {{ form.password.label }}<br>
-                {{ form.password(class='form-control', size=32, placeholder='Enter password here') }}<br>
-
-                <button type="submit" class="btn btn-secondary my-2 my-sm-0">Sign In</button>
-            </div>
-        </form>
+                    <button type="submit" class="btn btn-secondary my-2 my-sm-0">Sign In</button>
+                </div>
+            </form>
+        </div>
     </div>
+    <br>
+
+    <p class="text-center"><strong>New User? <a href="{{ url_for('register') }}">Register here.</a></strong></p>
+
+    <p class="text-center"><strong>Forgot Your Password? <a href="{{ url_for('reset_password_request') }}">Reset
+                it.</a></strong></p>
 </div>
-<br>
-
-<p class="text-center"><strong>New User? <a href="{{ url_for('register') }}">Register here.</a></strong></p>
-
-<p class="text-center"><strong>Forgot Your Password? <a href="{{ url_for('reset_password_request') }}">Reset
-            it.</a></strong></p>
-
 {% endblock %}

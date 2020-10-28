@@ -53,7 +53,7 @@ class GetFilms(TMDB):
         "film_details": "/movie/",
         "recommendations": "/recommendations",
         "in_theaters" : "/movie/now_playing",
-        "upcoming" : "/movie/upcoming" 
+        "top_rated" : "/movie/top_rated" 
     }
 
     def popular_films(self):
@@ -81,8 +81,8 @@ class GetFilms(TMDB):
         response = response["results"]
         return self._process_multiple_items(response)
 
-    def upcoming_films(self):
-        path = self.paths.get("upcoming")
+    def top_rated(self):
+        path = self.paths.get("top_rated")
         response = self._request(path=path, path2="", item_id="", query="")
         response = response["results"]
         return self._process_multiple_items(response)

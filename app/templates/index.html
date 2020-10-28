@@ -2,17 +2,18 @@
 
 
 {% block content %}
-
-<div class="jumbotron text-center">
-	<h1 class="display-3">Track the shows you love</h1>
-	<p class="lead">T-minus 10...9...8...</p>
-	<hr class="my-4">
-	<p>"Created by NASA, the term t-minus is used for countdowns big and small,
-		whether it be a rocket
-		launch, days
-		until the weekend or days until your favourite show releases new episodes. We have liftoff."</p>
-	<a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find films</a>
-	<a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find series</a>
+<div class='container'>
+	<div class="jumbotron text-center">
+		<h1 class="display-3">Track the shows you love</h1>
+		<p class="lead">T-minus 10...9...8...</p>
+		<hr class="my-4">
+		<p>"Created by NASA, the term t-minus is used for countdowns big and small,
+			whether it be a rocket
+			launch, days
+			until the weekend or days until your favourite show releases new episodes. We have liftoff."</p>
+		<a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find films</a>
+		<a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find series</a>
+	</div>
 </div>
 
 {% endblock %}
