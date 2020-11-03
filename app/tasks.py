@@ -1,5 +1,6 @@
+import app
 from app import celery
 
-@celery.task()
-def send_async_email():
-    return 'this works!'
+@celery.task
+def test_task():
+    print('this works!')

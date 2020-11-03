@@ -8,13 +8,14 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.utils import countdown
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash
+from app.tasks import test_task
 
 
 
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
-
+    test_task.apply_async()
     return render_template("index.html")
 
 
@@ -150,8 +151,8 @@ def reset_password_request():
             return render_template('login.html')
         user_obj = User(email=user["Email"])
         if user_obj:
-            send_password_reset_email(user_obj)
-        flash('Check your email for the instructions to reset your password')
+            send_password_reset_email(user_obj) # send asynchronously 
+        flash('Check your email for instructions to reset your password')
         return redirect(url_for('login'))
 
     return render_template('reset_password_request.html', form=form)
