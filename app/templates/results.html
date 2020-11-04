@@ -20,14 +20,7 @@
 
 	<h5 class='text-center'>search results</h5><br>
 
-	<div class='row'>
-		{% for i in results %}
-		<div class='col-sm-2'>
-			<a href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">
-				<img src='{{ i.poster_path }}' class='my-img img-fluid'>
-			</a>
-		</div>
-		{% endfor %}
-	</div>
+	{% include '_display_posters.html' %}
+
 </div>
 {% endblock %}

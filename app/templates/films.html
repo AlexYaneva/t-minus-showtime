@@ -9,16 +9,8 @@
 		<button class="btn btn-secondary my-2 my-sm-0" role='button' type='submit'>Search</button>
 	</form>
 
+	{% include '_display_posters.html' %}
 
-	<div class='row'>
-		{% for i in results %}
-		<div class='col-sm-2'>
-			<a href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">
-				<img src='{{ i.poster_path }}' class='my-img img-fluid'>
-			</a>
-		</div>
-		{% endfor %}
-	</div>
 </div>
 
 {% endblock %}
