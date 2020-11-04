@@ -8,14 +8,12 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.utils import countdown
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash
-from app.tasks import test_task
 
 
 
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
-    test_task.apply_async()
     return render_template("index.html")
 
 
@@ -61,6 +59,26 @@ def tvseries():
     return render_template("tvseries.html", results=results)
 
 
+@app.route("/series_airing_today", methods=["GET", "POST"])
+@login_required
+@cache.cached(timeout=100)
+def series_airing_today():
+    series = GetSeries()
+    results = series.series_airing_today()
+
+    return render_template("series_airing_today.html", results=results)
+
+
+@app.route("/series_on_the_air", methods=["GET", "POST"])
+@login_required
+@cache.cached(timeout=100)
+def series_on_the_air():
+    series = GetSeries()
+    results = series.series_on_the_air()
+
+    return render_template("series_on_the_air.html", results=results)
+
+
 @app.route("/top_rated", methods=["GET", "POST"])
 @login_required
 @cache.cached(timeout=100)
@@ -69,6 +87,16 @@ def top_rated():
     results = films.top_rated()
 
     return render_template("top_rated_films.html", results=results)
+
+
+@app.route("/films_in_theatres", methods=["GET", "POST"])
+@login_required
+@cache.cached(timeout=100)
+def films_in_theatres():
+    films = GetFilms()
+    results = films.films_in_theatres()
+
+    return render_template("films_in_theatres.html", results=results)
 
 
 # makign 'title' an optional parameter
@@ -151,7 +179,7 @@ def reset_password_request():
             return render_template('login.html')
         user_obj = User(email=user["Email"])
         if user_obj:
-            send_password_reset_email(user_obj) # send asynchronously 
+            send_password_reset_email(user_obj).apply_async()
         flash('Check your email for instructions to reset your password')
         return redirect(url_for('login'))
 

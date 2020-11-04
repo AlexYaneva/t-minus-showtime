@@ -33,7 +33,7 @@
             aria-expanded="false">Films</a>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="{{ url_for('top_rated') }}">Top Rated</a>
-            <a class="dropdown-item" href="#">In Theaters</a>
+            <a class="dropdown-item" href="{{ url_for('films_in_theatres') }}">In Theatres</a>
             <a class="dropdown-item" href="{{ url_for('films') }}">Search</a>
           </div>
         </li>
@@ -41,8 +41,8 @@
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
             aria-expanded="false">TV Series</a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Airing today</a>
-            <a class="dropdown-item" href="#">On the air</a>
+            <a class="dropdown-item" href="{{ url_for('series_airing_today') }}">Airing today</a>
+            <a class="dropdown-item" href="{{ url_for('series_on_the_air') }}">On the air</a>
             <a class="dropdown-item" href="{{ url_for('tvseries') }}">Search</a>
           </div>
         </li>

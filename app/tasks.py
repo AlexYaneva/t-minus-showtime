@@ -1,6 +1,11 @@
-import app
-from app import celery
+from app.models import User
+from app import table, celery
 
-@celery.task
-def test_task():
-    print('this works!')
+
+
+
+
+
+
+
+

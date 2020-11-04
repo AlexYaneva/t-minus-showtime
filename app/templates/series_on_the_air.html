@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class='container'>
+    <h1 class='text-center'>Series on the air</h1>
+
+    <div class='row'>
+        {% for i in results %}
+        <div class='col-sm-2'>
+            <a href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">
+                <img src='{{ i.poster_path }}' class='my-img img-fluid'>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <form class="form-inline my-2 my-lg-0" method='POST' action='/results'>
+        <input class="form-control mr-sm-2" type="text" placeholder="The Office..." name='series_title'>
+        <button class="btn btn-secondary my-2 my-sm-0" role='button' type='submit'>Search Series</button>
+    </form>
+</div>
+
+{% endblock %}

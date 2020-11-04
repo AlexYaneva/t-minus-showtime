@@ -52,15 +52,17 @@ class GetFilms(TMDB):
         "popular_films": "/movie/popular",
         "film_details": "/movie/",
         "recommendations": "/recommendations",
-        "in_theaters" : "/movie/now_playing",
+        "in_theatres" : "/movie/now_playing",
         "top_rated" : "/movie/top_rated" 
     }
+
 
     def popular_films(self):
         path = self.paths.get("popular_films")
         response = self._request(path=path, path2="", item_id="", query="")
         response = response["results"]
         return self._process_multiple_items(response)
+
 
     def search_films(self, query):
         query = f"&query={query}"
@@ -69,10 +71,12 @@ class GetFilms(TMDB):
         response = response["results"]
         return self._process_multiple_items(response)
 
+
     def film_details(self, item_id):
         path = self.paths.get("film_details")
         response = self._request(path=path, path2="", item_id=item_id, query="")
         return self._process_by_id(response)
+
 
     def film_recommendations(self, item_id):
         path = self.paths.get("film_details")
@@ -81,14 +85,16 @@ class GetFilms(TMDB):
         response = response["results"]
         return self._process_multiple_items(response)
 
+
     def top_rated(self):
         path = self.paths.get("top_rated")
         response = self._request(path=path, path2="", item_id="", query="")
         response = response["results"]
         return self._process_multiple_items(response)
 
-    def films_in_theaters(self):
-        path = self.paths.get("in_theaters")
+
+    def films_in_theatres(self):
+        path = self.paths.get("in_theatres")
         response = self._request(path=path, path2="", item_id="", query="")
         response = response["results"]
         return self._process_multiple_items(response)
@@ -106,11 +112,13 @@ class GetSeries(TMDB):
         "on_the_air": "/tv/on_the_air"
     }
 
+
     def popular_series(self):
         path = self.paths.get("popular_series")
         response = self._request(path=path, path2="", item_id="", query="")
         response = response["results"]
         return self._process_multiple_items(response)
+
 
     def search_series(self, query):
         query += f"&query={query}"
@@ -118,6 +126,7 @@ class GetSeries(TMDB):
         response = self._request(path=path, path2="", item_id="", query=query)
         response = response["results"]
         return self._process_multiple_items(response)
+
 
     def series_details(self, item_id):
         path = self.paths.get("series_details")
@@ -133,14 +142,14 @@ class GetSeries(TMDB):
         return self._process_multiple_items(response)
 
 
-    def series_airing_today(self, item_id):
+    def series_airing_today(self):
         path = self.paths.get("airing_today")
         response = self._request(path=path, path2="", item_id="", query="")
         response = response["results"]
         return self._process_multiple_items(response)
 
 
-    def series_on_the_air(self, item_id):
+    def series_on_the_air(self):
         path = self.paths.get("on_the_air")
         response = self._request(path=path, path2="", item_id="", query="")
         response = response["results"]
