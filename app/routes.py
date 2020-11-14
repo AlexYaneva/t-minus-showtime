@@ -112,7 +112,7 @@ def viewitem(item_id, title=None):
         results = series.series_details(item_id=item_id)
         recommends = series.series_recommendations(item_id=item_id)
 
-    return render_template("viewitem.html", item_id=item_id, results=results, recommends=recommends)
+    return render_template("viewitem.html", item_id=item_id, results=results, recommends=recommends, countdown=countdown)
 
 
 
@@ -225,7 +225,7 @@ def track(item_id, title=None):
         flash("Success! We've added this film to your dashboard.")
     else:
         current_user.track_series(item_id)
-        flash("Success! We've added this series to your dashboard.")
+        flash("Success! We've added this show to your dashboard.")
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
 

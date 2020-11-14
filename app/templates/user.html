@@ -10,7 +10,8 @@
     <div class='row'>
         {% for tracked in films %}
         <div class='col-sm-2'>
-            <img src='{{ tracked.poster_path }}' class='my-img img-fluid'>
+            <a href="{{ url_for('viewitem', item_id=tracked.id, title=tracked.title) }}">
+                <img src='{{ tracked.poster_path }}' class='my-img img-fluid'></a>
             {% if countdown(tracked.release_date) == 'Released' %}
             <p>{{ countdown(tracked.release_date) }}</p>
             {% else %}
@@ -32,7 +33,8 @@
     <div class='row'>
         {% for tracked in series %}
         <div class='col-sm-2'>
-            <img src='{{ tracked.poster_path }}' class='my-img img-fluid'>
+            <a href="{{ url_for('viewitem', item_id=tracked.id, title=tracked.title) }}">
+                <img src='{{ tracked.poster_path }}' class='my-img img-fluid'></a>
             {% if tracked.next_episode_to_air.air_date %}
             <p>T-minus <span class='days'>{{ countdown(tracked.next_episode_to_air.air_date) }}</span> days</p>
             {% else %}

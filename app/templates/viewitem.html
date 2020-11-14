@@ -3,9 +3,18 @@
 {% block content %}
 
 <div class='container'>
+    <img src='{{ results.poster_path }}' class='poster'>
+
     {% if results.title %}
     <p>{{ results.title }}</p>
-    <p>Release date: {{ results.release_date }}</p>
+    {% if countdown(results.release_date) == 'Released' %}
+    <p>Released on {{ results.release_date }}</p>
+    {% else %}
+    <p>Coming out on {{ results.release_date }}</p>
+    <form action="{{ url_for('track', item_id=results.id, title=results.title) }}" method="POST">
+        <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
+    </form>
+    {% endif %}
     {% else %}
     <p>{{ results.name }}</p>
     <p>Last episode to air: {{ results.last_episode_to_air.air_date }}</p>
@@ -14,13 +23,12 @@
     {% else %}
     <p>This show has no new episodes currently airing.</p>
     {% endif %}
-    {% endif %}
-    <p>{{ results.overview }}</p>
-    <img src='{{ results.poster_path }}' class='poster'>
     <form action="{{ url_for('track', item_id=results.id, title=results.title) }}" method="POST">
         <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
     </form>
+    {% endif %}
 
+    <p>{{ results.overview }}</p>
     <br>
 
     <h4>You might also like these:</h4><br>
