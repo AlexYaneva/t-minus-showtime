@@ -18,11 +18,27 @@ class Config:
     CACHE_TYPE = "simple"
     CACHE_DEFAULT_TIMEOUT = 300
     DYNAMO_TABLES = [
-        dict(
-            TableName="Users",
-            KeySchema=[dict(AttributeName="Email", KeyType="HASH")],
-            AttributeDefinitions=[dict(AttributeName="Email", AttributeType="S")],
-            ProvisionedThroughput=dict(ReadCapacityUnits=5, WriteCapacityUnits=5),
-        )
-    ]
+        # dict(
+        #     TableName="Users",
+        #     KeySchema=[dict(AttributeName="Email", KeyType="HASH")],
+        #     AttributeDefinitions=[dict(AttributeName="Email", AttributeType="S")],
+        #     ProvisionedThroughput=dict(ReadCapacityUnits=5, WriteCapacityUnits=5),
+        # )
+            dict(
+                TableName="User_table",
+                KeySchema=[dict(AttributeName="Email", KeyType="HASH"),
+                            dict(AttributeName="Tracked_id", KeyType="RANGE")],
+                AttributeDefinitions=[dict(AttributeName="Email", AttributeType="S"),
+                                    dict(AttributeName="Tracked_id", AttributeType="N"),
+                                    dict(AttributeName="Countdown", AttributeType="N")],
+                GlobalSecondaryIndexes=[dict(
+                                            IndexName="Tracked",
+                                            KeySchema=[dict(AttributeName="Countdown", KeyType="HASH")],
+                                            Projection=dict(ProjectionType="ALL"),
+                                            ProvisionedThroughput=dict(ReadCapacityUnits=5, WriteCapacityUnits=5)
+                                            )
+                                        ],
+                ProvisionedThroughput=dict(ReadCapacityUnits=5, WriteCapacityUnits=5)
+                )
+            ]
 

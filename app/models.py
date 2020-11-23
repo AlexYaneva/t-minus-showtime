@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from time import time
 import jwt
+import app.db_helpers as db
 
 
 class User(UserMixin):
@@ -24,17 +25,14 @@ class User(UserMixin):
         return self.email
 
 
-    def set_password(self, password):
+    def set_password(self, email, password):
         password_hash = generate_password_hash(password)
-        table.update_item(
-                    Key={"Email": self.email},
-                    UpdateExpression="SET password_hash = :setpass",
-                    ExpressionAttributeValues={":setpass": password_hash})
+        db.update_password(email, password_hash)
 
 
     def get_username(self, email):
-        response = table.get_item(Key={"Email": email}, ProjectionExpression="Username")
-        username = response["Item"]["Username"]
+        user_record = db.get_user(email)
+        username = user_record["Username"]
         return username
 
     
@@ -54,88 +52,37 @@ class User(UserMixin):
         except:
             return
         
-        return table.get_item(Key={"Email": user_email})['Item']
+        return db.get_user(user_email)
 
 
-    def track_film(self, film_id):
-        table.update_item(
-            Key={"Email": self.email},
-            UpdateExpression="ADD Tracked_films :addfilm",
-            ExpressionAttributeValues={":addfilm" : set([str(film_id)])}
-            )
+    def track_film(self, tracked_id, countdown):
+        tracked_type = 'film'
+        db.track(self.email, tracked_id, tracked_type, countdown)
 
 
-    def track_series(self, series_id):
-        table.update_item(
-            Key={"Email": self.email},
-            UpdateExpression="ADD Tracked_series :addseries",
-            ExpressionAttributeValues={":addseries" : set([str(series_id)])}
-            )
-
-    def untrack_film(self, film_id):
-        table.update_item(
-            Key={"Email": self.email},
-            UpdateExpression="DELETE Tracked_films :deletefilm",
-            ExpressionAttributeValues={":deletefilm" : set([str(film_id)])}
-            )
+    def track_series(self, tracked_id, countdown):
+        tracked_type = 'series'
+        db.track(self.email, tracked_id, tracked_type, countdown)
 
 
-    def untrack_series(self, series_id):
-        table.update_item(
-            Key={"Email": self.email},
-            UpdateExpression="DELETE Tracked_series :deleteseries",
-            ExpressionAttributeValues={":deleteseries" : set([str(series_id)])}
-            )
-
+    def untrack(self, tracked_id):
+        db.untrack(self.email, tracked_id)
 
 
     def get_trackedfilms(self):
-
-        response = table.get_item(
-            Key={"Email": self.email}, 
-            ProjectionExpression="Tracked_films")
-
-        if "Tracked_films" not in response["Item"]:
-            return None
-
-        films = response['Item']['Tracked_films']
-        obj_list = []
-        for i in films:
-            obj = GetFilms()
-            # calling the tmdb api 
-            film_obj = obj.film_details(item_id=i)
-            obj_list.append(film_obj)
-        sorted_list = sorted(obj_list, key=lambda film: film.release_date)
-
-        return sorted_list
-
+        tracked_type = 'film'
+        tracked_films = db.get_tracked(self.email, tracked_type)
+        return tracked_films
 
 
 
     def get_trackedseries(self):
-
-        response = table.get_item(
-            Key={"Email": self.email}, 
-            ProjectionExpression="Tracked_series")
-
-        if "Tracked_series" not in response["Item"]:
-            return None
-        
-        series = response['Item']['Tracked_series']
-        obj_list = []
-        for i in series:
-            obj = GetSeries()
-            # calling the tmdb api 
-            series_obj = obj.series_details(item_id=i)
-            obj_list.append(series_obj)
-
-        return obj_list
+        tracked_type = 'series'
+        tracked_series = db.get_tracked(self.email, tracked_type)
+        return tracked_series
 
 
 @login.user_loader
 def load_user(email):
-    u = table.get_item(Key={"Email": email})
-    user = u["Item"]
-    if not user:
-        print("no user found") # change this
+    user = db.get_user(email)
     return User(email=user["Email"])

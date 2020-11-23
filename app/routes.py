@@ -5,9 +5,10 @@ from app.forms import LoginForm, RegistrationForm, ResetPasswordForm, ResetPassw
 from app.models import User
 from flask import flash, render_template, url_for, request, redirect, session
 from flask_login import current_user, login_user, logout_user, login_required
-from app.utils import countdown
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash
+import app.utils as utils
+import app.db_helpers as db
 
 
 
@@ -106,13 +107,18 @@ def viewitem(item_id, title=None):
     if title:
         film = GetFilms()
         results = film.film_details(item_id=item_id)
+        countdwn = utils.countdown(results.release_date)
         recommends = film.film_recommendations(item_id=item_id)
     else:
         series = GetSeries()
         results = series.series_details(item_id=item_id)
+        if results.next_episode_to_air:
+            countdwn = utils.countdown(results.next_episode_to_air['air_date'])
+        else:
+            countdwn = 'Released'
         recommends = series.series_recommendations(item_id=item_id)
 
-    return render_template("viewitem.html", item_id=item_id, results=results, recommends=recommends, countdown=countdown)
+    return render_template("viewitem.html", item_id=item_id, results=results, recommends=recommends, countdown=countdwn)
 
 
 
@@ -124,12 +130,11 @@ def login():
         return redirect(url_for("user"))
     form = LoginForm()
     if form.validate_on_submit():
-        find_user = table.get_item(Key={"Email": form.email.data})
-        user_item = find_user["Item"]
+        user_record = db.get_user(form.email.data)
 
-        if user_item is None or not User.check_password(user_item["password_hash"], form.password.data):
+        if user_record is None or not User.check_password(user_record["Password_hash"], form.password.data):
             return redirect(url_for("login"))
-        user = User(email=user_item["Email"])
+        user = User(email=user_record["Email"])
         login_user(user, remember=False)
         next_page = request.args.get("next")
         if not next_page or url_parse(next_page).netloc != "":
@@ -148,15 +153,11 @@ def register():
         return redirect(url_for("user"))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = table.put_item(
-                    Item={
-                        "Email": form.email.data,
-                        "Username": form.username.data},)
+
+        # add a check if email exists already
+        db.create_new_user(form.email.data, form.username.data)
         password_hash = generate_password_hash(form.password.data)
-        table.update_item(
-            Key={"Email": form.email.data},
-            UpdateExpression="SET password_hash = :setpass",
-            ExpressionAttributeValues={":setpass": password_hash},)
+        db.update_password(form.email.data, password_hash)
         flash('You are now registered! Welcome on board.')
         return redirect(url_for('login'))
         
@@ -171,15 +172,13 @@ def reset_password_request():
         return redirect(url_for('index'))
     form = ResetPasswordRequestForm()
     if form.validate_on_submit():
-        find_user = table.get_item(Key={"Email": form.email.data})
-        try:
-            user = find_user['Item']
-        except KeyError:
+        user_record = db.get_user(form.email.data)
+        if isinstance(user_record, str):
             flash('No user found')
             return render_template('login.html')
-        user_obj = User(email=user["Email"])
-        if user_obj:
-            send_password_reset_email(user_obj).apply_async()
+        user = User(email=user_record["Email"])
+        send_password_reset_email(user).apply_async()
+
         flash('Check your email for instructions to reset your password')
         return redirect(url_for('login'))
 
@@ -191,13 +190,13 @@ def reset_password_request():
 def reset_password(token):
     if current_user.is_authenticated:
         return redirect(url_for('index'))
-    user = User.verify_reset_password_token(token)
-    if not user:
+    user_record = User.verify_reset_password_token(token)
+    if not user_record:
         return redirect(url_for('index'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
-        user_obj = User(email=user["Email"])
-        user_obj.set_password(form.password.data)
+        user = User(email=user_record["Email"])
+        user.set_password(form.password.data)
         flash('Success! Your password has been reset.')
         return redirect(url_for('login'))
 
@@ -212,40 +211,37 @@ def user(username):
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
 
-    return render_template("user.html", user=current_user, films=films, series=series, countdown=countdown)
+    return render_template("user.html", user=current_user, films=films, series=series, countdown=utils.countdown)
 
 
 
 
-@app.route("/track/<int:item_id>/", methods=["GET", "POST"])
-@app.route("/track/<int:item_id>/<title>", methods=["GET", "POST"])
-def track(item_id, title=None):
+@app.route("/track/<int:item_id>/<countdown>/", methods=["GET", "POST"])
+@app.route("/track/<int:item_id>/<countdown>/<title>", methods=["GET", "POST"])
+def track(item_id, countdown, title=None):
     if title:
-        current_user.track_film(item_id)
+        current_user.track_film(item_id, countdown)
         flash("Success! We've added this film to your dashboard.")
     else:
-        current_user.track_series(item_id)
+        current_user.track_series(item_id, countdown)
         flash("Success! We've added this show to your dashboard.")
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
 
-    return render_template("user.html", user=current_user, films=films, series=series, countdown=countdown)
+    return render_template("user.html", user=current_user, films=films, series=series, countdown=utils.countdown)
 
 
 
 @app.route("/untrack/<int:item_id>/", methods=["GET", "POST"])
 @app.route("/untrack/<int:item_id>/<title>", methods=["GET", "POST"])
 def untrack(item_id, title=None):
-    if title:
-        current_user.untrack_film(item_id)
-        flash("You're no longer tracking this film.")
-    else:
-        current_user.untrack_series(item_id)
-        flash("You're no longer tracking this series.")
+    # need to change the url no longer needing title
+    current_user.untrack(item_id)
+    flash("You're no longer tracking this.")
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
 
-    return render_template("user.html", user=current_user, films=films, series=series, countdown=countdown)
+    return render_template("user.html", user=current_user, films=films, series=series, countdown=utils.countdown)
 
 
 @app.route("/logout", methods=["GET", "POST"])
