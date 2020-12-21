@@ -12,7 +12,6 @@ login = LoginManager(app)
 login.login_view = "login"
 cache = Cache(app)
 dynamo = Dynamo(app)
-# table = dynamo.tables["Users"]
 table = dynamo.tables["User_table"]
 mail = Mail(app)
 celery = Celery(app.import_name, 
