@@ -3,48 +3,72 @@
 
 {% block content %}
 
-<div class='container'>
+<div class="container container-dash float-left">
+    <h4 class='text-center'>MY FILMS</h4><br>
     {% if films%}
-    <h4 class='text-center'>My Films</h4><br>
-
-    <div class='row'>
+    <div class='row justify-content-center'>
         {% for tracked in films %}
-        <div class='col-sm-2'>
-            <a href="{{ url_for('viewitem', item_id=tracked.id, title=tracked.title) }}">
-                <img src='{{ tracked.poster_path }}' class='my-img img-fluid'></a>
-            {% if countdown(tracked.release_date) == 'Released' %}
-            <p>{{ countdown(tracked.release_date) }}</p>
-            {% else %}
-            <p>T-minus <span class='days'>{{ countdown(tracked.release_date) }}</span> days</p>
-            {% endif %}
-            <form action="{{ url_for('untrack', item_id=tracked.id, title=tracked.title) }}" method="POST">
-                <input class='btn btn-secondary btn-sm my-2 my-sm-0' type="submit" value="Remove">
-            </form>
+        <div class='col-sm-4'>
+
+            <div class="img_wrap">
+                <a href="#">
+                    <img src='{{ tracked.poster_path }}' class='my-img'></a>
+                <div class="img_layer">
+                    <div class="img_layer_button">
+                        <form action="{{ url_for('untrack', item_id=tracked.id, title=tracked.title) }}" method="POST">
+                            <input class='btn btn-secondary btn-sm my-2 my-sm-0' type="submit" value="Remove">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <p>T-<span class='days'>{{ countdown(tracked.release_date) }}</span> days</p>
         </div>
         {% endfor %}
     </div>
+    {% else %}
+    <div class="container">
+        <p>
+            You are not tracking any films yet.
+        </p>
+        <br>
+        <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find films</a>
+    </div>
     {% endif %}
+</div>
 
 
-
+<div class="container container-dash float-right">
+    <h4 class='text-center'>MY SERIES</h4><br>
     {% if series %}
-    <h4 class='text-center'>My Series</h4><br>
-
-    <div class='row'>
+    <div class='row justify-content-center'>
         {% for tracked in series %}
-        <div class='col-sm-2'>
-            <a href="{{ url_for('viewitem', item_id=tracked.id, title=tracked.title) }}">
-                <img src='{{ tracked.poster_path }}' class='my-img img-fluid'></a>
+        <div class='col-sm-4'>
+            <div class="img_wrap">
+                <a href="#">
+                    <img src='{{ tracked.poster_path }}' class='my-img'></a>
+                <div class="img_layer">
+                    <div class="img_layer_button">
+                        <form action="{{ url_for('untrack', item_id=tracked.id) }}" method="POST">
+                            <input class='btn btn-secondary btn-sm my-2 my-sm-0' type="submit" value="Remove">
+                        </form>
+                    </div>
+                </div>
+            </div>
             {% if tracked.next_episode_to_air.air_date %}
-            <p>T-minus <span class='days'>{{ countdown(tracked.next_episode_to_air.air_date) }}</span> days</p>
+            <p>T-<span class='days'>{{ countdown(tracked.next_episode_to_air.air_date) }}</span> days</p>
             {% else %}
             <p>No new episodes</p>
             {% endif %}
-            <form action="{{ url_for('untrack', item_id=tracked.id) }}" method="POST">
-                <input class='btn btn-secondary btn-sm my-2 my-sm-0' type="submit" value="Remove">
-            </form>
         </div>
         {% endfor %}
+    </div>
+    {% else %}
+    <div class="container">
+        <p>
+            You are not tracking any series yet.
+        </p>
+        <br>
+        <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find series</a>
     </div>
     {% endif %}
 </div>
