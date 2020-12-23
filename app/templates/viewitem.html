@@ -7,7 +7,7 @@
 
     {% if results.title %}
     <p>{{ results.title }}</p>
-    {% if countdown == 'Released' %}
+    {% if countdown == -1 %}
     <p>Released on {{ results.release_date }}</p>
     {% else %}
     <p>Coming out on {{ results.release_date }}</p>

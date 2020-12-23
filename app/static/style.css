@@ -63,11 +63,11 @@ html,body {
 .container-dash {
     width: 49%;
     /* border-style: solid; */
-    background-color:rgba(84, 82, 102, 0.5);
-    border-top-style: solid;
+    background-color:rgba(54, 53, 66, 0.5);
+    border-left-style: solid;
     border-right-style: solid;
     border-radius: 15px;
-    border-color:  rgb(212, 209, 209);
+    border-color:  rgb(136, 135, 135);
 }
 
 p {
@@ -130,7 +130,7 @@ h4 {
 
 .my-img:hover {
     transition: 0.3s;
-    box-shadow: 5px 0 0px 5px #fc8e8e;
+    box-shadow: 5px 0px 0px 5px #fc8e8e;
 }
 
 
@@ -139,38 +139,57 @@ h4 {
     padding: 10px;
 }
 
-.img_wrap {
-    position: relative;
+.img-dash {
+    border-radius: 15px;
 }
 
-.img_layer {
+.img-wrap {
+    position: relative;
+    overflow: hidden;
+    margin: auto;
+    width: 90%;
+}
+
+.img-wrap .img-overlay {
+    background: rgba(0,0,0,0.7);
     position: absolute;
+    border: none;
+    border-radius: 15px;
+    height: 100%;
+    width: 100%;
+    left: 0;
     top: 0;
     bottom: 0;
-    left: 0;
     right: 0;
-    background: rgba(177, 172, 214, 0.5);
-    visibility: hidden;
     opacity: 0;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity .2s, visibility .2s;
-}
+    -webkit-transition: all 0.4s ease-in-out 0s;
+    -moz-transition: all 0.4s ease-in-out 0s;
+    transition: all 0.4s ease-in-out 0s;
+  }
 
-.img_wrap:hover .img_layer {
-    visibility: visible;
-    opacity: 2;
+  .img-wrap:hover .img-overlay{
+    opacity: 1;
+  }
+
+  .img-button {
+    position: absolute;
+    text-align: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    width: 100%;
+    top: 80%;
+    left: 50%;
+    opacity: 0;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
   }
   
-.img_layer_button {
-    transition: .2s;
-    transform: translateY(1em);
+  .img-wrap:hover .img-button{
+    top: 50%;
+    left: 50%;
+    opacity: 1;
   }
-  
-.img_wrap:hover .img_layer_button {
-    transform: translateY(0);
-  }
-
-

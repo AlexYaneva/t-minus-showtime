@@ -9,4 +9,4 @@ def countdown(release):
 
     difference = release_date - today
     countdown = difference.days
-    return countdown if countdown > 0 else 'Released'
+    return countdown if countdown >= 0 else -1
