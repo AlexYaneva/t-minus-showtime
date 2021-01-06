@@ -4,6 +4,10 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 
 
+class SearchForm(FlaskForm):
+    search = StringField('search', validators=[DataRequired()])
+    submit = SubmitField("Search")
+
 class LoginForm(FlaskForm):
     
     email = StringField("Email", validators=[DataRequired(), Email()])

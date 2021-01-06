@@ -63,7 +63,7 @@ html,body {
 .container-dash {
     width: 49%;
     /* border-style: solid; */
-    background-color:rgba(54, 53, 66, 0.5);
+    background-color:rgba(90, 88, 114, 0.5);
     border-left-style: solid;
     border-right-style: solid;
     border-radius: 15px;
@@ -98,6 +98,13 @@ h4 {
     font-weight: bold;
     margin-right: 1rem;
 }
+
+.btn-secondary:hover {
+    border-color: #f78f8f;
+    background-color:  #f78f8f;
+    color: #333232;
+}
+
 
 .jumbotron {
     margin-top: 1rem;
@@ -193,3 +200,9 @@ h4 {
     left: 50%;
     opacity: 1;
   }
+
+  .img-fluid {
+      border-style: double;
+      border-color:rgb(25, 20, 39);
+  }
+

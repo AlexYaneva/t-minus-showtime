@@ -2,23 +2,10 @@
 
 {% block content %}
 
-
+<h1 class='text-center'>RESULTS</h1>
 <div class='container'>
-	{% if results[0].name %}
-	<form class="form-inline my-2 my-lg-0" method='POST' action='/results'>
-		<input class="form-control mr-sm-2" type="text" placeholder="Find Series" name='series_title'>
-		<button class="btn btn-secondary my-2 my-sm-0" role='button' type='submit'>Search</button>
-	</form>
-	<br>
-	{% else %}
-	<form class="form-inline my-2 my-lg-0" method='POST' action='/results'>
-		<input class="form-control mr-sm-2" type="text" placeholder="Find Films" name='film_title'>
-		<button class="btn btn-secondary my-2 my-sm-0" role='button' type='submit'>Search</button>
-	</form>
-	<br>
-	{% endif %}
-
-	<h5 class='text-center'>search results</h5><br>
+	<a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find films</a>
+	<a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find series</a>
 
 	{% include '_display_posters.html' %}
 

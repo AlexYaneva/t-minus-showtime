@@ -1,7 +1,7 @@
 from app import app, cache, dynamo, table
 from app.api import GetFilms, GetSeries
 from app.email import send_password_reset_email
-from app.forms import LoginForm, RegistrationForm, ResetPasswordForm, ResetPasswordRequestForm
+from app.forms import LoginForm, RegistrationForm, ResetPasswordForm, ResetPasswordRequestForm, SearchForm
 from app.models import User
 from flask import flash, render_template, url_for, request, redirect, session
 from flask_login import current_user, login_user, logout_user, login_required
@@ -20,16 +20,15 @@ def index():
 
 
 
-@app.route("/results", methods=["GET", "POST"])
-def results():
-    if request.form.get("film_title"):
-        film_title = request.form["film_title"]
+@app.route("/results/<group>/<title>", methods=["GET", "POST"])
+def results(group, title):
+
+    if group == "films":
         films = GetFilms()
-        results = films.search_films(film_title)
-    elif request.form.get("series_title"):
-        series_title = request.form["series_title"]
+        results = films.search_films(title)
+    elif group == "series":
         series = GetSeries()
-        results = series.search_series(series_title)
+        results = series.search_series(title)
     if not results:
         return render_template("notfound.html")
 
@@ -40,24 +39,30 @@ def results():
 
 @app.route("/films", methods=["GET", "POST"])
 @login_required
-@cache.cached(timeout=100)
 def films():
+    form = SearchForm()
+    if form.validate_on_submit():
+        film_title = form.search.data
+        return redirect(url_for("results", group="films", title=film_title))
     films = GetFilms()
     results = films.popular_films()
 
-    return render_template("films.html", results=results)
+    return render_template("films.html", results=results, form=form)
 
 
 
 
 @app.route("/tvseries", methods=["GET", "POST"])
 @login_required
-@cache.cached(timeout=100)
 def tvseries():
+    form = SearchForm()
+    if form.validate_on_submit():
+        series_title = form.search.data
+        return redirect(url_for("results", group="series", title=series_title))
     series = GetSeries()
     results = series.popular_series()
 
-    return render_template("tvseries.html", results=results)
+    return render_template("tvseries.html", results=results, form=form)
 
 
 @app.route("/series_airing_today", methods=["GET", "POST"])
