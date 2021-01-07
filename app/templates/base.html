@@ -24,13 +24,13 @@
   <title>T-minus Showtime</title>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
   <div class="container">
     <nav class="navbar navbar-expand-lg nav-my">
       <a class="navbar-brand" href="{{ url_for('index') }}">T-MINUS SHOWTIME</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="#navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"><i class="fa fa-bars" aria-hidden="true" title="Menu"></i></span>
+        <span class="navbar-toggler-icon"><i class="fa fa-lg fa-bars" aria-hidden="true" title="Menu"></i></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -91,6 +91,9 @@
     {% block content %}
     {% endblock %}
   </div>
+  <footer class="mt-auto">
+    <p>Footer</p>
+  </footer>
 </body>
 
 </html>
