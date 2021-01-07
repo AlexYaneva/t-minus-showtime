@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/font-awesome-4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
@@ -24,64 +25,49 @@
 </head>
 
 <body>
-  <!-- <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-    <header class="masthead mb-auto">
-      <div class="inner">
-        <h3 class="masthead-brand">T-MINUS</h3>
-        <nav class="nav nav-masthead justify-content-center">
-          <a class="nav-link" href="#">Home</a>
-          <a class="nav-link" href="{{ url_for('top_rated') }}">Top Rated</a>
-          <a class="nav-link" href="{{ url_for('series_on_the_air') }}">On the air</a>
-        </nav>
-      </div>
-    </header> -->
-
-
   <div class="container">
     <nav class="navbar navbar-expand-lg nav-my">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url_for('index') }}">T-MINUS SHOWTIME</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="#navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <a class="navbar-brand" href="{{ url_for('index') }}">T-MINUS SHOWTIME</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="#navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"><i class="fa fa-bars" aria-hidden="true" title="Menu"></i></span>
+      </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link" id="navbarDropdown" data-toggle="dropdown" href="#" role="button"
-                aria-expanded="false">Films</a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ url_for('top_rated') }}">Top Rated</a>
-                <a class="dropdown-item" href="{{ url_for('films_in_theatres') }}">In Theatres</a>
-                <a class="dropdown-item" href="{{ url_for('films') }}">Search</a>
-              </div>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link" id="navbarDropdown" data-toggle="dropdown" href="#" role="button"
-                aria-expanded="false">TV Series</a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ url_for('series_airing_today') }}">Airing today</a>
-                <a class="dropdown-item" href="{{ url_for('series_on_the_air') }}">On the air</a>
-                <a class="dropdown-item" href="{{ url_for('tvseries') }}">Search</a>
-              </div>
-            </li>
-          </ul>
-          <ul class="navbar-nav  navbar-right">
-            {% if current_user.is_anonymous %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('login') }}">Login</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">My stuff</a>
-            </li>
-            {% endif %}
-          </ul>
-        </div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link" id="navbarDropdown" data-toggle="dropdown" href="#" role="button"
+              aria-expanded="false">Films</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ url_for('top_rated') }}">Top Rated</a>
+              <a class="dropdown-item" href="{{ url_for('films_in_theatres') }}">In Theatres</a>
+              <a class="dropdown-item" href="{{ url_for('films') }}">Search</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link" id="navbarDropdown" data-toggle="dropdown" href="#" role="button"
+              aria-expanded="false">TV Series</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ url_for('series_airing_today') }}">Airing today</a>
+              <a class="dropdown-item" href="{{ url_for('series_on_the_air') }}">On the air</a>
+              <a class="dropdown-item" href="{{ url_for('tvseries') }}">Search</a>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav  navbar-right">
+          {% if current_user.is_anonymous %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">My stuff</a>
+          </li>
+          {% endif %}
+        </ul>
       </div>
     </nav>
   </div>

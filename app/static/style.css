@@ -46,6 +46,18 @@ html,body {
     color: #fff;
 }
 
+.navbar-toggler {
+    padding: .25rem .75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color:transparent;
+    border-radius: .25rem;
+}
+
+.fa-bars {
+    color: #fff;
+}
+
 
 
 .container-fluid {
