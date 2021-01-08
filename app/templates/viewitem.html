@@ -1,39 +1,60 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class='col-sm-4 view-info justify-content-center'>
+            <div class='container'>
+                <img src='{{ results.poster_path }}' class='poster'>
+            </div>
+        </div>
 
-<div class='container'>
-    <img src='{{ results.poster_path }}' class='poster'>
-
-    {% if results.title %}
-    <p>{{ results.title }}</p>
-    {% if countdown == -1 %}
-    <p>Released on {{ results.release_date }}</p>
-    {% else %}
-    <p>Coming out on {{ results.release_date }}</p>
-    <p>T minus {{ countdown }} days
-    <p>
-    <form action="{{ url_for('track', item_id=results.id, title=results.title, countdown=countdown) }}" method="POST">
-        <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
-    </form>
-    {% endif %}
-    {% else %}
-    <p>{{ results.name }}</p>
-    <p>Last episode to air: {{ results.last_episode_to_air.air_date }}</p>
-    {% if results.next_episode_to_air.air_date %}
-    <p>Next episode to air: {{ results.next_episode_to_air.air_date }}</p>
-    <p> T minus {{ countdown }} days
-    <p>
-        {% else %}
-    <p>New episodes aren't airing right now. But maybe soon?</p>
-    {% endif %}
-    <form action="{{ url_for('track', item_id=results.id, title=results.title, countdown=countdown) }}" method="POST">
-        <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
-    </form>
-    {% endif %}
-
+        <div class='col-sm-8 text-left view-info'>
+            <div class='container'>
+                {% if results.title %}
+                <p><u>Title</u></p>
+                <p>{{ results.title }}</p>
+                <p><u>Overview</u></p>
+                <p>{{ results.overview }}</p>
+                <br>
+                <p><u>Status</u></p>
+                {% if countdown == -1 %}
+                <p>Released on {{ results.release_date }}</p>
+                {% else %}
+                <p>Coming out on {{ results.release_date }}</p>
+                <p>T-minus <span class='days'>{{ countdown }} </span>days</p>
+                <form action="{{ url_for('track', item_id=results.id, title=results.title, countdown=countdown) }}"
+                    method="POST">
+                    <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
+                </form>
+                {% endif %}
+                {% else %}
+                <p><u>Title</u></p>
+                <p>{{ results.name }}</p>
+                <p><u>Overview</u></p>
+                <p>{{ results.overview }}</p>
+                <br>
+                <p><u>Last episode to air</u></p>
+                {{ results.last_episode_to_air.air_date }}
+                {% if results.next_episode_to_air.air_date %}
+                <p><u>Next episode to air</u></p>
+                {{ results.next_episode_to_air.air_date }}
+                <p>T-minus <span class='days'>{{ countdown }} </span>days</p>
+                {% else %}
+                <p>This show has no new episodes. You can still keep an eye on it in case a new season comes out!</p>
+                {% endif %}
+                <form action="{{ url_for('track', item_id=results.id, title=results.title, countdown=countdown) }}"
+                    method="POST">
+                    <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
     <br>
-
+</div>
+</div>
+<div class="container">
     <h4>MORE LIKE THIS</h4><br>
     <div class='row'>
         {% for i in recommends %}

@@ -60,10 +60,10 @@ html,body {
 
 
 
-.container-fluid {
+/* .container-fluid {
     margin: auto;
 
-}
+} */
 
 .container {
     padding: 10px;
@@ -72,19 +72,28 @@ html,body {
     text-align: center;
 }
 
-.container-dash {
+.container-dash-left {
     width: 49%;
-    /* border-style: solid; */
     background-color:rgba(90, 88, 114, 0.5);
-    border-left-style: solid;
+    border-top-style: solid;
     border-right-style: solid;
     border-radius: 15px;
     border-color:  rgb(136, 135, 135);
 }
 
-p {
-    text-align: center;
+.container-dash-right {
+    width: 49%;
+    background-color:rgba(90, 88, 114, 0.5);
+    border-top-style: solid;
+    border-left-style: solid;
+    border-radius: 15px;
+    border-color:  rgb(136, 135, 135);
 }
+
+
+/* p {
+    text-align: center;
+} */
 
 
 form {
@@ -143,13 +152,14 @@ h4 {
 
 .my-img {
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px darkgrey;
 }
 
 
 .my-img:hover {
     transition: 0.3s;
-    box-shadow: 5px 0px 0px 5px #fc8e8e;
+    box-shadow: 5px 5px 5px #fc8e8e;
 }
 
 
@@ -159,7 +169,7 @@ h4 {
 }
 
 .img-dash {
-    border-radius: 15px;
+    border-radius: 10px;
 }
 
 .img-wrap {
@@ -173,7 +183,7 @@ h4 {
     background: rgba(0,0,0,0.7);
     position: absolute;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     height: 100%;
     width: 100%;
     left: 0;
@@ -206,6 +216,7 @@ h4 {
     -moz-transition: all 0.3s ease-in-out 0s;
     transition: all 0.3s ease-in-out 0s;
   }
+
   
   .img-wrap:hover .img-button{
     top: 50%;
@@ -213,10 +224,10 @@ h4 {
     opacity: 1;
   }
 
-  .img-fluid {
-      border-style: double;
-      border-color:rgb(25, 20, 39);
+  .view-info {
+    background-color: rgba(90, 88, 114, 0.5);
   }
+
 
   footer{
       background-color: rgba(177, 172, 214, 0.5);
