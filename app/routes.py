@@ -38,7 +38,6 @@ def results(group, title):
 
 
 @app.route("/films", methods=["GET", "POST"])
-@login_required
 def films():
     form = SearchForm()
     if form.validate_on_submit():
@@ -53,7 +52,6 @@ def films():
 
 
 @app.route("/tvseries", methods=["GET", "POST"])
-@login_required
 def tvseries():
     form = SearchForm()
     if form.validate_on_submit():
@@ -66,7 +64,6 @@ def tvseries():
 
 
 @app.route("/series_airing_today", methods=["GET", "POST"])
-@login_required
 @cache.cached(timeout=100)
 def series_airing_today():
     series = GetSeries()
@@ -76,7 +73,6 @@ def series_airing_today():
 
 
 @app.route("/series_on_the_air", methods=["GET", "POST"])
-@login_required
 @cache.cached(timeout=100)
 def series_on_the_air():
     series = GetSeries()
@@ -86,7 +82,6 @@ def series_on_the_air():
 
 
 @app.route("/top_rated", methods=["GET", "POST"])
-@login_required
 @cache.cached(timeout=100)
 def top_rated():
     films = GetFilms()
@@ -96,7 +91,6 @@ def top_rated():
 
 
 @app.route("/films_in_theatres", methods=["GET", "POST"])
-@login_required
 @cache.cached(timeout=100)
 def films_in_theatres():
     films = GetFilms()
@@ -108,6 +102,7 @@ def films_in_theatres():
 # makign 'title' an optional parameter
 @app.route("/viewitem/<int:item_id>/", methods=["GET", "POST"])
 @app.route("/viewitem/<int:item_id>/<title>", methods=["GET", "POST"])
+@login_required
 def viewitem(item_id, title=None):
     if title:
         film = GetFilms()

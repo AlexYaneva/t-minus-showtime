@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
@@ -21,6 +22,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <title>T-minus Showtime</title>
 </head>
 
@@ -58,6 +60,8 @@
           {% if current_user.is_anonymous %}
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+          </li>
+          <li>
             <a class="nav-link" href="{{ url_for('register') }}">Join</a>
           </li>
           {% else %}
@@ -80,7 +84,7 @@
     {% if messages %}
     {% for message in messages %}
     <div class="container">
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <div class="alert alert-info alert-dismissible fade show" role="alert">
         <strong>{{ message }}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
       </div>
@@ -92,9 +96,13 @@
     {% block content %}
     {% endblock %}
   </div>
-  <footer class="mt-auto">
-    <p>Footer</p>
+  <footer class="mt-auto text-left">
+    <p class="p-footer">&copy; 2021 T-minus Showtime</p>
   </footer>
 </body>
+
+<script>
+  AOS.init();
+</script>
 
 </html>

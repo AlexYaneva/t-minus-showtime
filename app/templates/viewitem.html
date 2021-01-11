@@ -3,43 +3,34 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-        <div class='col-sm-4 view-info justify-content-center'>
+        <div class='col-sm-4 view-info'>
             <div class='container'>
                 <img src='{{ results.poster_path }}' class='poster'>
             </div>
         </div>
 
-        <div class='col-sm-8 text-left view-info'>
-            <div class='container'>
+        <div class='col-sm-8 view-info'>
+            <div class='container text-left'>
                 {% if results.title %}
-                <p><u>Title</u></p>
-                <p>{{ results.title }}</p>
-                <p><u>Overview</u></p>
-                <p>{{ results.overview }}</p>
-                <br>
-                <p><u>Status</u></p>
+                <p><strong>Title:</strong> {{ results.title }}</p>
+                <p><u>Overview:</u> {{ results.overview }}</p>
                 {% if countdown == -1 %}
-                <p>Released on {{ results.release_date }}</p>
+                <p><u>Status:</u> Released on {{ results.release_date }}</p>
                 {% else %}
-                <p>Coming out on {{ results.release_date }}</p>
-                <p>T-minus <span class='days'>{{ countdown }} </span>days</p>
+                <p><u>Status:</u> Coming out on {{ results.release_date }}</p>
+                <p>T-minus <span class='days'>{{ countdown }}</span>days</p>
                 <form action="{{ url_for('track', item_id=results.id, title=results.title, countdown=countdown) }}"
                     method="POST">
                     <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
                 </form>
                 {% endif %}
                 {% else %}
-                <p><u>Title</u></p>
-                <p>{{ results.name }}</p>
-                <p><u>Overview</u></p>
-                <p>{{ results.overview }}</p>
-                <br>
-                <p><u>Last episode to air</u></p>
-                {{ results.last_episode_to_air.air_date }}
+                <p><u>Title:</u> {{ results.name }}</p>
+                <p><u>Overview:</u> {{ results.overview }}</p>
+                <p><u>Last episode to air:</u> {{ results.last_episode_to_air.air_date }}</p>
                 {% if results.next_episode_to_air.air_date %}
-                <p><u>Next episode to air</u></p>
-                {{ results.next_episode_to_air.air_date }}
-                <p>T-minus <span class='days'>{{ countdown }} </span>days</p>
+                <p><u>Next episode to air:</u> {{ results.next_episode_to_air.air_date }}</p>
+                <p>T-minus <span class='days'> {{ countdown }} </span>days</p>
                 {% else %}
                 <p>This show has no new episodes. You can still keep an eye on it in case a new season comes out!</p>
                 {% endif %}
@@ -55,7 +46,7 @@
 </div>
 </div>
 <div class="container">
-    <h4>MORE LIKE THIS</h4><br>
+    <h4 class="text-left">MORE LIKE THIS</h4><br>
     <div class='row'>
         {% for i in recommends %}
         <div class='col-sm-2'>

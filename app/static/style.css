@@ -144,9 +144,11 @@ h4 {
 }
 
 .days {
-    font-size: large;
+    font-size: x-large;
+    font-family: 'Audiowide', cursive;
     color: #ff6666;
-    font-weight: bold;
+    /* font-weight: bold; */
+    padding: 5px;
 
 }
 
@@ -225,11 +227,19 @@ h4 {
   }
 
   .view-info {
-    background-color: rgba(90, 88, 114, 0.5);
+    background-color: rgba(59, 57, 80, 0.5);
   }
 
 
   footer{
-      background-color: rgba(177, 172, 214, 0.5);
+      background-color: transparent;
+      border-top:  0.8px solid rgb(80, 77, 95);
+  }
+
+  .p-footer {
+      font-size: small;
+      padding-top: 10px;
+      padding-left: 5px;
+      color:rgb(136, 135, 135);
   }
 
