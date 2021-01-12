@@ -27,8 +27,8 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-  <div class="container">
-    <nav class="navbar navbar-expand-lg nav-my">
+  <nav class="navbar navbar-expand-lg nav-my">
+    <div class="container">
       <a class="navbar-brand" href="{{ url_for('index') }}">T-MINUS SHOWTIME</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="#navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,12 +74,12 @@
           {% endif %}
         </ul>
       </div>
-    </nav>
-  </div>
+    </div>
+  </nav>
 
 
 
-  <div class='container-fluid'>
+  <div class='container-fluid flex-grow-1'>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     {% for message in messages %}
@@ -100,6 +100,7 @@
     <p class="p-footer">&copy; 2021 T-minus Showtime</p>
   </footer>
 </body>
+
 
 <script>
   AOS.init();
