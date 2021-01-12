@@ -51,7 +51,7 @@ class GetFilms(TMDB):
         "search_film": "/search/movie",
         "popular_films": "/movie/popular",
         "film_details": "/movie/",
-        "recommendations": "/recommendations",
+        "similar": "/similar",
         "in_theatres" : "/movie/now_playing",
         "top_rated" : "/movie/top_rated" 
     }
@@ -80,7 +80,7 @@ class GetFilms(TMDB):
 
     def film_recommendations(self, item_id):
         path = self.paths.get("film_details")
-        path2 = self.paths.get("recommendations")
+        path2 = self.paths.get("similar")
         response = self._request(path=path, path2=path2, item_id=item_id, query="")
         response = response["results"]
         return self._process_multiple_items(response)
@@ -107,7 +107,7 @@ class GetSeries(TMDB):
         "search_series": "/search/tv",
         "popular_series": "/tv/popular",
         "series_details": "/tv/",
-        "recommendations": "/recommendations",
+        "similar": "/similar",
         "airing_today": "/tv/airing_today",
         "on_the_air": "/tv/on_the_air"
     }
@@ -136,7 +136,7 @@ class GetSeries(TMDB):
 
     def series_recommendations(self, item_id):
         path = self.paths.get("series_details")
-        path2 = self.paths.get("recommendations")
+        path2 = self.paths.get("similar")
         response = self._request(path=path, path2=path2, item_id=item_id, query="")
         response = response["results"]
         return self._process_multiple_items(response)

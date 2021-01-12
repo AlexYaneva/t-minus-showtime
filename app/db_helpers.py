@@ -101,6 +101,7 @@ def get_tracked(email, tracked_type):
         elif tracked_type == 'series':
             obj = GetSeries()
             tracked_obj = obj.series_details(item_id=i)
+        # sort objects by release date before apending to list below
         tracked_objects.append(tracked_obj)
 
     return tracked_objects

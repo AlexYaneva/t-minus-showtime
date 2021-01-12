@@ -48,6 +48,7 @@
 <div class="container">
     <h4 class="text-left">MORE LIKE THIS</h4><br>
     <div class='row'>
+        {% if recommends %}
         {% for i in recommends %}
         <div class='col-sm-2'>
             <a href="{{ url_for('viewitem', item_id=i.id, title=i.title) }}">
@@ -55,6 +56,7 @@
             </a>
         </div>
         {% endfor %}
+        {% endif %}
     </div>
 </div>
 
