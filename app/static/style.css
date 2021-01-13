@@ -1,7 +1,7 @@
 html,body {
     height: 100%;
     background-color: rgb(25, 20, 39);
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto Slab', serif;
     color:  rgb(212, 209, 209);
 }
 
@@ -10,7 +10,7 @@ html,body {
 } */
 
 .nav-my .nav-link {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto Slab', serif;
     padding: .25rem 0;
     font-weight: 700;
     color: rgb(255, 255, 255);
