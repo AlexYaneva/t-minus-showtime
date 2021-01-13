@@ -13,11 +13,11 @@
             <div class='container text-left'>
                 {% if results.title %}
                 <p><strong>Title:</strong> {{ results.title }}</p>
-                <p><u>Overview:</u> {{ results.overview }}</p>
+                <p><strong>Overview:</strong> {{ results.overview }}</p>
                 {% if countdown == -1 %}
-                <p><u>Status:</u> Released on {{ results.release_date }}</p>
+                <p><strong>Status:</strong> Released on {{ results.release_date }}</p>
                 {% else %}
-                <p><u>Status:</u> Coming out on {{ results.release_date }}</p>
+                <p><strong>Status:</strong> Coming out on {{ results.release_date }}</p>
                 <p>T-minus <span class='days'>{{ countdown }}</span>days</p>
                 <form action="{{ url_for('track', item_id=results.id, title=results.title, countdown=countdown) }}"
                     method="POST">
@@ -25,14 +25,17 @@
                 </form>
                 {% endif %}
                 {% else %}
-                <p><u>Title:</u> {{ results.name }}</p>
-                <p><u>Overview:</u> {{ results.overview }}</p>
-                <p><u>Last episode to air:</u> {{ results.last_episode_to_air.air_date }}</p>
-                {% if results.next_episode_to_air.air_date %}
-                <p><u>Next episode to air:</u> {{ results.next_episode_to_air.air_date }}</p>
-                <p>T-minus <span class='days'> {{ countdown }} </span>days</p>
-                {% else %}
+                <p><strong>Title:</strong> {{ results.name }}</p>
+                <p><strong>Overview:</strong> {{ results.overview }}</p>
+                <p><strong>Last episode to air:</strong> {{ results.last_episode_to_air.air_date }}</p>
+                {% if countdown == -1 %}
                 <p>This show has no new episodes. You can still keep an eye on it in case a new season comes out!</p>
+                {% elif countdown == 0 %}
+                <p><strong>Next episode to air:</strong> {{ results.next_episode_to_air.air_date }}</p>
+                <p><span class='days'>Out Today!</span> </p>
+                {% else %}
+                <p><strong>Next episode to air:</strong> {{ results.next_episode_to_air.air_date }}</p>
+                <p>T-minus <span class='days'> {{ countdown }} </span>days</p>
                 {% endif %}
                 <form action="{{ url_for('track', item_id=results.id, title=results.title, countdown=countdown) }}"
                     method="POST">

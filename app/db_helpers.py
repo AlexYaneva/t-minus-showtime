@@ -1,6 +1,7 @@
 from app import table
 from decimal import Decimal
 from app.api import GetFilms, GetSeries
+from app.utils import countdown
 
 
 def create_new_user(email, username):
@@ -98,13 +99,21 @@ def get_tracked(email, tracked_type):
         if tracked_type == 'film':
             obj = GetFilms()
             tracked_obj = obj.film_details(item_id=i)
+            tracked_obj.countdown = countdown(tracked_obj.release_date)
         elif tracked_type == 'series':
             obj = GetSeries()
             tracked_obj = obj.series_details(item_id=i)
-        # sort objects by release date before apending to list below
+            if getattr(tracked_obj, "next_episode_to_air") is not None:
+                tracked_obj.countdown = countdown(tracked_obj.next_episode_to_air["air_date"])
+            else:
+                # assigning a high number to series with no new episodes so they can be shown last
+                tracked_obj.countdown = 1000
+
+        # add all objects to a list
         tracked_objects.append(tracked_obj)
 
-    return tracked_objects
+    # sort the list by countdown
+    return  sorted(tracked_objects, key=lambda x: x.countdown)
 
 
 def get_all_releasing_tomorrow():

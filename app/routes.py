@@ -115,7 +115,7 @@ def viewitem(item_id, title=None):
         if results.next_episode_to_air:
             countdwn = utils.countdown(results.next_episode_to_air['air_date'])
         else:
-            countdwn = 'Released'
+            countdwn = -1
         recommends = series.series_recommendations(item_id=item_id)
 
     return render_template("viewitem.html", item_id=item_id, results=results, recommends=recommends, countdown=countdwn)
@@ -211,7 +211,7 @@ def user(username):
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
 
-    return render_template("user.html", user=current_user, films=films, series=series, countdown=utils.countdown)
+    return render_template("user.html", user=current_user, films=films, series=series)
 
 
 
@@ -228,7 +228,7 @@ def track(item_id, countdown, title=None):
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
 
-    return render_template("user.html", user=current_user, films=films, series=series, countdown=utils.countdown)
+    return render_template("user.html", user=current_user, films=films, series=series)
 
 
 
@@ -241,7 +241,7 @@ def untrack(item_id, title=None):
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
 
-    return render_template("user.html", user=current_user, films=films, series=series, countdown=utils.countdown)
+    return render_template("user.html", user=current_user, films=films, series=series)
 
 
 @app.route("/logout", methods=["GET", "POST"])
