@@ -15,14 +15,21 @@ class CreateObj:
 class TMDB:
 
     APIKEY = f"?api_key={API_key}"
-    BASE_URL = "https://api.themoviedb.org/3"
-    LANGUAGE = "&language=en-US"
-    PAGES = "&page=1"
+
+    # BASE_URL = "https://api.themoviedb.org/3"
+    # LANGUAGE = "&language=en-US"
+    # PAGES = "&page=1"
+
+    def __init__(self, page):
+        self.page = f"&page={page}"
+        self.base_url = "https://api.themoviedb.org/3" #  should be self.get_base_url().. or should this be a separate task?
+        self.language = "&language=en-US"
+
 
     def _request(self, path, path2, item_id, query):
 
         response = requests.get(
-            f"{self.BASE_URL}{path}{item_id}{path2}{self.APIKEY}{self.LANGUAGE}{self.PAGES}{query}"
+            f"{self.base_url}{path}{item_id}{path2}{self.APIKEY}{self.language}{self.page}{query}"
         ).json()
         return response
 

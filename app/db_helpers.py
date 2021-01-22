@@ -97,11 +97,11 @@ def get_tracked(email, tracked_type):
     tracked_objects = []
     for i in all_tracked_ids:
         if tracked_type == 'film':
-            obj = GetFilms()
+            obj = GetFilms(page=1)
             tracked_obj = obj.film_details(item_id=i)
             tracked_obj.countdown = countdown(tracked_obj.release_date)
         elif tracked_type == 'series':
-            obj = GetSeries()
+            obj = GetSeries(page=1)
             tracked_obj = obj.series_details(item_id=i)
             if getattr(tracked_obj, "next_episode_to_air") is not None:
                 tracked_obj.countdown = countdown(tracked_obj.next_episode_to_air["air_date"])

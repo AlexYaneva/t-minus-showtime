@@ -2,10 +2,15 @@
 
 {% block content %}
 
-<div class='container'>
-    <h1 class='text-center'>TOP RATED FILMS</h1>
+<h1 class='text-center'>TOP RATED FILMS</h1>
+<div class='container scroller'>
+    <div class="template">
 
-    {% include '_display_posters.html' %}
+        {% include '_display_posters.html' %}
+    </div>
+
+    <a class="btn btn-secondary my-2 my-sm-0 load-more" role='button' href="{{ load_more }}">More</a>
+
 
 </div>
 

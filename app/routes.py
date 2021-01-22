@@ -3,7 +3,7 @@ from app.api import GetFilms, GetSeries
 from app.email import send_password_reset_email
 from app.forms import LoginForm, RegistrationForm, ResetPasswordForm, ResetPasswordRequestForm, SearchForm
 from app.models import User
-from flask import flash, render_template, url_for, request, redirect, session
+from flask import flash, render_template, url_for, request, redirect, session, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash
@@ -24,10 +24,10 @@ def index():
 def results(group, title):
 
     if group == "films":
-        films = GetFilms()
+        films = GetFilms(page=1)
         results = films.search_films(title)
     elif group == "series":
-        series = GetSeries()
+        series = GetSeries(page=1)
         results = series.search_series(title)
     if not results:
         return render_template("notfound.html")
@@ -43,7 +43,7 @@ def films():
     if form.validate_on_submit():
         film_title = form.search.data
         return redirect(url_for("results", group="films", title=film_title))
-    films = GetFilms()
+    films = GetFilms(page=1)
     results = films.popular_films()
 
     return render_template("films.html", results=results, form=form)
@@ -57,7 +57,7 @@ def tvseries():
     if form.validate_on_submit():
         series_title = form.search.data
         return redirect(url_for("results", group="series", title=series_title))
-    series = GetSeries()
+    series = GetSeries(page=1)
     results = series.popular_series()
 
     return render_template("tvseries.html", results=results, form=form)
@@ -66,7 +66,7 @@ def tvseries():
 @app.route("/series_airing_today", methods=["GET", "POST"])
 @cache.cached(timeout=100)
 def series_airing_today():
-    series = GetSeries()
+    series = GetSeries(page=1)
     results = series.series_airing_today()
 
     return render_template("series_airing_today.html", results=results)
@@ -75,25 +75,28 @@ def series_airing_today():
 @app.route("/series_on_the_air", methods=["GET", "POST"])
 @cache.cached(timeout=100)
 def series_on_the_air():
-    series = GetSeries()
+    series = GetSeries(page=1)
     results = series.series_on_the_air()
 
     return render_template("series_on_the_air.html", results=results)
 
 
 @app.route("/top_rated", methods=["GET", "POST"])
-@cache.cached(timeout=100)
+# @cache.cached(timeout=100)
 def top_rated():
-    films = GetFilms()
+    page = request.args.get('page', 1, type=int)
+    films = GetFilms(page)
     results = films.top_rated()
+    load_more = url_for("top_rated", page=page+1)
+    print(results)
 
-    return render_template("top_rated_films.html", results=results)
+    return render_template("top_rated_films.html", results=results, load_more=load_more)
 
 
 @app.route("/films_in_theatres", methods=["GET", "POST"])
 @cache.cached(timeout=100)
 def films_in_theatres():
-    films = GetFilms()
+    films = GetFilms(page=1)
     results = films.films_in_theatres()
 
     return render_template("films_in_theatres.html", results=results)
@@ -105,12 +108,12 @@ def films_in_theatres():
 @login_required
 def viewitem(item_id, title=None):
     if title:
-        film = GetFilms()
+        film = GetFilms(page=1)
         results = film.film_details(item_id=item_id)
         countdwn = utils.countdown(results.release_date)
         recommends = film.film_recommendations(item_id=item_id)
     else:
-        series = GetSeries()
+        series = GetSeries(page=1)
         results = series.series_details(item_id=item_id)
         if results.next_episode_to_air:
             countdwn = utils.countdown(results.next_episode_to_air['air_date'])
