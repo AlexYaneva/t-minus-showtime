@@ -2,6 +2,7 @@ from app import table
 from decimal import Decimal
 from app.api import GetFilms, GetSeries
 from app.utils import countdown
+from app.tasks import get_tmdb_film_details, get_tmdb_series_details
 
 
 def create_new_user(email, username):
@@ -76,7 +77,9 @@ def untrack(email, tracked_id):
 def get_tracked(email, tracked_type):
     '''
     Get all tracked series or films for a user
-    tracked_type can be 'films' or 'series'
+
+    :Params: email
+             tracked_type - 'films' or 'series'
     '''
     all_tracked = table.query(
                         TableName="User_table",
@@ -97,23 +100,19 @@ def get_tracked(email, tracked_type):
     tracked_objects = []
     for i in all_tracked_ids:
         if tracked_type == 'film':
-            obj = GetFilms(page=1)
-            tracked_obj = obj.film_details(item_id=i)
-            tracked_obj.countdown = countdown(tracked_obj.release_date)
+            obj = get_tmdb_film_details.delay(i)
+            print(obj.id, obj.state, obj.status)
         elif tracked_type == 'series':
-            obj = GetSeries(page=1)
-            tracked_obj = obj.series_details(item_id=i)
-            if getattr(tracked_obj, "next_episode_to_air") is not None:
-                tracked_obj.countdown = countdown(tracked_obj.next_episode_to_air["air_date"])
-            else:
-                # assigning a high number to series with no new episodes so they can be shown last
-                tracked_obj.countdown = 1000
+            obj = get_tmdb_series_details.delay(i)
+            print(obj.id, obj.state, obj.status)
 
         # add all objects to a list
-        tracked_objects.append(tracked_obj)
+        # if obj.state == "SUCCESS":
+        #     tracked_objects.append(obj.get())
 
     # sort the list by countdown
-    return  sorted(tracked_objects, key=lambda x: x.countdown)
+    # return  sorted(tracked_objects, key=lambda x: x.countdown)
+    return tracked_objects
 
 
 def get_all_releasing_tomorrow():
