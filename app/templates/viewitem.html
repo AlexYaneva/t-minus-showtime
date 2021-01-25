@@ -5,39 +5,41 @@
     <div class="row">
         <div class='col-sm-4 view-info'>
             <div class='container'>
-                <img src='{{ results.poster_path }}' class='poster'>
+                <img src='{{ results["poster_path"] }}' class='poster'>
             </div>
         </div>
 
         <div class='col-sm-8 view-info'>
             <div class='container text-left'>
-                {% if results.title %}
-                <p><strong>Title:</strong> {{ results.title }}</p>
-                <p><strong>Overview:</strong> {{ results.overview }}</p>
+                {% if results["title"] %}
+                <p><strong>Title:</strong> {{ results["title"] }}</p>
+                <p><strong>Overview:</strong> {{ results["overview"] }}</p>
                 {% if countdown == -1 %}
-                <p><strong>Status:</strong> Released on {{ results.release_date }}</p>
+                <p><strong>Status:</strong> Released on {{ results["release_date"] }}</p>
                 {% else %}
-                <p><strong>Status:</strong> Coming out on {{ results.release_date }}</p>
+                <p><strong>Status:</strong> Coming out on {{ results["release_date"] }}</p>
                 <p>T-minus <span class='days'>{{ countdown }}</span>days</p>
-                <form action="{{ url_for('track', item_id=results.id, title=results.title, countdown=countdown) }}"
+                <form
+                    action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
                     method="POST">
                     <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
                 </form>
                 {% endif %}
                 {% else %}
-                <p><strong>Title:</strong> {{ results.name }}</p>
-                <p><strong>Overview:</strong> {{ results.overview }}</p>
-                <p><strong>Last episode to air:</strong> {{ results.last_episode_to_air.air_date }}</p>
+                <p><strong>Title:</strong> {{ results['name'] }}</p>
+                <p><strong>Overview:</strong> {{ results['overview'] }}</p>
+                <p><strong>Last episode to air:</strong> {{ results['last_episode_to_air']['air_date'] }}</p>
                 {% if countdown == -1 %}
                 <p>This show has no new episodes. You can still keep an eye on it in case a new season comes out!</p>
                 {% elif countdown == 0 %}
-                <p><strong>Next episode to air:</strong> {{ results.next_episode_to_air.air_date }}</p>
+                <p><strong>Next episode to air:</strong> {{ results['next_episode_to_air']['air_date'] }}</p>
                 <p><span class='days'>Out Today!</span> </p>
                 {% else %}
-                <p><strong>Next episode to air:</strong> {{ results.next_episode_to_air.air_date }}</p>
+                <p><strong>Next episode to air:</strong> {{ results['next_episode_to_air']['air_date'] }}</p>
                 <p>T-minus <span class='days'> {{ countdown }} </span>days</p>
                 {% endif %}
-                <form action="{{ url_for('track', item_id=results.id, title=results.title, countdown=countdown) }}"
+                <form
+                    action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
                     method="POST">
                     <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
                 </form>

@@ -17,15 +17,16 @@
             <div class='col-sm-4'>
                 <div class="img-wrap">
                     <div class="img-overlay"></div>
-                    <img src='{{ tracked.poster_path }}' class='img-fluid img-dash'>
+                    <img src='{{ tracked["poster_path"] }}' class='img-fluid img-dash'>
                     <div class="img-button">
-                        <form action="{{ url_for('untrack', item_id=tracked.id, title=tracked.title) }}" method="POST">
+                        <form action="{{ url_for('untrack', item_id=tracked['id'], title=tracked['title']) }}"
+                            method="POST">
                             <input class='btn btn-secondary btn-sm d-flex mx-auto my-2 my-sm-0' type="submit"
                                 value="Remove">
                         </form>
                     </div>
                 </div>
-                <p>T-<span class='days'>{{ tracked.countdown }}</span></p>
+                <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
             </div>
             {% endfor %}
         </div>
@@ -51,20 +52,20 @@
             <div class='col-sm-4'>
                 <div class="img-wrap">
                     <div class="img-overlay"></div>
-                    <img src='{{ tracked.poster_path }}' class='img-fluid img-dash'>
+                    <img src='{{ tracked["poster_path"] }}' class='img-fluid img-dash'>
                     <div class="img-button">
-                        <form action="{{ url_for('untrack', item_id=tracked.id) }}" method="POST">
+                        <form action="{{ url_for('untrack', item_id=tracked['id']) }}" method="POST">
                             <input class='btn btn-secondary btn-sm d-flex mx-auto my-2 my-sm-0' type="submit"
                                 value="Delete">
                         </form>
                     </div>
                 </div>
-                {% if tracked.countdown == 0 %}
+                {% if tracked["countdown"] == 0 %}
                 <p><span class='days'>Out Today!</span> </p>
-                {% elif tracked.countdown == 1000 %}
+                {% elif tracked["countdown"] == 1000 %}
                 <p>No new episodes</p>
                 {% else %}
-                <p>T-<span class='days'>{{ tracked.countdown }}</span></p>
+                <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
                 {% endif %}
             </div>
             {% endfor %}

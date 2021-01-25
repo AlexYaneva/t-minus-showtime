@@ -97,22 +97,27 @@ def get_tracked(email, tracked_type):
         all_tracked_ids.append(int(tracked_id))
 
     # create the film/series objects, get their details from the tmdb api and add them to a list
-    tracked_objects = []
+    tracked_items = []
     for i in all_tracked_ids:
         if tracked_type == 'film':
-            obj = get_tmdb_film_details.delay(i)
-            print(obj.id, obj.state, obj.status)
+            films = GetFilms(page=1)
+            itm = films.film_details(i)
+            itm["countdown"] = countdown(itm["release_date"])
+
         elif tracked_type == 'series':
-            obj = get_tmdb_series_details.delay(i)
-            print(obj.id, obj.state, obj.status)
+            series = GetSeries(page=1)
+            itm = series.series_details(i)
+            if itm["next_episode_to_air"]:
+                itm["countdown"] = countdown(itm["next_episode_to_air"]["air_date"])
+            else:
+                itm["countdown"] = 1000
 
         # add all objects to a list
         # if obj.state == "SUCCESS":
-        #     tracked_objects.append(obj.get())
+        tracked_items.append(itm)
 
     # sort the list by countdown
-    # return  sorted(tracked_objects, key=lambda x: x.countdown)
-    return tracked_objects
+    return  sorted(tracked_items, key=lambda x: x["countdown"])
 
 
 def get_all_releasing_tomorrow():

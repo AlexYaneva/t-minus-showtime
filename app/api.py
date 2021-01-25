@@ -2,23 +2,11 @@ import requests
 from config import API_key
 
 
-class CreateObj:
-
-    IMAGES_URL = "http://image.tmdb.org/t/p/w185"
-    BACKDROPS_URL = "http://image.tmdb.org/t/p/w780"
-
-    def __init__(self, **data):
-        for key in data:
-            setattr(self, key, data[key])
-
-
 class TMDB:
 
     APIKEY = f"?api_key={API_key}"
-
-    # BASE_URL = "https://api.themoviedb.org/3"
-    # LANGUAGE = "&language=en-US"
-    # PAGES = "&page=1"
+    IMAGES_URL = "http://image.tmdb.org/t/p/w185"
+    BACKDROPS_URL = "http://image.tmdb.org/t/p/w780" 
 
     def __init__(self, page):
         self.page = f"&page={page}"
@@ -35,21 +23,19 @@ class TMDB:
 
     def _process_by_id(self, response):
 
-        obj = CreateObj(**response)
-        if obj.poster_path:
-            obj.poster_path = f"{obj.IMAGES_URL}{obj.poster_path}"
-        if obj.backdrop_path:
-            obj.backdrop_path = f"{obj.BACKDROPS_URL}{obj.backdrop_path}"
-        return obj
+        if response["poster_path"]:
+            response["poster_path"] = f"{self.IMAGES_URL}{response['poster_path']}"
+        if response["backdrop_path"]:
+            response["backdrop_path"] = f"{self.BACKDROPS_URL}{response['backdrop_path']}"
+        return response
+
 
     def _process_multiple_items(self, response):
-        obj_list = []
-        for dict_item in response:
-            obj = CreateObj(**dict_item)
-            if obj.poster_path:
-                obj.poster_path = f"{obj.IMAGES_URL}{obj.poster_path}"
-                obj_list.append(obj)
-        return obj_list
+
+        for item in response:
+            if item["poster_path"]:
+                item["poster_path"] = f"{self.IMAGES_URL}{item['poster_path']}"
+        return response
 
 
 class GetFilms(TMDB):

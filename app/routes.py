@@ -88,7 +88,6 @@ def top_rated():
     films = GetFilms(page)
     results = films.top_rated()
     load_more = url_for("top_rated", page=page+1)
-    print(results)
 
     return render_template("top_rated_films.html", results=results, load_more=load_more)
 
@@ -110,13 +109,13 @@ def viewitem(item_id, title=None):
     if title:
         film = GetFilms(page=1)
         results = film.film_details(item_id=item_id)
-        countdwn = utils.countdown(results.release_date)
+        countdwn = utils.countdown(results["release_date"])
         recommends = film.film_recommendations(item_id=item_id)
     else:
         series = GetSeries(page=1)
         results = series.series_details(item_id=item_id)
-        if results.next_episode_to_air:
-            countdwn = utils.countdown(results.next_episode_to_air['air_date'])
+        if results["next_episode_to_air"]:
+            countdwn = utils.countdown(results["next_episode_to_air"]['air_date'])
         else:
             countdwn = -1
         recommends = series.series_recommendations(item_id=item_id)
