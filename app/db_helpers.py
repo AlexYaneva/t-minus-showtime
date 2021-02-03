@@ -96,7 +96,7 @@ def get_tracked(email, tracked_type):
         tracked_id = i.get('Tracked_id')
         all_tracked_ids.append(int(tracked_id))
 
-    # create the film/series objects, get their details from the tmdb api and add them to a list
+    # get film/series details from the tmdb api and add them to a list
     tracked_items = []
     for i in all_tracked_ids:
         if tracked_type == 'film':
@@ -110,10 +110,9 @@ def get_tracked(email, tracked_type):
             if itm["next_episode_to_air"]:
                 itm["countdown"] = countdown(itm["next_episode_to_air"]["air_date"])
             else:
+                # assigning a high number to series with no new episodes so they can be shown last
                 itm["countdown"] = 1000
 
-        # add all objects to a list
-        # if obj.state == "SUCCESS":
         tracked_items.append(itm)
 
     # sort the list by countdown
