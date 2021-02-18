@@ -5,10 +5,6 @@ html,body {
     color:  rgb(212, 209, 209);
 }
 
-/* main {
-    min-height: 100vh;
-} */
-
 .nav-my .nav-link {
     font-family: 'Roboto Slab', serif;
     padding: .25rem 0;
@@ -237,4 +233,26 @@ h4 {
       padding-left: 5px;
       color:rgb(136, 135, 135);
   }
+
+  .animated {
+    -webkit-animation-duration: 3s;
+    animation-duration: 3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+ }
+ 
+ @-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+ }
+ 
+ @keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+ }
+ 
+ .fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+ }
 

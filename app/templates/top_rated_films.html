@@ -22,22 +22,10 @@
     <a class="btn btn-secondary my-2 my-sm-0 justify-content-center load-more" role='button' id="load_more">More</a>
 </div>
 
+{% block scripts %}
 
-<script>
-    var currentPage = 2;
-    var container = $('#scroller');
+<script src='{{ url_for("static", filename="js/script.js") }}'></script>
 
-    $(function () {
-        $('#load_more').click(function () {
-            $.ajax("{{ url_for('load_more') }}?page=" + currentPage).done(function (data) {
-                currentPage++;
-                // var newItems = $(data);
-                container.append(data);
-            })
-        })
-    });
-
-</script>
-
+{% endblock %}
 
 {% endblock %}

@@ -56,9 +56,11 @@
     <div class='row'>
         {% for i in recommends %}
         <div class='col-sm-2'>
-            <a href="{{ url_for('viewitem', item_id=i['id'], title=i['title']) }}">
-                <img src='{{ i["poster_path"] }}' class='my-img img-fluid'>
-            </a>
+            <div class='animated fadeIn'>
+                <a href="{{ url_for('viewitem', item_id=i['id'], title=i['title']) }}">
+                    <img src='{{ i["poster_path"] }}' class='my-img img-fluid'>
+                </a>
+            </div>
         </div>
         {% endfor %}
     </div>
