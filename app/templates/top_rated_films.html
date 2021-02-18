@@ -3,15 +3,41 @@
 {% block content %}
 
 <h1 class='text-center'>TOP RATED FILMS</h1>
-<div class='container scroller'>
-    <div class="template">
+<div class='container'>
+
+    <div class='row' id='scroller'>
 
         {% include '_display_posters.html' %}
+
     </div>
 
-    <a class="btn btn-secondary my-2 my-sm-0 load-more" role='button' href="{{ load_more }}">More</a>
 
+    <!-- <div class="d-flex justify-content-center mb-3" id="sentinel">
+        <div class="spinner-border" role="status"></div>
+    </div> -->
 
 </div>
+
+<div class='container'>
+    <a class="btn btn-secondary my-2 my-sm-0 justify-content-center load-more" role='button' id="load_more">More</a>
+</div>
+
+
+<script>
+    var currentPage = 2;
+    var container = $('#scroller');
+
+    $(function () {
+        $('#load_more').click(function () {
+            $.ajax("{{ url_for('load_more') }}?page=" + currentPage).done(function (data) {
+                currentPage++;
+                // var newItems = $(data);
+                container.append(data);
+            })
+        })
+    });
+
+</script>
+
 
 {% endblock %}
