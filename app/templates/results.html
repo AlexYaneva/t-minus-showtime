@@ -7,7 +7,9 @@
 	<a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">More films</a>
 	<a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">More series</a>
 
-	{% include '_display_posters.html' %}
+	<div class='row' id='scroller'>
+		{% include '_display_posters.html' %}
+	</div>
 
 </div>
 {% endblock %}

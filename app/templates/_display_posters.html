@@ -1,11 +1,9 @@
-<div class='row'>
-    {% for i in results %}
-    <div class='col-sm-2'>
-        <div data-aos="zoom-in">
-            <a href="{{ url_for('viewitem', item_id=i['id'], title=i['title']) }}">
-                <img src="{{ i['poster_path'] }}" class='my-img img-fluid'>
-            </a>
-        </div>
+{% for i in results %}
+<div class='col-sm-2'>
+    <div class='animated fadeIn'>
+        <a href="{{ url_for('viewitem', item_id=i['id'], title=i['title']) }}">
+            <img src="{{ i['poster_path'] }}" class='my-img img-fluid'>
+        </a>
     </div>
-    {% endfor %}
 </div>
+{% endfor %}

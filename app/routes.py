@@ -3,7 +3,7 @@ from app.api import GetFilms, GetSeries
 from app.email import send_password_reset_email
 from app.forms import LoginForm, RegistrationForm, ResetPasswordForm, ResetPasswordRequestForm, SearchForm
 from app.models import User
-from flask import flash, render_template, url_for, request, redirect, session, jsonify
+from flask import flash, render_template, url_for, request, redirect, session, jsonify, make_response
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash
@@ -87,9 +87,15 @@ def top_rated():
     page = request.args.get('page', 1, type=int)
     films = GetFilms(page)
     results = films.top_rated()
-    load_more = url_for("top_rated", page=page+1)
+    return render_template("top_rated_films.html", results=results)
 
-    return render_template("top_rated_films.html", results=results, load_more=load_more)
+
+@app.route("/load_more")
+def load_more():
+    page = request.args.get('page', 2, type=int)
+    films = GetFilms(page)
+    results = films.top_rated()
+    return jsonify(render_template('_display_posters.html', results=results))
 
 
 @app.route("/films_in_theatres", methods=["GET", "POST"])
