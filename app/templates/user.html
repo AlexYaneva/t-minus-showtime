@@ -8,78 +8,78 @@
     <p>Here you'll find the countdowns to your new releases. </p>
     <p>Fasten your seatbelts, it's watching time. In T-minus 15 days or so anyway.</p>
 </div>
-<div data-aos="zoom-in">
-    <div class="container container-dash-left float-left">
-        <h4 class='text-center'>MY FILMS</h4><br>
-        {% if films %}
-        <div class='row justify-content-center'>
-            {% for tracked in films %}
-            <div class='col-sm-4'>
-                <div class="img-wrap">
-                    <div class="img-overlay"></div>
-                    <img src='{{ tracked["poster_path"] }}' class='img-fluid img-dash'>
-                    <div class="img-button">
-                        <form action="{{ url_for('untrack', item_id=tracked['id'], title=tracked['title']) }}"
-                            method="POST">
-                            <input class='btn btn-secondary btn-sm d-flex mx-auto my-2 my-sm-0' type="submit"
-                                value="Remove">
-                        </form>
-                    </div>
+
+<div class="container container-dash-left float-left">
+    <h4 class='text-center'>MY FILMS</h4><br>
+    {% if films %}
+    <div class='row justify-content-center'>
+        {% for tracked in films %}
+        <div class='col-sm-4'>
+            <div class="img-wrap">
+                <div class="img-overlay"></div>
+                <img src='{{ tracked["poster_path"] }}' class='img-fluid img-dash'>
+                <div class="img-button">
+                    <form action="{{ url_for('untrack', item_id=tracked['id'], title=tracked['title']) }}"
+                        method="POST">
+                        <input class='btn btn-secondary btn-sm d-flex mx-auto my-2 my-sm-0' type="submit"
+                            value="Remove">
+                    </form>
                 </div>
-                <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
             </div>
-            {% endfor %}
+            <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
         </div>
-        {% else %}
-        <div class="container">
-            <p>
-                You are not tracking any films yet.
-            </p>
-            <br>
-            <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find
-                films</a>
-        </div>
-        {% endif %}
+        {% endfor %}
     </div>
+    {% else %}
+    <div class="container">
+        <p>
+            You are not tracking any films yet.
+        </p>
+        <br>
+        <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find
+            films</a>
+    </div>
+    {% endif %}
 </div>
 
-<div data-aos="zoom-in">
-    <div class="container container-dash-right float-right">
-        <h4 class='text-center'>MY SERIES</h4><br>
-        {% if series %}
-        <div class='row justify-content-center'>
-            {% for tracked in series %}
-            <div class='col-sm-4'>
-                <div class="img-wrap">
-                    <div class="img-overlay"></div>
-                    <img src='{{ tracked["poster_path"] }}' class='img-fluid img-dash'>
-                    <div class="img-button">
-                        <form action="{{ url_for('untrack', item_id=tracked['id']) }}" method="POST">
-                            <input class='btn btn-secondary btn-sm d-flex mx-auto my-2 my-sm-0' type="submit"
-                                value="Delete">
-                        </form>
-                    </div>
+
+
+<div class="container container-dash-right float-right">
+    <h4 class='text-center'>MY SERIES</h4><br>
+    {% if series %}
+    <div class='row justify-content-center'>
+        {% for tracked in series %}
+        <div class='col-sm-4'>
+            <div class="img-wrap">
+                <div class="img-overlay"></div>
+                <img src='{{ tracked["poster_path"] }}' class='img-fluid img-dash'>
+                <div class="img-button">
+                    <form action="{{ url_for('untrack', item_id=tracked['id']) }}" method="POST">
+                        <input class='btn btn-secondary btn-sm d-flex mx-auto my-2 my-sm-0' type="submit"
+                            value="Delete">
+                    </form>
                 </div>
-                {% if tracked["countdown"] == 0 %}
-                <p><span class='days'>Out Today!</span> </p>
-                {% elif tracked["countdown"] == 1000 %}
-                <p>No new episodes</p>
-                {% else %}
-                <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
-                {% endif %}
             </div>
-            {% endfor %}
+            {% if tracked["countdown"] == 0 %}
+            <p><span class='days'>Out Today!</span> </p>
+            {% elif tracked["countdown"] == 1000 %}
+            <p>No new episodes</p>
+            {% else %}
+            <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
+            {% endif %}
         </div>
-        {% else %}
-        <div class="container">
-            <p>
-                You are not tracking any series yet.
-            </p>
-            <br>
-            <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find series</a>
-        </div>
-        {% endif %}
+        {% endfor %}
     </div>
+    {% else %}
+    <div class="container">
+        <p>
+            You are not tracking any series yet.
+        </p>
+        <br>
+        <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find series</a>
+    </div>
+    {% endif %}
 </div>
+
 
 {% endblock %}

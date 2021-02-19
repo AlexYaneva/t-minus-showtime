@@ -87,9 +87,7 @@ def top_rated():
     page = request.args.get('page', 1, type=int)
     films = GetFilms(page)
     results = films.top_rated()
-    # load_more = url_for("top_rated", page=page+1)
-
-    return render_template("top_rated_films.html", results=results)#, load_more=load_more)
+    return render_template("top_rated_films.html", results=results)
 
 
 @app.route("/load_more")
