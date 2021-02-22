@@ -1,5 +1,6 @@
 import requests
 from config import API_key
+from app.utils import async_get_multiple
 
 
 class TMDB:
@@ -21,11 +22,23 @@ class TMDB:
         ).json()
         return response
 
+
+
+    def _async_requests(self, path, list_of_ids):
+        urls = []
+        for i in list_of_ids:
+            url = f"{self.base_url}{path}{i}{self.APIKEY}{self.language}{self.page}"
+            urls.append(url)
+            
+        return async_get_multiple(list_of_ids, urls)
+
+
+
     def _process_by_id(self, response):
 
-        if response["poster_path"]:
+        if "poster_path" in response:
             response["poster_path"] = f"{self.IMAGES_URL}{response['poster_path']}"
-        if response["backdrop_path"]:
+        if "backdrop_path" in response:
             response["backdrop_path"] = f"{self.BACKDROPS_URL}{response['backdrop_path']}"
         return response
 
@@ -69,6 +82,13 @@ class GetFilms(TMDB):
         path = self.paths.get("film_details")
         response = self._request(path=path, path2="", item_id=item_id, query="")
         return self._process_by_id(response)
+
+
+    def async_film_details(self, list_of_ids):
+        path = self.paths.get("film_details")
+        response = self._async_requests(path=path, list_of_ids=list_of_ids)
+        return self._process_multiple_items(response)
+
 
 
     def film_recommendations(self, item_id):
@@ -125,6 +145,11 @@ class GetSeries(TMDB):
         path = self.paths.get("series_details")
         response = self._request(path=path, path2="", item_id=item_id, query="")
         return self._process_by_id(response)
+
+    def async_series_details(self, list_of_ids):
+        path = self.paths.get("series_details")
+        response = self._async_requests(path=path, list_of_ids=list_of_ids)
+        return self._process_multiple_items(response)
 
 
     def series_recommendations(self, item_id):

@@ -60,11 +60,6 @@ html, body {
 
 
 
-/* .container-fluid {
-    margin: auto;
-
-} */
-
 .container {
     padding: 10px;
     width: 80%;
@@ -74,7 +69,8 @@ html, body {
 
 .container-dash-left {
     width: 49%;
-    background-color:rgba(90, 88, 114, 0.5);
+    /* background-color:rgba(90, 88, 114, 0.5); */
+    background: radial-gradient(ellipse at right, #3d6074 0%, #1e2330 100%);
     border-top-style: solid;
     border-right-style: solid;
     border-radius: 15px;
@@ -83,7 +79,8 @@ html, body {
 
 .container-dash-right {
     width: 49%;
-    background-color:rgba(90, 88, 114, 0.5);
+    /* background-color:rgba(90, 88, 114, 0.5); */
+    background: radial-gradient(ellipse at left, #3d6074 0%, #1e2330 100%);
     border-top-style: solid;
     border-left-style: solid;
     border-radius: 15px;
@@ -110,7 +107,7 @@ h4 {
 
 .btn-secondary {
     color: #1a1a1a;
-    background-color: #ff6666;
+    background-color: #ff4f4f;
     border-color: #ff6666;
     font-weight: bold;
     margin-right: 1rem;
@@ -162,6 +159,11 @@ h4 {
 .my-img:hover {
     transition: 0.3s;
     box-shadow: 5px 5px 5px #fc8e8e;
+}
+
+.img-center {
+    display: flex;
+    justify-content: center;
 }
 
 
@@ -227,8 +229,12 @@ h4 {
   }
 
   .view-info {
-    background-color: rgba(59, 57, 80, 0.5);
-  }
+    background: radial-gradient(ellipse at top, #5f8da8 0%, #212d35 100%);
+    border-color: transparent;
+    border-radius: 2px;
+    box-shadow: inset 0px 0px 5px 5px #141d27;
+
+  } 
 
 
   footer{

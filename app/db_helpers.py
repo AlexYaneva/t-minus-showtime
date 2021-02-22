@@ -2,7 +2,6 @@ from app import table
 from decimal import Decimal
 from app.api import GetFilms, GetSeries
 from app.utils import countdown
-from app.tasks import get_tmdb_film_details, get_tmdb_series_details
 
 
 def create_new_user(email, username):
@@ -81,6 +80,7 @@ def get_tracked(email, tracked_type):
     :Params: email
              tracked_type - 'films' or 'series'
     '''
+    # query the db for all tracked series/films for a user
     all_tracked = table.query(
                         TableName="User_table",
                         KeyConditionExpression="Email = :email",
@@ -90,30 +90,32 @@ def get_tracked(email, tracked_type):
                                                                                     )
     all_tracked = all_tracked["Items"]
 
-    # extract all the IDs from the db response
+    # extract the series/films IDs from the db response and add them to a list
     all_tracked_ids = []
     for i in all_tracked:
         tracked_id = i.get('Tracked_id')
         all_tracked_ids.append(int(tracked_id))
 
-    # get film/series details from the tmdb api and add them to a list
+    # use the list to generate the async url requests, gather the responses
+    # calculate countdowns and add all to a new list
     tracked_items = []
-    for i in all_tracked_ids:
-        if tracked_type == 'film':
-            films = GetFilms(page=1)
-            itm = films.film_details(i)
-            itm["countdown"] = countdown(itm["release_date"])
+    if tracked_type == 'film':
+        films = GetFilms(page=1)
+        tracked_films = films.async_film_details(all_tracked_ids)
+        for item in tracked_films:
+            item["countdown"] = countdown(item["release_date"])
+            tracked_items.append(item)
 
-        elif tracked_type == 'series':
-            series = GetSeries(page=1)
-            itm = series.series_details(i)
-            if itm["next_episode_to_air"]:
-                itm["countdown"] = countdown(itm["next_episode_to_air"]["air_date"])
+    elif tracked_type == 'series':
+        series = GetSeries(page=1)
+        tracked_series = series.async_series_details(all_tracked_ids)
+        for item in tracked_series:
+            if item["next_episode_to_air"]:
+                item["countdown"] = countdown(item["next_episode_to_air"]["air_date"])
             else:
-                # assigning a high number to series with no new episodes so they can be shown last
-                itm["countdown"] = 1000
-
-        tracked_items.append(itm)
+                # assign a high number to series with no new episodes so they can be shown last
+                item["countdown"] = 1000
+            tracked_items.append(item)
 
     # sort the list by countdown
     return  sorted(tracked_items, key=lambda x: x["countdown"])
