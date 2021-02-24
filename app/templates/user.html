@@ -9,7 +9,7 @@
     <p>Fasten your seatbelts, it's watching time. In T-minus 15 days or so anyway.</p>
 </div>
 
-<div class="container container-dash-left float-left">
+<div class="container container-dash-left float-left animated fadeIn">
     <h4 class='text-center'>MY FILMS</h4><br>
     {% if films %}
     <div class='row justify-content-center'>
@@ -22,7 +22,7 @@
                     <form action="{{ url_for('untrack', item_id=tracked['id'], title=tracked['title']) }}"
                         method="POST">
                         <input class='btn btn-secondary btn-sm d-flex mx-auto my-2 my-sm-0' type="submit"
-                            value="Remove">
+                            value="Delete">
                     </form>
                 </div>
             </div>
@@ -44,7 +44,7 @@
 
 
 
-<div class="container container-dash-right float-right">
+<div class="container container-dash-right float-right animated fadeIn">
     <h4 class='text-center'>MY SERIES</h4><br>
     {% if series %}
     <div class='row justify-content-center'>

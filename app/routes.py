@@ -39,72 +39,80 @@ def results(group, title):
 
 @app.route("/films", methods=["GET", "POST"])
 def films():
+    page = request.args.get('page', 1, type=int)
     form = SearchForm()
     if form.validate_on_submit():
         film_title = form.search.data
         return redirect(url_for("results", group="films", title=film_title))
-    films = GetFilms(page=1)
+    films = GetFilms(page)
     results = films.popular_films()
-
-    return render_template("films.html", results=results, form=form)
+    if page == 1:
+        return render_template("films.html", results=results, form=form)
+    elif page > 1:
+        return jsonify(render_template('_display_posters.html', results=results))
 
 
 
 
 @app.route("/tvseries", methods=["GET", "POST"])
 def tvseries():
+    page = request.args.get('page', 1, type=int)
     form = SearchForm()
     if form.validate_on_submit():
         series_title = form.search.data
         return redirect(url_for("results", group="series", title=series_title))
-    series = GetSeries(page=1)
+    series = GetSeries(page)
     results = series.popular_series()
+    if page == 1:
+        return render_template("tvseries.html", results=results, form=form)
+    elif page > 1:
+        return jsonify(render_template('_display_posters.html', results=results))
 
-    return render_template("tvseries.html", results=results, form=form)
 
 
 @app.route("/series_airing_today", methods=["GET", "POST"])
-@cache.cached(timeout=100)
 def series_airing_today():
-    series = GetSeries(page=1)
+    page = request.args.get('page', 1, type=int)
+    series = GetSeries(page)
     results = series.series_airing_today()
-
-    return render_template("series_airing_today.html", results=results)
+    if page == 1:
+        return render_template("series_airing_today.html", results=results)
+    elif page > 1:
+        return jsonify(render_template('_display_posters.html', results=results))
 
 
 @app.route("/series_on_the_air", methods=["GET", "POST"])
-@cache.cached(timeout=100)
 def series_on_the_air():
-    series = GetSeries(page=1)
+    page = request.args.get('page', 1, type=int)
+    series = GetSeries(page)
     results = series.series_on_the_air()
-
-    return render_template("series_on_the_air.html", results=results)
+    if page == 1:
+        return render_template("series_on_the_air.html", results=results)
+    elif page > 1:
+        return jsonify(render_template('_display_posters.html', results=results))
 
 
 @app.route("/top_rated", methods=["GET", "POST"])
-# @cache.cached(timeout=100)
 def top_rated():
     page = request.args.get('page', 1, type=int)
     films = GetFilms(page)
     results = films.top_rated()
-    return render_template("top_rated_films.html", results=results)
+    if page == 1:
+        return render_template("top_rated_films.html", results=results)
+    elif page > 1:
+        return jsonify(render_template('_display_posters.html', results=results))
 
-
-@app.route("/load_more")
-def load_more():
-    page = request.args.get('page', 2, type=int)
-    films = GetFilms(page)
-    results = films.top_rated()
-    return jsonify(render_template('_display_posters.html', results=results))
 
 
 @app.route("/films_in_theatres", methods=["GET", "POST"])
-@cache.cached(timeout=100)
 def films_in_theatres():
-    films = GetFilms(page=1)
+    page = request.args.get('page', 1, type=int)
+    films = GetFilms(page)
     results = films.films_in_theatres()
-
-    return render_template("films_in_theatres.html", results=results)
+    if page == 1:
+        return render_template("films_in_theatres.html", results=results)
+    elif page > 1:
+        return jsonify(render_template('_display_posters.html', results=results))
 
 
 # makign 'title' an optional parameter

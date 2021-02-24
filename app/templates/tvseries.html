@@ -17,5 +17,15 @@
 	</div>
 </div>
 
+<div class='container'>
+	<a class="btn btn-secondary my-2 my-sm-0 justify-content-center load-more" role='button' id="load_more">More</a>
+</div>
+
+{% block scripts %}
+
+<script src='{{ url_for("static", filename="js/script.js") }}'></script>
+
+{% endblock %}
+
 
 {% endblock %}
