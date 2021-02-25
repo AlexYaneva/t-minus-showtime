@@ -17,6 +17,8 @@ class TMDB:
 
     def _request(self, path, path2, item_id, query):
 
+        ''' method to issue a single http request'''
+
         response = requests.get(
             f"{self.base_url}{path}{item_id}{path2}{self.APIKEY}{self.language}{self.page}{query}"
         ).json()
@@ -25,6 +27,9 @@ class TMDB:
 
 
     def _async_requests(self, path, list_of_ids):
+
+        ''' method to issue multiple http requests asynchronously'''
+
         urls = []
         for i in list_of_ids:
             url = f"{self.base_url}{path}{i}{self.APIKEY}{self.language}{self.page}"
@@ -36,9 +41,9 @@ class TMDB:
 
     def _process_by_id(self, response):
 
-        if "poster_path" in response:
+        if response['poster_path']:
             response["poster_path"] = f"{self.IMAGES_URL}{response['poster_path']}"
-        if "backdrop_path" in response:
+        if response['backdrop_path']:
             response["backdrop_path"] = f"{self.BACKDROPS_URL}{response['backdrop_path']}"
         return response
 

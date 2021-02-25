@@ -3,13 +3,13 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-        <div class='col-sm-4 view-info img-center'>
+        <div class='col-sm-4 view-info viewitem-center'>
             <div class='container'>
                 <img src='{{ results["poster_path"] }}' class='poster img-dash'>
             </div>
         </div>
 
-        <div class='col-sm-8 view-info'>
+        <div class='col-sm-8 view-info viewitem-center'>
             <div class='container text-left'>
                 {% if results["title"] %}
                 <p><strong>Title:</strong> {{ results["title"] }}</p>
@@ -48,7 +48,6 @@
         </div>
     </div>
     <br>
-</div>
 </div>
 {% if recommends %}
 <div class="container">

@@ -1,9 +1,18 @@
 html, body {
-    min-height: 100%;
+    /* min-height: 100%; */
     background: radial-gradient(ellipse at top, #1b2735 0%, #090a0f 100%);
     font-family: 'Roboto Slab', serif;
     color:  rgb(212, 209, 209);
+    margin: 0;
 }
+
+
+
+
+.page-content {
+    min-height: 90vh;
+}
+
 
 .nav-my .nav-link {
     font-family: 'Roboto Slab', serif;
@@ -68,22 +77,22 @@ html, body {
 
 .container-dash-left {
     width: 49%;
-    /* background-color:rgba(90, 88, 114, 0.5); */
     background: radial-gradient(ellipse at right, #3d6074 0%, #1e2330 100%);
     border-top-style: solid;
     border-right-style: solid;
     border-radius: 15px;
     border-color:  rgb(136, 135, 135);
+    margin-bottom: 10px;
 }
 
 .container-dash-right {
     width: 49%;
-    /* background-color:rgba(90, 88, 114, 0.5); */
     background: radial-gradient(ellipse at left, #3d6074 0%, #1e2330 100%);
     border-top-style: solid;
     border-left-style: solid;
     border-radius: 15px;
     border-color:  rgb(136, 135, 135);
+    margin-bottom: 10px;
 }
 
 
@@ -159,7 +168,7 @@ h4 {
     box-shadow: 5px 5px 5px #fc8e8e;
 }
 
-.img-center {
+.viewitem-center {
     display: flex;
     justify-content: center;
 }
@@ -229,15 +238,16 @@ h4 {
   .view-info {
     background: radial-gradient(ellipse at top, #5f8da8 0%, #212d35 100%);
     border-color: transparent;
-    border-radius: 2px;
+    border-radius: 120px;
     box-shadow: inset 0px 0px 5px 5px #141d27;
 
   } 
 
 
-  footer{
+  #footer{
       background-color: transparent;
       border-top:  0.8px solid rgb(80, 77, 95);
+      margin-top: auto;
   }
 
   .p-footer {
