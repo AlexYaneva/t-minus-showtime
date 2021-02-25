@@ -2,7 +2,13 @@
 <div class='col-sm-2'>
     <div class='animated fadeIn'>
         <a href="{{ url_for('viewitem', item_id=i['id'], title=i['title']) }}">
-            <img src="{{ i['poster_path'] }}" class='my-img img-fluid'>
+            {% if i['title'] %}
+            <img src="{{ i['poster_path'] }}" class='my-img img-fluid' data-toggle="tooltip" data-placement="top"
+                title="{{ i['title'] }}">
+            {% else %}
+            <img src="{{ i['poster_path'] }}" class='my-img img-fluid' data-toggle="tooltip" data-placement="top"
+                title="{{ i['name'] }}">
+            {% endif %}
         </a>
     </div>
 </div>

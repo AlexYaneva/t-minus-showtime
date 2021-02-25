@@ -1,5 +1,6 @@
 import requests
 from config import API_key
+from flask import url_for
 from app.utils import async_get_multiple
 
 
@@ -53,6 +54,8 @@ class TMDB:
         for item in response:
             if item["poster_path"]:
                 item["poster_path"] = f"{self.IMAGES_URL}{item['poster_path']}"
+            else:
+                item["poster_path"] = f"{url_for('static', filename='img/no_image.png')}"
         return response
 
 
