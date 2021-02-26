@@ -44,6 +44,9 @@ class TMDB:
 
         if response['poster_path']:
             response["poster_path"] = f"{self.IMAGES_URL}{response['poster_path']}"
+        else:
+            item["poster_path"] = f"{url_for('static', filename='img/no_image.png')}"
+            
         if response['backdrop_path']:
             response["backdrop_path"] = f"{self.BACKDROPS_URL}{response['backdrop_path']}"
         return response

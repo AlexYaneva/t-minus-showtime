@@ -29,20 +29,33 @@
                 <p><strong>Title:</strong> {{ results['name'] }}</p>
                 <p><strong>Overview:</strong> {{ results['overview'] }}</p>
                 <p><strong>Last episode to air:</strong> {{ results['last_episode_to_air']['air_date'] }}</p>
-                {% if countdown == -1 %}
-                <p>This show has no new episodes. You can still keep an eye on it in case a new season comes out!</p>
-                {% elif countdown == 0 %}
-                <p><strong>Next episode to air:</strong> {{ results['next_episode_to_air']['air_date'] }}</p>
-                <p><span class='days'>Out Today!</span> </p>
-                {% else %}
-                <p><strong>Next episode to air:</strong> {{ results['next_episode_to_air']['air_date'] }}</p>
-                <p>T-minus <span class='days'> {{ countdown }} </span>days</p>
-                {% endif %}
+                {% if countdown == -1 and results['status'] == 'Ended' %}
+                <p>Looks like this show has officialy ended and won't be releasing new seasons.</p>
+                {% elif countdown == -1 and results['status'] != 'Ended' %}
+                <p>This show doesn't have new episodes, but it might in the future - worth keeping an eye on it. </p>
                 <form
                     action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
                     method="POST">
                     <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
                 </form>
+                {% elif countdown == 0 %}
+                <p><strong>Next episode to air:</strong> {{ results['next_episode_to_air']['air_date'] }}</p>
+                <p><span class='days'>Out Today!</span> </p>
+                <form
+                    action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
+                    method="POST">
+                    <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
+                </form>
+                {% else %}
+                <p><strong>Next episode to air:</strong> {{ results['next_episode_to_air']['air_date'] }}</p>
+                <p>T-minus <span class='days'> {{ countdown }} </span>days</p>
+                <form
+                    action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
+                    method="POST">
+                    <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
+                </form>
+                {% endif %}
+
                 {% endif %}
             </div>
         </div>
