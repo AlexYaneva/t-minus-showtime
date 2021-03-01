@@ -133,8 +133,10 @@ def viewitem(item_id, title=None):
         else:
             countdwn = -1
         recommends = series.series_recommendations(item_id=item_id)
+        where_to_watch = series.series_where_to_watch(item_id=item_id)
 
-    return render_template("viewitem.html", item_id=item_id, results=results, recommends=recommends, countdown=countdwn)
+    return render_template("viewitem.html", item_id=item_id, results=results, recommends=recommends,
+                                             countdown=countdwn, where_to_watch=where_to_watch)
 
 
 

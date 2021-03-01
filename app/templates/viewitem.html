@@ -9,11 +9,12 @@
             </div>
         </div>
 
-        <div class='col-sm-8 view-info viewitem-center'>
+        <div class='col-sm-8 view-info'>
             <div class='container text-left'>
                 {% if results["title"] %}
-                <p><strong>Title:</strong> {{ results["title"] }}</p>
-                <p><strong>Overview:</strong> {{ results["overview"] }}</p>
+                <h4>{{ results["title"] }}</h4>
+                <br>
+                <p><strong>Overview</strong> <br> {{ results["overview"] }}</p>
                 {% if countdown == -1 %}
                 <p><strong>Status:</strong> Released on {{ results["release_date"] }}</p>
                 {% else %}
@@ -26,8 +27,10 @@
                 </form>
                 {% endif %}
                 {% else %}
-                <p><strong>Title:</strong> {{ results['name'] }}</p>
-                <p><strong>Overview:</strong> {{ results['overview'] }}</p>
+                <h4> {{ results['name'] }}</h4>
+                <br>
+                <h6><strong>Overview</strong></h6>
+                <p>{{ results['overview'] }}</p>
                 <p><strong>Last episode to air:</strong> {{ results['last_episode_to_air']['air_date'] }}</p>
                 {% if countdown == -1 and results['status'] == 'Ended' %}
                 <p>Looks like this show has officialy ended and won't be releasing new seasons.</p>
@@ -55,6 +58,16 @@
                     <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
                 </form>
                 {% endif %}
+                <br>
+                <h5>Stream on:</h5>
+                <div class="row">
+                    {% for i in where_to_watch["flatrate"] %}
+                    <div class="col-sm-6">
+                        <img class='logo' src='{{i["logo_path"]}}'>
+                    </div>
+                    {% endfor %}
+                </div>
+                <p> Powered by JustWatch</p>
 
                 {% endif %}
             </div>

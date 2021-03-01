@@ -7,7 +7,8 @@ from app.utils import async_get_multiple
 class TMDB:
 
     APIKEY = f"?api_key={API_key}"
-    IMAGES_URL = "http://image.tmdb.org/t/p/w185"
+    IMAGES_URL = "http://image.tmdb.org/t/p/w342"
+    LOGOS_URL = "http://image.tmdb.org/t/p/original"
     BACKDROPS_URL = "http://image.tmdb.org/t/p/w780" 
 
     def __init__(self, page):
@@ -49,6 +50,7 @@ class TMDB:
             
         if response['backdrop_path']:
             response["backdrop_path"] = f"{self.BACKDROPS_URL}{response['backdrop_path']}"
+
         return response
 
 
@@ -60,6 +62,16 @@ class TMDB:
             else:
                 item["poster_path"] = f"{url_for('static', filename='img/no_image.png')}"
         return response
+
+
+    def _process_logos(self, response):
+
+        if "flatrate" in response:
+            for i in response["flatrate"]:
+                # response["flatrate"][i]['logo_path'] = f"{self.LOGOS_URL}{response["flatrate"][i]['logo_path']}"
+                i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
+        return response
+
 
 
 class GetFilms(TMDB):
@@ -133,7 +145,8 @@ class GetSeries(TMDB):
         "series_details": "/tv/",
         "similar": "/similar",
         "airing_today": "/tv/airing_today",
-        "on_the_air": "/tv/on_the_air"
+        "on_the_air": "/tv/on_the_air",
+        "where_to_watch": "/watch/providers"
     }
 
 
@@ -183,3 +196,11 @@ class GetSeries(TMDB):
         response = self._request(path=path, path2="", item_id="", query="")
         response = response["results"]
         return self._process_multiple_items(response)
+
+    
+    def series_where_to_watch(self, item_id):
+        path = self.paths.get("series_details")
+        path2 = self.paths.get("where_to_watch")
+        response = self._request(path=path, path2=path2, item_id=item_id, query="")
+        response = response["results"]["GB"]
+        return self._process_logos(response)

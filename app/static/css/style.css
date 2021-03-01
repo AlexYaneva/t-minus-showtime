@@ -1,7 +1,7 @@
 html, body {
     /* min-height: 100%; */
     background: radial-gradient(ellipse at top, #1b2735 0%, #090a0f 100%);
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Jura', sans-serif;
     color:  rgb(212, 209, 209);
     margin: 0;
 }
@@ -15,7 +15,7 @@ html, body {
 
 
 .nav-my .nav-link {
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Jura', sans-serif;
     padding: .25rem 0;
     font-weight: 700;
     color: rgb(255, 255, 255);
@@ -109,9 +109,9 @@ h1,h2,h3,h4 {
 }
 
 
-h4 {
+/* h4 {
     text-align: center;
-}
+} */
 
 .btn-secondary {
     color: #1a1a1a;
@@ -235,11 +235,16 @@ h4 {
     opacity: 1;
   }
 
+  .logo {
+      max-height: 50px;
+      max-width: 50px;
+      border-radius: 10px;
+  }
+
   .view-info {
-    background: radial-gradient(ellipse at top, #5f8da8 0%, #212d35 100%);
+    background: #425a5a;
     border-color: transparent;
-    border-radius: 120px;
-    box-shadow: inset 0px 0px 5px 5px #141d27;
+    /* box-shadow: inset 0px 0px 5px 5px #141d27; */
 
   } 
 
