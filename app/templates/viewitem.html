@@ -4,13 +4,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class='col-sm-4 view-info viewitem-center'>
-            <div class='container'>
-                <img src='{{ results["poster_path"] }}' class='poster img-dash'>
+            <div class='container-fluid'>
+                <img src='{{ results["poster_path"] }}' class='poster img-dash img-fluid'>
             </div>
         </div>
 
         <div class='col-sm-8 view-info'>
-            <div class='container text-left'>
+            <div class='text-left'>
                 {% if results["title"] %}
                 <h4>{{ results["title"] }}</h4>
                 <br>
@@ -30,12 +30,13 @@
                 <h4> {{ results['name'] }}</h4>
                 <br>
                 <h6><strong>Overview</strong></h6>
-                <p>{{ results['overview'] }}</p>
+                <p><strong>{{ results['overview'] }}</strong></p>
                 <p><strong>Last episode to air:</strong> {{ results['last_episode_to_air']['air_date'] }}</p>
                 {% if countdown == -1 and results['status'] == 'Ended' %}
-                <p>Looks like this show has officialy ended and won't be releasing new seasons.</p>
+                <p><strong>Looks like this show has officialy ended and won't be releasing new seasons.</strong></p>
                 {% elif countdown == -1 and results['status'] != 'Ended' %}
-                <p>This show doesn't have new episodes, but it might in the future - worth keeping an eye on it. </p>
+                <p><strong>This show doesn't have new episodes, but it might in the future - worth keeping an eye on
+                        it.</strong> </p>
                 <form
                     action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
                     method="POST">
@@ -58,18 +59,18 @@
                     <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
                 </form>
                 {% endif %}
-                <br>
-                <h5>Stream on:</h5>
-                <div class="row">
-                    {% for i in where_to_watch["flatrate"] %}
-                    <div class="col-sm-6">
-                        <img class='logo' src='{{i["logo_path"]}}'>
-                    </div>
-                    {% endfor %}
-                </div>
-                <p> Powered by JustWatch</p>
 
                 {% endif %}
+                <br>
+                <div class='container-fluid stream-on'>
+                    <h5>Stream on:</h5>
+                    <ul>
+                        {% for i in where_to_watch["flatrate"] %}
+                        <li><img class='logo' src='{{i["logo_path"]}}'></li>
+                        {% endfor %}
+                    </ul>
+                    <p> Powered by <a href="https://www.justwatch.com/JustWatch">JustWatch</a></p>
+                </div>
             </div>
         </div>
     </div>

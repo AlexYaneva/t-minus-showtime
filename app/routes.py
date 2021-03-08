@@ -125,6 +125,7 @@ def viewitem(item_id, title=None):
         results = film.film_details(item_id=item_id)
         countdwn = utils.countdown(results["release_date"])
         recommends = film.film_recommendations(item_id=item_id)
+        where_to_watch = film.film_where_to_watch(item_id=item_id)
     else:
         series = GetSeries(page=1)
         results = series.series_details(item_id=item_id)
@@ -149,8 +150,8 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user_record = db.get_user(form.email.data)
-
         if user_record is None or not User.check_password(user_record["Password_hash"], form.password.data):
+            flash("Oops... Invalid username or password. Try again!")
             return redirect(url_for("login"))
         user = User(email=user_record["Email"])
         login_user(user, remember=False)
@@ -171,8 +172,6 @@ def register():
         return redirect(url_for("user"))
     form = RegistrationForm()
     if form.validate_on_submit():
-
-        # add a check if email exists already
         db.create_new_user(form.email.data, form.username.data)
         password_hash = generate_password_hash(form.password.data)
         db.update_password(form.email.data, password_hash)
@@ -191,11 +190,9 @@ def reset_password_request():
     form = ResetPasswordRequestForm()
     if form.validate_on_submit():
         user_record = db.get_user(form.email.data)
-        if isinstance(user_record, str):
-            flash('No user found')
-            return render_template('login.html')
-        user = User(email=user_record["Email"])
-        send_password_reset_email(user).apply_async()
+        if user_record is not None:
+            user = User(email=user_record["Email"])
+            send_password_reset_email(user).apply_async()
 
         flash('Check your email for instructions to reset your password')
         return redirect(url_for('login'))

@@ -68,7 +68,6 @@ class TMDB:
 
         if "flatrate" in response:
             for i in response["flatrate"]:
-                # response["flatrate"][i]['logo_path'] = f"{self.LOGOS_URL}{response["flatrate"][i]['logo_path']}"
                 i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
         return response
 
@@ -82,7 +81,8 @@ class GetFilms(TMDB):
         "film_details": "/movie/",
         "similar": "/similar",
         "in_theatres" : "/movie/now_playing",
-        "top_rated" : "/movie/top_rated" 
+        "top_rated" : "/movie/top_rated",
+        "where_to_watch": "/watch/providers"
     }
 
 
@@ -134,6 +134,16 @@ class GetFilms(TMDB):
         response = self._request(path=path, path2="", item_id="", query="")
         response = response["results"]
         return self._process_multiple_items(response)
+
+    def film_where_to_watch(self, item_id):
+        path = self.paths.get("film_details")
+        path2 = self.paths.get("where_to_watch")
+        response = self._request(path=path, path2=path2, item_id=item_id, query="")
+        try:
+            response = response["results"]["GB"]
+        except KeyError:
+            return
+        return self._process_logos(response)
 
 
 
@@ -202,5 +212,8 @@ class GetSeries(TMDB):
         path = self.paths.get("series_details")
         path2 = self.paths.get("where_to_watch")
         response = self._request(path=path, path2=path2, item_id=item_id, query="")
-        response = response["results"]["GB"]
+        try:
+            response = response["results"]["GB"]
+        except KeyError:
+            return
         return self._process_logos(response)

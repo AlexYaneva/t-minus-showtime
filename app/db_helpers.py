@@ -39,7 +39,7 @@ def get_user(email):
     try:
         user = db_user_item["Item"]
     except KeyError:
-        return 'No user found'
+        return None
     return user
 
 

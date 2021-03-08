@@ -9,12 +9,15 @@
             <form action="" method="post" role="form">
                 {{ form.hidden_tag() }}
                 <div class="form-group">
-                    {{ form.email.label }}<br>
-                    {{ form.email(class='form-control', size=32, placeholder='Enter email here') }}<br>
+                    {% for error in form.email.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                    {{ form.email(class='form-control', size=32, placeholder='Email') }}<br>
 
-
-                    {{ form.password.label }}<br>
-                    {{ form.password(class='form-control', size=32, placeholder='Enter password here') }}<br>
+                    {% for error in form.password.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                    {{ form.password(class='form-control', size=32, placeholder='Password') }}<br>
 
                     <button type="submit" class="btn btn-secondary my-2 my-sm-0">Sign In</button>
                 </div>

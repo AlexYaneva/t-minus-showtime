@@ -2,6 +2,7 @@ from app import table
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
+import app.db_helpers as db
 
 
 class SearchForm(FlaskForm):
@@ -29,8 +30,8 @@ class RegistrationForm(FlaskForm):
     def validate_email(self, email):
 
         # check if a user with this email already exists in the db
-        user = table.get_item(Key={"Email": email.data})
-        if 'Item' in user:
+        user = db.get_user(email.data)
+        if user is not None: 
             raise ValidationError('Please use a different email address.')
 
 

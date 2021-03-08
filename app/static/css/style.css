@@ -95,23 +95,28 @@ html, body {
     margin-bottom: 10px;
 }
 
-
+p {
+    padding: 5px;
+}
 
 form {
     justify-content: center;
     padding: 10px;
 }
 
-h1,h2,h3,h4 {
+h1,h2,h3 {
     font-family: 'Audiowide', cursive;
     color: rgb(212, 209, 209);
     padding: 10px;
 }
 
+h4, h5, h6 {
+    font-family: 'Jura', sans-serif;
+    color: rgb(212, 209, 209);
+    padding: 10px;
+}
 
-/* h4 {
-    text-align: center;
-} */
+
 
 .btn-secondary {
     color: #1a1a1a;
@@ -176,8 +181,10 @@ h1,h2,h3,h4 {
 
 
 .col-sm-2 {
-    padding: 10px;
+    padding: 5px;
 }
+
+
 
 .img-dash {
     border-radius: 10px;
@@ -244,9 +251,14 @@ h1,h2,h3,h4 {
   .view-info {
     background: #425a5a;
     border-color: transparent;
+    color: #13161f;
     /* box-shadow: inset 0px 0px 5px 5px #141d27; */
 
   } 
+
+  .stream-on {
+      background-color: #37494d;
+  }
 
 
   #footer{
@@ -283,4 +295,13 @@ h1,h2,h3,h4 {
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn;
  }
+
+ .stream-on ul {
+    list-style-type: none;
+}
+
+.stream-on li {
+    display: inline;
+    text-align: -webkit-match-parent;
+}
 
