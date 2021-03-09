@@ -1,96 +1,85 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row">
-        <div class='col-sm-4 view-info viewitem-center'>
-            <div class='container-fluid'>
-                <img src='{{ results["poster_path"] }}' class='poster img-dash img-fluid'>
-            </div>
+<div class="container">
+    <div class="row padded-row">
+        <div class='col-sm-4'>
+            <img src='{{ results["poster_path"] }}' class='rounded img-fluid'>
         </div>
 
-        <div class='col-sm-8 view-info'>
-            <div class='text-left'>
-                {% if results["title"] %}
-                <h4>{{ results["title"] }}</h4>
-                <br>
-                <p><strong>Overview</strong> <br> {{ results["overview"] }}</p>
-                {% if countdown == -1 %}
-                <p><strong>Status:</strong> Released on {{ results["release_date"] }}</p>
-                {% else %}
-                <p><strong>Status:</strong> Coming out on {{ results["release_date"] }}</p>
-                <p>T-minus <span class='days'>{{ countdown }}</span>days</p>
-                <form
-                    action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
-                    method="POST">
-                    <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
-                </form>
-                {% endif %}
-                {% else %}
-                <h4> {{ results['name'] }}</h4>
-                <br>
-                <h6><strong>Overview</strong></h6>
-                <p><strong>{{ results['overview'] }}</strong></p>
-                <p><strong>Last episode to air:</strong> {{ results['last_episode_to_air']['air_date'] }}</p>
-                {% if countdown == -1 and results['status'] == 'Ended' %}
-                <p><strong>Looks like this show has officialy ended and won't be releasing new seasons.</strong></p>
-                {% elif countdown == -1 and results['status'] != 'Ended' %}
-                <p><strong>This show doesn't have new episodes, but it might in the future - worth keeping an eye on
-                        it.</strong> </p>
-                <form
-                    action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
-                    method="POST">
-                    <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
-                </form>
-                {% elif countdown == 0 %}
-                <p><strong>Next episode to air:</strong> {{ results['next_episode_to_air']['air_date'] }}</p>
-                <p><span class='days'>Out Today!</span> </p>
-                <form
-                    action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
-                    method="POST">
-                    <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
-                </form>
-                {% else %}
-                <p><strong>Next episode to air:</strong> {{ results['next_episode_to_air']['air_date'] }}</p>
-                <p>T-minus <span class='days'> {{ countdown }} </span>days</p>
-                <form
-                    action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
-                    method="POST">
-                    <input class='btn btn-secondary my-2 my-sm-0' type="submit" value='Track'>
-                </form>
-                {% endif %}
+        <div class='col-sm-8 text-left'>
+            {% if results["title"] %}
+            <h4 class="uppercase">{{ results["title"] }}</h4>
+            <br>
+            <p class="overview"> <strong> {{ results["overview"] }}</strong></p>
+            {% if countdown == -1 %}
+            <p><strong>Status:</strong> Released on {{ results["release_date"] }}</p>
+            {% else %}
+            <p><strong>Status:</strong> Coming out on {{ results["release_date"] }}</p>
+            <p>T-minus <span class='days'>{{ countdown }}</span>days</p>
+            <form action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
+                method="POST">
+                <input class='btn btn-secondary btn-lg' type="submit" value='Track'>
+            </form>
+            {% endif %}
+            {% else %}
+            <h4 class="uppercase"> {{ results['name'] }}</h4>
+            <br>
+            <p>{{ results['overview'] }}</p>
+            {% if countdown == -1 and results['status'] == 'Ended' %}
+            <p><strong>Looks like this show has officialy ended and won't be releasing new seasons.</strong></p>
+            {% elif countdown == -1 and results['status'] != 'Ended' %}
+            <p><strong>This show doesn't have new episodes, but it might in the future - worth keeping an eye on
+                    it.</strong> </p>
+            <form action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
+                method="POST">
+                <input class='btn btn-secondary btn-lg' type="submit" value='Track'>
+            </form>
+            {% elif countdown == 0 %}
+            <p><strong>Next episode to air:</strong> {{ results['next_episode_to_air']['air_date'] }}</p>
+            <p><span class='days'>Out Today!</span> </p>
+            <form action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
+                method="POST">
+                <input class='btn btn-secondary btn-lg' type="submit" value='Track'>
+            </form>
+            {% else %}
+            <p><strong>Next episode to air:</strong> {{ results['next_episode_to_air']['air_date'] }}</p>
+            <p>T-minus <span class='days'> {{ countdown }} </span>days</p>
+            <form action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
+                method="POST">
+                <input class='btn btn-secondary btn-lg' type="submit" value='Track'>
+            </form>
+            {% endif %}
 
-                {% endif %}
-                <br>
-                <div class='container-fluid stream-on'>
-                    <h5>Stream on:</h5>
-                    <ul>
-                        {% for i in where_to_watch["flatrate"] %}
-                        <li><img class='logo' src='{{i["logo_path"]}}'></li>
-                        {% endfor %}
-                    </ul>
-                    <p> Powered by <a href="https://www.justwatch.com/JustWatch">JustWatch</a></p>
+            {% endif %}
+            <br>
+        </div>
+    </div>
+    <div class='container-fluid stream-on'>
+        <h5>Stream on:</h5>
+        {% for i in where_to_watch["flatrate"] %}
+
+        <img class='logo' src='{{i["logo_path"]}}'>
+
+        {% endfor %}
+        <p> Powered by <a href="https://www.justwatch.com/JustWatch">JustWatch</a></p>
+    </div>
+    {% if recommends %}
+    <div class="container-fluid">
+        <br>
+        <h3 class="text-left">MORE LIKE THIS</h3><br>
+        <div class='row'>
+            {% for i in recommends %}
+            <div class='col-sm-2'>
+                <div class='animated fadeIn'>
+                    <a href="{{ url_for('viewitem', item_id=i['id'], title=i['title']) }}">
+                        <img src='{{ i["poster_path"] }}' class='my-img img-fluid'>
+                    </a>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
-    <br>
-</div>
-{% if recommends %}
-<div class="container">
-    <h4 class="text-left">MORE LIKE THIS</h4><br>
-    <div class='row'>
-        {% for i in recommends %}
-        <div class='col-sm-2'>
-            <div class='animated fadeIn'>
-                <a href="{{ url_for('viewitem', item_id=i['id'], title=i['title']) }}">
-                    <img src='{{ i["poster_path"] }}' class='my-img img-fluid'>
-                </a>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-{% endif %}
+    {% endif %}
 
-{% endblock %}
+    {% endblock %}
