@@ -55,15 +55,17 @@
             <br>
         </div>
     </div>
+    {% if where_to_watch["flatrate"] %}
     <div class='container-fluid stream-on'>
         <h5>Stream on:</h5>
         {% for i in where_to_watch["flatrate"] %}
-
         <img class='logo' src='{{i["logo_path"]}}'>
-
         {% endfor %}
         <p> Powered by <a href="https://www.justwatch.com/JustWatch">JustWatch</a></p>
     </div>
+    {% else %}
+    <br>
+    {% endif %}
     {% if recommends %}
     <div class="container-fluid">
         <br>
