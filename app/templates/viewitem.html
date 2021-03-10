@@ -16,7 +16,7 @@
             <p><strong>Status:</strong> Released on {{ results["release_date"] }}</p>
             {% else %}
             <p><strong>Status:</strong> Coming out on {{ results["release_date"] }}</p>
-            <p>T-minus <span class='days'>{{ countdown }}</span>days</p>
+            <p>T-minus <span class='days'>{{ countdown }}</span></p>
             <form action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
                 method="POST">
                 <input class='btn btn-secondary btn-lg' type="submit" value='Track'>
@@ -44,7 +44,7 @@
             </form>
             {% else %}
             <p><strong>Next episode to air:</strong> {{ results['next_episode_to_air']['air_date'] }}</p>
-            <p>T-minus <span class='days'> {{ countdown }} </span>days</p>
+            <p>T-minus <span class='days'> {{ countdown }} </span></p>
             <form action="{{ url_for('track', item_id=results['id'], title=results['title'], countdown=countdown) }}"
                 method="POST">
                 <input class='btn btn-secondary btn-lg' type="submit" value='Track'>
@@ -69,7 +69,7 @@
     {% if recommends %}
     <div class="container-fluid">
         <br>
-        <h3 class="text-left">MORE LIKE THIS</h3><br>
+        <h4 class="text-left">YOU MIGHT ALSO LIKE THESE</h4><br>
         <div class='row'>
             {% for i in recommends %}
             <div class='col-sm-2'>
