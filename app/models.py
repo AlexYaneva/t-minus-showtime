@@ -55,14 +55,14 @@ class User(UserMixin):
         return db.get_user(user_email)
 
 
-    def track_film(self, tracked_id, countdown):
+    def track_film(self, tracked_id):
         tracked_type = 'film'
-        db.track(self.email, tracked_id, tracked_type, countdown)
+        db.track(self.email, tracked_id, tracked_type)
 
 
-    def track_series(self, tracked_id, countdown):
+    def track_series(self, tracked_id):
         tracked_type = 'series'
-        db.track(self.email, tracked_id, tracked_type, countdown)
+        db.track(self.email, tracked_id, tracked_type)
 
 
     def untrack(self, tracked_id):

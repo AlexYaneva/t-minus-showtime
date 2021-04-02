@@ -79,32 +79,44 @@ html, body {
 
 .container-dash-left {
     width: 49%;
-    background: radial-gradient(ellipse at right, #3d6074 0%, #1e2330 100%);
+    /* background: radial-gradient(ellipse at right, #3d6074 0%, #1e2330 100%); */
+    background: transparent;
     border-top-style: solid;
-    border-right-style: solid;
-    border-radius: 15px;
+    /* border-right-style: solid; */
+    /* border-radius: 5px; */
     border-color:  rgb(136, 135, 135);
     margin-bottom: 10px;
 }
 
 .container-dash-right {
     width: 49%;
-    background: radial-gradient(ellipse at left, #3d6074 0%, #1e2330 100%);
+    /* background: radial-gradient(ellipse at left, #3d6074 0%, #1e2330 100%); */
+    background: transparent;
     border-top-style: solid;
-    border-left-style: solid;
-    border-radius: 15px;
+    /* border-left-style: solid; */
+    /* border-radius: 5px; */
     border-color:  rgb(136, 135, 135);
     margin-bottom: 10px;
+}
+
+.card {
+    /* background-color: #e0eff3; */
+    /* background-color: #0d1213; */
+    background: radial-gradient(ellipse at top, #283f4d 0%, #1e2330 100%);
+    margin-bottom: 5px;
 }
 
 p {
     padding: 5px;
 }
 
+
 form {
-    justify-content: center;
+    /* justify-content: center; */
     padding: 5px;
 }
+
+
 
 h1,h2,h3 {
     font-family: 'Audiowide', cursive;
@@ -156,7 +168,8 @@ h4, h5, h6 {
 }
 
 .days {
-    font-size: x-large;
+    font-size: large;
+    text-transform: capitalize;
     font-family: 'Audiowide', cursive;
     color: #ff4f4f;
     padding: 5px;

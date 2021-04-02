@@ -12,9 +12,25 @@
 <div class="container container-dash-left float-left animated fadeIn">
     <h4 class='text-center'>MY FILMS</h4><br>
     {% if films %}
-    <div class='row justify-content-center'>
-        {% for tracked in films %}
-        <div class='col-sm-4'>
+    {% for tracked in films %}
+    <div class="card">
+        <div class="row no-gutters">
+            <div class="col-2 justify-content-center">
+                <img src='{{ tracked["poster_path"] }}' class=" rounded img-fluid" alt="">
+            </div>
+            <div class="col text-left">
+                <div class="card-block px-2">
+                    <h5 class="card-title uppercase">{{ tracked["title"]}}</h5>
+                    <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
+                    <form style="text-align: right;"
+                        action="{{ url_for('untrack', item_id=tracked['id'], title=tracked['title']) }}" method="POST">
+                        <input class='btn btn-secondary btn-sm' type="submit" value="Delete">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class='col-sm-4'>
             <div class="img-wrap">
                 <div class="img-overlay"></div>
                 <img src='{{ tracked["poster_path"] }}' class='img-fluid img-dash'>
@@ -27,9 +43,9 @@
                 </div>
             </div>
             <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
-        </div>
-        {% endfor %}
-    </div>
+        </div> -->
+    {% endfor %}
+    <!-- </div> -->
     {% else %}
     <div class="container">
         <p>
@@ -47,9 +63,31 @@
 <div class="container container-dash-right float-right animated fadeIn">
     <h4 class='text-center'>MY SERIES</h4><br>
     {% if series %}
-    <div class='row justify-content-center'>
-        {% for tracked in series %}
-        <div class='col-sm-4'>
+    {% for tracked in series %}
+    <div class="card">
+        <div class="row no-gutters">
+            <div class="col-2 justify-content-center">
+                <img src='{{ tracked["poster_path"] }}' class=" rounded img-fluid" alt="">
+            </div>
+            <div class="col text-left">
+                <div class="card-block px-2">
+                    <h5 class="card-title uppercase">{{ tracked["name"]}}</h5>
+                    {% if tracked["countdown"] == 0 %}
+                    <p><span class='days'>NEW EPISODE OUT TODAY!</span> </p>
+                    {% elif tracked["countdown"] == 1000 %}
+                    <p>No new episodes</p>
+                    {% else %}
+                    <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
+                    {% endif %}
+                    <form style="text-align: right;"
+                        action="{{ url_for('untrack', item_id=tracked['id'], title=tracked['title']) }}" method="POST">
+                        <input class='btn btn-secondary btn-sm' type="submit" value="Delete">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class='col-sm-4'>
             <div class="img-wrap">
                 <div class="img-overlay"></div>
                 <img src='{{ tracked["poster_path"] }}' class='img-fluid img-dash'>
@@ -59,17 +97,17 @@
                             value="Delete">
                     </form>
                 </div>
-            </div>
-            {% if tracked["countdown"] == 0 %}
-            <p><span class='days'>Out Today!</span> </p>
-            {% elif tracked["countdown"] == 1000 %}
-            <p>No new episodes</p>
-            {% else %}
-            <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
-            {% endif %}
-        </div>
-        {% endfor %}
-    </div>
+            </div> -->
+    <!-- {% if tracked["countdown"] == 0 %}
+        <p><span class='days'>Out Today!</span> </p>
+        {% elif tracked["countdown"] == 1000 %}
+        <p>No new episodes</p>
+        {% else %}
+        <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
+        {% endif %} -->
+
+    {% endfor %}
+
     {% else %}
     <div class="container">
         <p>

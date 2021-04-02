@@ -231,14 +231,14 @@ def user(username):
 
 
 
-@app.route("/track/<int:item_id>/<countdown>/", methods=["GET", "POST"])
-@app.route("/track/<int:item_id>/<countdown>/<title>", methods=["GET", "POST"])
-def track(item_id, countdown, title=None):
+@app.route("/track/<int:item_id>/", methods=["GET", "POST"])
+@app.route("/track/<int:item_id>/<title>", methods=["GET", "POST"])
+def track(item_id, title=None):
     if title:
-        current_user.track_film(item_id, countdown)
+        current_user.track_film(item_id)
         flash("Success! We've added this film to your dashboard.")
     else:
-        current_user.track_series(item_id, countdown)
+        current_user.track_series(item_id)
         flash("Success! We've added this show to your dashboard.")
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()

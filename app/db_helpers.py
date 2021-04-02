@@ -13,7 +13,6 @@ def create_new_user(email, username):
                                 "Username": username
                                                     }
                                                         )
-    # generate pass hash, and then update_password()
 
 
 def update_password(email, password_hash):
@@ -44,8 +43,7 @@ def get_user(email):
 
 
 
-def track(email, tracked_id, tracked_type, countdown):
-    if isinstance(countdown, str):
+def track(email, tracked_id, tracked_type):
         table.put_item(
                 Item={
                     "Email": email,
@@ -53,15 +51,6 @@ def track(email, tracked_id, tracked_type, countdown):
                     "Tracked_type": tracked_type
                                                 }
                                                     )
-    elif isinstance(countdown, int):
-        table.put_item(
-                        Item={
-                            "Email": email,
-                            "Tracked_id": tracked_id,
-                            "Tracked_type": tracked_type,
-                            "Countdown" : countdown
-                                                    }
-                                                        )
 
 
 def untrack(email, tracked_id):
@@ -82,7 +71,7 @@ def get_tracked(email, tracked_type):
     '''
     # query the db for all tracked series/films for a user
     all_tracked = table.query(
-                        TableName="User_table",
+                        TableName="Users",
                         KeyConditionExpression="Email = :email",
                         FilterExpression="Tracked_type = :tracked_type",
                         ProjectionExpression="Tracked_id",
@@ -121,19 +110,19 @@ def get_tracked(email, tracked_type):
     return  sorted(tracked_items, key=lambda x: x["countdown"])
 
 
-def get_all_releasing_tomorrow():
+def get_all_releasing_tomorrow(tracked_type):
     '''
     Get all films and series accross all users
-    which have a release date within 1 day
     GSI
     '''
-    countdown = 1
+
     response = table.query(
                         IndexName= "Tracked",
-                        KeyConditionExpression="Countdown = :countdown",
-                        ProjectionExpression="Tracked_id, Email, Tracked_type",
-                        ExpressionAttributeValues={":countdown" : countdown}
+                        KeyConditionExpression="Tracked_type = :tracked_type",
+                        ProjectionExpression="Tracked_id, Email",
+                        ExpressionAttributeValues={":tracked_type" : tracked_type}
                                                                                 )
+    return response
     # response should be a list of db items - need to process these - likely need to create a new Tracked model class?
 
 def update_username(email, tracked=0):
