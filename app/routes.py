@@ -15,6 +15,7 @@ import app.db_helpers as db
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
+    print(db.get_all_releasing_tomorrow("series"))
     return render_template("index.html")
 
 

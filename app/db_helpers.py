@@ -114,18 +114,54 @@ def get_tracked(email, tracked_type):
 
 def get_all_releasing_tomorrow(tracked_type):
     '''
-    Get all films and series accross all users
+    Get all films or series accross all users
     GSI
     '''
 
-    response = table.query(
-                        IndexName= "Tracked",
-                        KeyConditionExpression="Tracked_type = :tracked_type",
-                        ProjectionExpression="Tracked_id, Email",
-                        ExpressionAttributeValues={":tracked_type" : tracked_type}
-                                                                                )
-    return response
-    # response should be a list of db items - need to process these - likely need to create a new Tracked model class?
+    # retrieve all tracked from the db
+    db_response = table.query(
+                            TableName="Users",
+                            IndexName= "Tracked",
+                            KeyConditionExpression="Tracked_type = :tracked_type",
+                            ProjectionExpression="Tracked_id, Email, Title, Poster_path",
+                            ExpressionAttributeValues={":tracked_type" : tracked_type}
+                                                                                        )
+    
+    db_response = db_response["Items"]
+
+    # add all id's to a set (eliminates duplicates)
+    shows_ids = {int(i["Tracked_id"]) for i in db_response}
+
+
+    # make the http requests to the tmdb api asynchronously
+    # SERIES only for testing
+    series_object = GetSeries(page=1)
+    tmdb_response = series_object.async_series_details(shows_ids)
+
+
+    # check which episodes are releasing in 1 day and delete the rest
+    for i in tmdb_response:
+        if i["next_episode_to_air"]:
+            countdwn = countdown(i["next_episode_to_air"]["air_date"])
+        else:
+            countdwn = 1000
+        if countdwn != 1:
+            shows_ids.remove(i["id"])
+
+
+    # create dict with user emails as the keys and a list of shows they track as the values
+    email_dict = {i["Email"] : [] for i in db_response}
+
+
+    # populate the dict only with details of shows which release in 1 day i.e. only the shows in the shows_id list
+    for i in db_response:
+        if i["Tracked_id"] in shows_ids:
+            email_dict[i["Email"]].append({"id" : int(i["Tracked_id"]), "Title" : i["Title"], "Poster_path" : i["Poster_path"]})
+
+    return email_dict
+
+
+
 
 def update_username(email, tracked=0):
     pass
