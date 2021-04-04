@@ -7,34 +7,34 @@ from app.utils import countdown
 def create_new_user(email, username):
     tracked_id = 0
     new_user = table.put_item(
-                            Item={
-                                "Email": email,
-                                "Tracked_id": tracked_id,
-                                "Username": username
-                                                    }
-                                                        )
+                                Item={
+                                    "Email": email,
+                                    "Tracked_id": tracked_id,
+                                    "Username": username
+                                                            }
+                                                                )
 
 
 def update_password(email, password_hash):
     tracked_id = 0
     table.update_item(
-                    Key={
-                        "Email": email,
-                        "Tracked_id": tracked_id
-                                                },
-                    UpdateExpression="SET Password_hash = :setpass",
-                    ExpressionAttributeValues={":setpass": password_hash}
-                                                                            )
+                        Key={
+                            "Email": email,
+                            "Tracked_id": tracked_id
+                                                    },
+                        UpdateExpression="SET Password_hash = :setpass",
+                        ExpressionAttributeValues={":setpass": password_hash}
+                                                                                )
 
 
 def get_user(email):
     tracked_id = 0
     db_user_item = table.get_item(
-                                Key={
-                                    "Email": email,
-                                    "Tracked_id": tracked_id
-                                                            }
-                                                                )
+                                    Key={
+                                        "Email": email,
+                                        "Tracked_id": tracked_id
+                                                                }
+                                                                    )
     try:
         user = db_user_item["Item"]
     except KeyError:
@@ -43,23 +43,25 @@ def get_user(email):
 
 
 
-def track(email, tracked_id, tracked_type):
-        table.put_item(
-                Item={
-                    "Email": email,
-                    "Tracked_id": tracked_id,
-                    "Tracked_type": tracked_type
-                                                }
-                                                    )
+def track(email, tracked_id, tracked_type, title, poster_path):
+    table.put_item(
+                    Item={
+                        "Email": email,
+                        "Tracked_id": tracked_id,
+                        "Tracked_type": tracked_type,
+                        "Title" : title,
+                        "Poster_path": poster_path
+                                                            }
+                                                                )
 
 
 def untrack(email, tracked_id):
     table.delete_item(
-                    Key={
-                        "Email": email,
-                        "Tracked_id": tracked_id
-                                                }
-                                                    )
+                        Key={
+                            "Email": email,
+                            "Tracked_id": tracked_id
+                                                    }
+                                                        )
 
 
 def get_tracked(email, tracked_type):
