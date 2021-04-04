@@ -146,6 +146,11 @@ h4, h5, h6 {
     color: #333232;
 }
 
+.btn-dash {
+    background-color: darkgrey;
+    border-color: transparent;
+}
+
 
 .jumbotron {
     margin-top: 1rem;

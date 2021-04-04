@@ -24,28 +24,14 @@
                     <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
                     <form style="text-align: right;"
                         action="{{ url_for('untrack', item_id=tracked['id'], title=tracked['title']) }}" method="POST">
-                        <input class='btn btn-secondary btn-sm' type="submit" value="Delete">
+                        <button class='btn btn-secondary btn-sm btn-dash' type="submit"><i
+                                class="fa fa-trash"></i></button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- <div class='col-sm-4'>
-            <div class="img-wrap">
-                <div class="img-overlay"></div>
-                <img src='{{ tracked["poster_path"] }}' class='img-fluid img-dash'>
-                <div class="img-button">
-                    <form action="{{ url_for('untrack', item_id=tracked['id'], title=tracked['title']) }}"
-                        method="POST">
-                        <input class='btn btn-secondary btn-sm d-flex mx-auto my-2 my-sm-0' type="submit"
-                            value="Delete">
-                    </form>
-                </div>
-            </div>
-            <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
-        </div> -->
     {% endfor %}
-    <!-- </div> -->
     {% else %}
     <div class="container">
         <p>
@@ -81,31 +67,13 @@
                     {% endif %}
                     <form style="text-align: right;"
                         action="{{ url_for('untrack', item_id=tracked['id'], title=tracked['title']) }}" method="POST">
-                        <input class='btn btn-secondary btn-sm' type="submit" value="Delete">
+                        <button class='btn btn-secondary btn-sm btn-dash' type="submit"><i
+                                class="fa fa-trash"></i></button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- <div class='col-sm-4'>
-            <div class="img-wrap">
-                <div class="img-overlay"></div>
-                <img src='{{ tracked["poster_path"] }}' class='img-fluid img-dash'>
-                <div class="img-button">
-                    <form action="{{ url_for('untrack', item_id=tracked['id']) }}" method="POST">
-                        <input class='btn btn-secondary btn-sm d-flex mx-auto my-2 my-sm-0' type="submit"
-                            value="Delete">
-                    </form>
-                </div>
-            </div> -->
-    <!-- {% if tracked["countdown"] == 0 %}
-        <p><span class='days'>Out Today!</span> </p>
-        {% elif tracked["countdown"] == 1000 %}
-        <p>No new episodes</p>
-        {% else %}
-        <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
-        {% endif %} -->
-
     {% endfor %}
 
     {% else %}
