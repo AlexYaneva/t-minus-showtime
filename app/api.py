@@ -28,13 +28,13 @@ class TMDB:
 
 
 
-    def _async_requests(self, path, list_of_ids):
+    def _async_requests(self, path, list_of_ids, append_to_response):
 
         ''' method to issue multiple http requests asynchronously'''
 
         urls = []
         for i in list_of_ids:
-            url = f"{self.base_url}{path}{i}{self.APIKEY}{self.language}{self.page}"
+            url = f"{self.base_url}{path}{i}{self.APIKEY}{self.language}{self.page}{append_to_response}"
             urls.append(url)
             
         return async_get_multiple(list_of_ids, urls)
@@ -61,6 +61,16 @@ class TMDB:
                 item["poster_path"] = f"{self.IMAGES_URL}{item['poster_path']}"
             else:
                 item["poster_path"] = f"{url_for('static', filename='img/no_image.png')}"
+
+            # for testing purpose
+            if "watch/providers" in item:
+                try:
+                    item["watch/providers"] = item["watch/providers"]["results"]["GB"]["flatrate"] # next task is to change country based on location
+                    for i in item["watch/providers"]:
+                        i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
+                except KeyError:
+                    pass
+            # end of test
         return response
 
 
@@ -109,7 +119,7 @@ class GetFilms(TMDB):
 
     def async_film_details(self, list_of_ids):
         path = self.paths.get("film_details")
-        response = self._async_requests(path=path, list_of_ids=list_of_ids)
+        response = self._async_requests(path=path, list_of_ids=list_of_ids, append_to_response="")
         return self._process_multiple_items(response)
 
 
@@ -182,7 +192,10 @@ class GetSeries(TMDB):
 
     def async_series_details(self, list_of_ids):
         path = self.paths.get("series_details")
-        response = self._async_requests(path=path, list_of_ids=list_of_ids)
+        # for testing purpose
+        append_to_response = "&append_to_response=watch/providers"
+        response = self._async_requests(path=path, list_of_ids=list_of_ids, append_to_response=append_to_response)
+        # end of test - remove append_to_response
         return self._process_multiple_items(response)
 
 

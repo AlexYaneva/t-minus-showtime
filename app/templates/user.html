@@ -9,82 +9,88 @@
     <p>Fasten your seatbelts, it's watching time! In T-minus 15 days or so anyway.</p>
 </div>
 
-<div class="container container-dash-left float-left animated fadeIn">
+<!-- <div class="container container-dash-left float-left animated fadeIn">
     <h4 class='text-center'>MY FILMS</h4><br>
     {% if films %}
-    {% for tracked in films %}
-    <div class="card">
-        <div class="row no-gutters">
-            <div class="col-2 justify-content-center">
-                <img src='{{ tracked["poster_path"] }}' class=" rounded img-fluid" alt="">
+    <div class="card-deck">
+        {% for tracked in films %}
+        <div class="card" style="max-width: 12rem;">
+            <img class="card-img-top" style="max-height: 16rem; max-width: 12rem;" src='{{ tracked["poster_path"] }}'>
+            <div class="card-body">
+                <p class="card-text">T-<span class='days'>{{ tracked["countdown"] }}</span></p>
             </div>
-            <div class="col text-left">
-                <div class="card-block px-2">
-                    <h5 class="card-title uppercase">{{ tracked["title"]}}</h5>
-                    <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
-                    <form style="text-align: right;"
-                        action="{{ url_for('untrack', item_id=tracked['id'], title=tracked['title']) }}" method="POST">
-                        <button class='btn btn-secondary btn-sm btn-dash' type="submit"><i
-                                class="fa fa-trash"></i></button>
-                    </form>
+            <div class="card-footer">
+                <div class="stream-on">
+                    <h6>Stream on:</h6>
+
+                    <img class='logo' src='http://image.tmdb.org/t/p/original/bzWGPi4Jxdzm9ehkT9ZDuiwj1Hp.jpg'>
+
+                    <img class='logo' src='http://image.tmdb.org/t/p/original/zLX0ExkHc8xJ9W4u9JgnldDQLKv.jpg'>
+
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-    {% else %}
-    <div class="container">
-        <p>
-            You are not tracking any films yet.
-        </p>
-        <br>
-        <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find
-            films</a>
+</div>
+{% else %}
+<div class="container">
+    <p>
+        You are not tracking any films yet.
+    </p>
+    <br>
+    <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find
+        films</a>
+</div>
+{% endif %}
+</div>  -->
+
+
+
+<div class="container animated fadeIn">
+    <h4 class='text-center'>MY SERIES</h4><br>
+    {% if series %}
+    <div class="card-deck">
+        {% for tracked in series %}
+        <div class="card" style="max-width: 12rem;">
+            <img class="card-img-top" style="max-height: 16rem; max-width: 12rem;" src='{{ tracked["poster_path"] }}'>
+            <div class="card-body">
+
+                {% if tracked["countdown"] == 0 %}
+                <p class="card-text"><span class='days'>WATCH TODAY!</span> </p>
+                {% elif tracked["countdown"] == 1000 %}
+                <p class="card-text">No new episodes</p>
+                {% else %}
+                <p class="card-text">T-<span class='days'>{{ tracked["countdown"] }}</span></p>
+                {% endif %}
+                <form style="text-align: right;"
+                    action="{{ url_for('untrack', item_id=tracked['id'], title=tracked['title']) }}" method="POST">
+                    <button class='btn btn-secondary btn-sm btn-dash' type="submit"><i class="fa fa-trash"></i></button>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="stream-on">
+                    <h6>Stream on:</h6>
+                    {% for i in tracked["watch/providers"] %}
+                    <img class='logo' src='{{i["logo_path"]}}'>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% endif %}
 </div>
 
 
-
-<div class="container container-dash-right float-right animated fadeIn">
-    <h4 class='text-center'>MY SERIES</h4><br>
-    {% if series %}
-    {% for tracked in series %}
-    <div class="card">
-        <div class="row no-gutters">
-            <div class="col-2 justify-content-center">
-                <img src='{{ tracked["poster_path"] }}' class=" rounded img-fluid" alt="">
-            </div>
-            <div class="col text-left">
-                <div class="card-block px-2">
-                    <h5 class="card-title uppercase">{{ tracked["name"]}}</h5>
-                    {% if tracked["countdown"] == 0 %}
-                    <p><span class='days'>NEW EPISODE OUT TODAY!</span> </p>
-                    {% elif tracked["countdown"] == 1000 %}
-                    <p>No new episodes</p>
-                    {% else %}
-                    <p>T-<span class='days'>{{ tracked["countdown"] }}</span></p>
-                    {% endif %}
-                    <form style="text-align: right;"
-                        action="{{ url_for('untrack', item_id=tracked['id'], title=tracked['title']) }}" method="POST">
-                        <button class='btn btn-secondary btn-sm btn-dash' type="submit"><i
-                                class="fa fa-trash"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-
-    {% else %}
-    <div class="container">
-        <p>
-            You are not tracking any series yet.
-        </p>
-        <br>
-        <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find series</a>
-    </div>
-    {% endif %}
+{% else %}
+<div class="container">
+    <p>
+        You are not tracking any series yet.
+    </p>
+    <br>
+    <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find series</a>
+</div>
+{% endif %}
 </div>
 
 

@@ -100,10 +100,7 @@ html, body {
 }
 
 .card {
-    /* background-color: #e0eff3; */
-    /* background-color: #0d1213; */
-    background: radial-gradient(ellipse at top, #283f4d 0%, #1e2330 100%);
-    margin-bottom: 5px;
+    background: radial-gradient(ellipse at bottom, #415866 0%, #353c4e 100%);
 }
 
 p {
@@ -305,12 +302,13 @@ h4, h5, h6 {
  }
 
  .stream-on {
-    background-color: #101516;
+    /* background-color: #101516; */
+    background-color: transparent;
     border-radius: 5px;
     border: none;
     display: inline-block;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    /* padding-top: 5px;
+    padding-bottom: 5px; */
     
 }
 

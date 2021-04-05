@@ -122,7 +122,7 @@ def films_in_theatres():
 def viewitem(item_id, title=None):
     if title:
         film = GetFilms(page=1)
-        results = film.film_details(item_id=item_id)
+        results = film.film_details(item_id=item_id) 
         countdwn = utils.countdown(results["release_date"])
         recommends = film.film_recommendations(item_id=item_id)
         where_to_watch = film.film_where_to_watch(item_id=item_id)
