@@ -13,6 +13,14 @@ html, body {
     min-height: 90vh;
 }
 
+.nav-tabs .nav-link {
+    color:rgb(80, 77, 95);
+}
+
+.tab-pane {
+    padding-top: 2rem;
+}
+
 
 .nav-my .nav-link {
     font-family: 'Jura', sans-serif;
@@ -61,6 +69,7 @@ html, body {
     background-color:transparent;
     border-radius: .25rem;
 }
+
 
 .fa-bars {
     color: #fff;
@@ -195,6 +204,11 @@ h4, h5, h6 {
     text-transform: uppercase;
 }
 
+.overview {
+    height: 13rem;
+    overflow-y:auto;
+}
+
 
 .padded-row {
     padding-bottom: 10px;
@@ -210,14 +224,14 @@ h4, h5, h6 {
     position: relative;
     overflow: hidden;
     margin: auto;
-    width: 90%;
+    width: 100%;
 }
 
 .img-wrap .img-overlay {
-    background: rgba(0,0,0,0.7);
+    background: transparent;
     position: absolute;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     height: 100%;
     width: 100%;
     left: 0;
@@ -239,7 +253,7 @@ h4, h5, h6 {
     text-align: center;
     padding-left: 1em;
     padding-right: 1em;
-    width: 100%;
+    width: 20%;
     top: 80%;
     left: 50%;
     opacity: 0;
@@ -302,16 +316,52 @@ h4, h5, h6 {
  }
 
  .stream-on {
-    /* background-color: #101516; */
+    background-color: #101516;
+    /* background-color: transparent; */
+    border-radius: 5px;
+    border: none;
+    display: inline-block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+}
+
+
+.stream-on-dash {
     background-color: transparent;
     border-radius: 5px;
     border: none;
     display: inline-block;
-    /* padding-top: 5px;
-    padding-bottom: 5px; */
     
 }
 
 
 
+  
+.pulse {
 
+    height: 20px;
+    width: 20px;
+    transform: scale(1);
+    background: transparent;
+    /* background: rgba(255, 255, 255, 1); */
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 1);
+    animation: pulse-red 2s infinite;
+  }
+  
+  @keyframes pulse-red {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    }
+    
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+    }
+    
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+  }
