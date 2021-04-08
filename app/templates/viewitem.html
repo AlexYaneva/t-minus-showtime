@@ -18,7 +18,7 @@
             <p><strong>Status:</strong> Released on {{ results["release_date"] }}</p>
             {% else %}
             <p><strong>Status:</strong> Coming out on {{ results["release_date"] }}</p>
-            <p>T-minus <span class='days'>{{ countdown }}</span> days</p>
+            <p><span class='days'>T-MINUS {{ countdown }}</span> days</p>
             <form action="{{ url_for('track', item_id=results['id'], group='films') }}" method="POST">
                 <input class='btn btn-secondary btn-lg' type="submit" value='Track'>
             </form>
@@ -38,14 +38,13 @@
                 <input class='btn btn-secondary btn-lg' type="submit" value='Track'>
             </form>
             {% elif countdown == 0 %}
-            <p><strong>NEW EPISODE COMING ON:</strong> {{ results['next_episode_to_air']['air_date'] }}</p>
             <p><span class='days'>NEW EPISODE OUT TODAY!</span> </p>
             <form action="{{ url_for('track', item_id=results['id'], group='series') }}" method="POST">
                 <input class='btn btn-secondary btn-lg' type="submit" value='Track'>
             </form>
             {% else %}
-            <p><strong>Next episode to air:</strong> {{ results['next_episode_to_air']['air_date'] }}</p>
-            <p>T-minus <span class='days'> {{ countdown }} </span></p>
+            <p><strong>NEW EPISODE COMING ON:</strong> {{ results['next_episode_to_air']['air_date'] }}</p>
+            <p><span class='days'>T-MINUS {{ countdown }} </span></p>
             <form action="{{ url_for('track', item_id=results['id'], group='series') }}" method="POST">
                 <input class='btn btn-secondary btn-lg' type="submit" value='Track'>
             </form>

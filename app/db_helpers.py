@@ -144,7 +144,7 @@ def get_all_releasing_tomorrow(tracked_type):
         if i["next_episode_to_air"]:
             countdwn = countdown(i["next_episode_to_air"]["air_date"])
         else:
-            countdwn = 1000 
+            countdwn = 1000
         if countdwn != 1:
             shows_ids.remove(i["id"])
 

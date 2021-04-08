@@ -27,12 +27,12 @@
                     <div class="col-md-3" style="padding-bottom: 3rem;">
                         <div class="card">
                             {% if tracked["countdown"] == 0 %}
-                            <h5 class="card-header"><span class="pulse"><span class='days'>WATCH TODAY!</span></span>
+                            <h5 class="card-header"><span class='days'><span class="pulse">WA</span>TCH TODAY!</span>
                             </h5>
                             {% elif tracked["countdown"] == 1000 %}
                             <h5 class="card-header">NO EPISODES</h5>
                             {% else %}
-                            <h3 class="card-header"><span class='days'>T-{{ tracked["countdown"] }}</span></h3>
+                            <h5 class="card-header"><span class='days'>T-{{ tracked["countdown"] }}</span></h5>
                             {% endif %}
                             <div class="img-wrap">
                                 <div class="img-overlay"></div>

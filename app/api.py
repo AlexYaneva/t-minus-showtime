@@ -70,7 +70,7 @@ class TMDB:
                         i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
                 except KeyError:
                     pass
-            # end of test
+                    
         return response
 
 
