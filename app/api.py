@@ -17,12 +17,12 @@ class TMDB:
         self.language = "&language=en-US"
 
 
-    def _request(self, path, path2, item_id, query):
+    def _request(self, path, path2, item_id, query, append_to_response):
 
         ''' method to issue a single http request'''
 
         response = requests.get(
-            f"{self.base_url}{path}{item_id}{path2}{self.APIKEY}{self.language}{self.page}{query}"
+            f"{self.base_url}{path}{item_id}{path2}{self.APIKEY}{self.language}{self.page}{query}{append_to_response}"
         ).json()
         return response
 
@@ -46,10 +46,16 @@ class TMDB:
         if response['poster_path']:
             response["poster_path"] = f"{self.IMAGES_URL}{response['poster_path']}"
         else:
-            item["poster_path"] = f"{url_for('static', filename='img/no_image.png')}"
+            response["poster_path"] = f"{url_for('static', filename='img/no_image.png')}"
             
-        if response['backdrop_path']:
-            response["backdrop_path"] = f"{self.BACKDROPS_URL}{response['backdrop_path']}"
+        if "watch/providers" in response:
+            try:
+                response["watch/providers"] = response["watch/providers"]["results"]["GB"]["flatrate"] # next task is to change country based on location
+            except KeyError:
+                response["watch/providers"] = response["watch/providers"]["results"]["GB"]["free"]
+
+            for i in response["watch/providers"]:
+                i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
 
         return response
 
@@ -62,7 +68,6 @@ class TMDB:
             else:
                 item["poster_path"] = f"{url_for('static', filename='img/no_image.png')}"
 
-            # for testing purpose
             if "watch/providers" in item:
                 try:
                     item["watch/providers"] = item["watch/providers"]["results"]["GB"]["flatrate"] # next task is to change country based on location
@@ -91,8 +96,7 @@ class GetFilms(TMDB):
         "film_details": "/movie/",
         "similar": "/similar",
         "in_theatres" : "/movie/now_playing",
-        "top_rated" : "/movie/top_rated",
-        "where_to_watch": "/watch/providers"
+        "top_rated" : "/movie/top_rated"
     }
 
     def set_countdown(self, item):
@@ -102,7 +106,7 @@ class GetFilms(TMDB):
 
     def popular_films(self):
         path = self.paths.get("popular_films")
-        response = self._request(path=path, path2="", item_id="", query="")
+        response = self._request(path=path, path2="", item_id="", query="", append_to_response="")
         response = response["results"]
         return self._process_multiple_items(response)
 
@@ -110,14 +114,15 @@ class GetFilms(TMDB):
     def search_films(self, query):
         query = f"&query={query}"
         path = self.paths.get("search_film")
-        response = self._request(path=path, path2="", item_id="", query=query)
+        response = self._request(path=path, path2="", item_id="", query=query, append_to_response="")
         response = response["results"]
         return self._process_multiple_items(response)
 
 
     def film_details(self, item_id):
         path = self.paths.get("film_details")
-        response = self._request(path=path, path2="", item_id=item_id, query="")
+        append_to_response = "&append_to_response=watch/providers"
+        response = self._request(path=path, path2="", item_id=item_id, query="", append_to_response=append_to_response)
         return self._process_by_id(response)
 
 
@@ -131,33 +136,25 @@ class GetFilms(TMDB):
     def film_recommendations(self, item_id):
         path = self.paths.get("film_details")
         path2 = self.paths.get("similar")
-        response = self._request(path=path, path2=path2, item_id=item_id, query="")
+        response = self._request(path=path, path2=path2, item_id=item_id, query="", append_to_response="")
         response = response["results"]
         return self._process_multiple_items(response)
 
 
     def top_rated(self):
         path = self.paths.get("top_rated")
-        response = self._request(path=path, path2="", item_id="", query="")
+        response = self._request(path=path, path2="", item_id="", query="", append_to_response="")
         response = response["results"]
         return self._process_multiple_items(response)
 
 
     def films_in_theatres(self):
         path = self.paths.get("in_theatres")
-        response = self._request(path=path, path2="", item_id="", query="")
+        response = self._request(path=path, path2="", item_id="", query="", append_to_response="")
         response = response["results"]
         return self._process_multiple_items(response)
 
-    def film_where_to_watch(self, item_id):
-        path = self.paths.get("film_details")
-        path2 = self.paths.get("where_to_watch")
-        response = self._request(path=path, path2=path2, item_id=item_id, query="")
-        try:
-            response = response["results"]["GB"]
-        except KeyError:
-            return
-        return self._process_logos(response)
+
 
 
 
@@ -169,8 +166,7 @@ class GetSeries(TMDB):
         "series_details": "/tv/",
         "similar": "/similar",
         "airing_today": "/tv/airing_today",
-        "on_the_air": "/tv/on_the_air",
-        "where_to_watch": "/watch/providers"
+        "on_the_air": "/tv/on_the_air"
     }
 
     def set_countdown(self, item):
@@ -184,7 +180,7 @@ class GetSeries(TMDB):
 
     def popular_series(self):
         path = self.paths.get("popular_series")
-        response = self._request(path=path, path2="", item_id="", query="")
+        response = self._request(path=path, path2="", item_id="", query="", append_to_response="")
         response = response["results"]
         return self._process_multiple_items(response)
 
@@ -192,53 +188,42 @@ class GetSeries(TMDB):
     def search_series(self, query):
         query += f"&query={query}"
         path = self.paths.get("search_series")
-        response = self._request(path=path, path2="", item_id="", query=query)
+        response = self._request(path=path, path2="", item_id="", query=query, append_to_response="")
         response = response["results"]
         return self._process_multiple_items(response)
 
 
     def series_details(self, item_id):
         path = self.paths.get("series_details")
-        response = self._request(path=path, path2="", item_id=item_id, query="")
+        append_to_response = "&append_to_response=watch/providers"
+        response = self._request(path=path, path2="", item_id=item_id, query="", append_to_response=append_to_response)
         return self._process_by_id(response)
 
     def async_series_details(self, list_of_ids):
         path = self.paths.get("series_details")
-        # for testing purpose
         append_to_response = "&append_to_response=watch/providers"
         response = self._async_requests(path=path, list_of_ids=list_of_ids, append_to_response=append_to_response)
-        # end of test - remove append_to_response
         return self._process_multiple_items(response)
 
 
     def series_recommendations(self, item_id):
         path = self.paths.get("series_details")
         path2 = self.paths.get("similar")
-        response = self._request(path=path, path2=path2, item_id=item_id, query="")
+        response = self._request(path=path, path2=path2, item_id=item_id, query="", append_to_response="")
         response = response["results"]
         return self._process_multiple_items(response)
 
 
     def series_airing_today(self):
         path = self.paths.get("airing_today")
-        response = self._request(path=path, path2="", item_id="", query="")
+        response = self._request(path=path, path2="", item_id="", query="", append_to_response="")
         response = response["results"]
         return self._process_multiple_items(response)
 
 
     def series_on_the_air(self):
         path = self.paths.get("on_the_air")
-        response = self._request(path=path, path2="", item_id="", query="")
+        response = self._request(path=path, path2="", item_id="", query="", append_to_response="")
         response = response["results"]
         return self._process_multiple_items(response)
 
-    
-    def series_where_to_watch(self, item_id):
-        path = self.paths.get("series_details")
-        path2 = self.paths.get("where_to_watch")
-        response = self._request(path=path, path2=path2, item_id=item_id, query="")
-        try:
-            response = response["results"]["GB"]
-        except KeyError:
-            return
-        return self._process_logos(response)

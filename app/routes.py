@@ -125,16 +125,14 @@ def viewitem(item_id, title=None):
         results = film.film_details(item_id=item_id) 
         countdwn = film.set_countdown(results)
         recommends = film.film_recommendations(item_id=item_id)
-        where_to_watch = film.film_where_to_watch(item_id=item_id)
     else:
         series = GetSeries(page=1)
         results = series.series_details(item_id=item_id)
         countdwn = series.set_countdown(results)
         recommends = series.series_recommendations(item_id=item_id)
-        where_to_watch = series.series_where_to_watch(item_id=item_id)
 
     return render_template("viewitem.html", item_id=item_id, results=results, recommends=recommends,
-                                             countdown=countdwn, where_to_watch=where_to_watch)
+                                             countdown=countdwn)
 
 
 

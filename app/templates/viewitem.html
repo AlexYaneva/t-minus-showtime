@@ -57,10 +57,10 @@
             <br>
         </div>
     </div>
-    {% if where_to_watch["flatrate"] %}
+    {% if results["watch/providers"] %}
     <div class='container-fluid stream-on'>
-        <h5>Stream on:</h5>
-        {% for i in where_to_watch["flatrate"] %}
+        <h6>Stream on:</h6>
+        {% for i in results["watch/providers"] %}
         <img class='logo' src='{{i["logo_path"]}}'>
         {% endfor %}
         <p> Powered by <a href="https://www.justwatch.com/JustWatch">JustWatch</a></p>
