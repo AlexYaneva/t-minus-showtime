@@ -123,16 +123,13 @@ def viewitem(item_id, title=None):
     if title:
         film = GetFilms(page=1)
         results = film.film_details(item_id=item_id) 
-        countdwn = utils.countdown(results["release_date"])
+        countdwn = film.set_countdown(results)
         recommends = film.film_recommendations(item_id=item_id)
         where_to_watch = film.film_where_to_watch(item_id=item_id)
     else:
         series = GetSeries(page=1)
         results = series.series_details(item_id=item_id)
-        if results["next_episode_to_air"]:
-            countdwn = utils.countdown(results["next_episode_to_air"]['air_date'])
-        else:
-            countdwn = -1
+        countdwn = series.set_countdown(results)
         recommends = series.series_recommendations(item_id=item_id)
         where_to_watch = series.series_where_to_watch(item_id=item_id)
 
@@ -256,9 +253,7 @@ def track(item_id, group):
 
 
 @app.route("/untrack/<int:item_id>/", methods=["GET", "POST"])
-@app.route("/untrack/<int:item_id>/<title>", methods=["GET", "POST"])
-def untrack(item_id, title=None):
-    # need to change the url no longer needing title
+def untrack(item_id):
     current_user.untrack(item_id)
     flash("You're no longer tracking this.")
     films = current_user.get_trackedfilms()

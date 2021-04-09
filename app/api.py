@@ -1,7 +1,7 @@
 import requests
 from config import API_key
 from flask import url_for
-from app.utils import async_get_multiple
+from app.utils import async_get_multiple, countdown
 
 
 class TMDB:
@@ -66,11 +66,11 @@ class TMDB:
             if "watch/providers" in item:
                 try:
                     item["watch/providers"] = item["watch/providers"]["results"]["GB"]["flatrate"] # next task is to change country based on location
-                    for i in item["watch/providers"]:
-                        i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
                 except KeyError:
-                    pass
-                    
+                    item["watch/providers"] = item["watch/providers"]["results"]["GB"]["free"]
+
+                for i in item["watch/providers"]:
+                    i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
         return response
 
 
@@ -94,6 +94,10 @@ class GetFilms(TMDB):
         "top_rated" : "/movie/top_rated",
         "where_to_watch": "/watch/providers"
     }
+
+    def set_countdown(self, item):
+        countdwn = countdown(item["release_date"])
+        return countdwn
 
 
     def popular_films(self):
@@ -168,6 +172,14 @@ class GetSeries(TMDB):
         "on_the_air": "/tv/on_the_air",
         "where_to_watch": "/watch/providers"
     }
+
+    def set_countdown(self, item):
+        if item["next_episode_to_air"]:
+            countdwn = countdown(item["next_episode_to_air"]["air_date"])
+        else:
+             # assign a high number to series with no new episodes so they can be displayed last
+            countdwn = 1000
+        return countdwn
 
 
     def popular_series(self):

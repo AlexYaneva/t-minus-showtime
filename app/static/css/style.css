@@ -121,8 +121,14 @@ p {
 
 
 form {
-    /* justify-content: center; */
     padding: 5px;
+    justify-content: center;
+    text-align: center;
+}
+
+.track-btn {
+    justify-content: left !important;
+    text-align: left  !important;
 }
 
 

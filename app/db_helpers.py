@@ -87,25 +87,21 @@ def get_tracked(email, tracked_type):
         tracked_id = i.get('Tracked_id')
         all_tracked_ids.append(int(tracked_id))
 
-    # use the list to generate the async url requests, gather the responses
-    # calculate countdowns and add all to a new list
+    # generate the async url requests, gather the responses, calculate countdowns and add all to a new list
     tracked_items = []
+
     if tracked_type == 'film':
         films = GetFilms(page=1)
         tracked_films = films.async_film_details(all_tracked_ids)
         for item in tracked_films:
-            item["countdown"] = countdown(item["release_date"])
+            item["countdown"] = films.set_countdown(item)
             tracked_items.append(item)
 
     elif tracked_type == 'series':
         series = GetSeries(page=1)
         tracked_series = series.async_series_details(all_tracked_ids)
         for item in tracked_series:
-            if item["next_episode_to_air"]:
-                item["countdown"] = countdown(item["next_episode_to_air"]["air_date"])
-            else:
-                # assign a high number to series with no new episodes so they can be shown last
-                item["countdown"] = 1000
+            item["countdown"] = series.set_countdown(item)
             tracked_items.append(item)
 
     # sort the list by countdown
@@ -141,10 +137,7 @@ def get_all_releasing_tomorrow(tracked_type):
 
     # check which episodes are releasing in 1 day and delete the rest
     for i in tmdb_response:
-        if i["next_episode_to_air"]:
-            countdwn = countdown(i["next_episode_to_air"]["air_date"])
-        else:
-            countdwn = 1000
+        countdwn = series.set_countdown(i)
         if countdwn != 1:
             shows_ids.remove(i["id"])
 
