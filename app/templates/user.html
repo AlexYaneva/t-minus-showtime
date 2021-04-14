@@ -44,10 +44,12 @@
                             </div>
                             <div class="card-body">
                                 <div class="stream-on-dash">
+                                    {% if tracked["watch/providers"]%}
                                     <h6>Stream on:</h6>
                                     {% for i in tracked["watch/providers"] %}
                                     <img class='logo' src='{{i["logo_path"]}}'>
                                     {% endfor %}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

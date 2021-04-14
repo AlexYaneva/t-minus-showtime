@@ -41,26 +41,7 @@ class TMDB:
 
 
 
-    def _process_by_id(self, response):
-
-        if response['poster_path']:
-            response["poster_path"] = f"{self.IMAGES_URL}{response['poster_path']}"
-        else:
-            response["poster_path"] = f"{url_for('static', filename='img/no_image.png')}"
-            
-        if "watch/providers" in response:
-            try:
-                response["watch/providers"] = response["watch/providers"]["results"]["GB"]["flatrate"] # next task is to change country based on location
-            except KeyError:
-                response["watch/providers"] = response["watch/providers"]["results"]["GB"]["free"]
-
-            for i in response["watch/providers"]:
-                i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
-
-        return response
-
-
-    def _process_multiple_items(self, response):
+    def _process_json_response(self, response):
 
         for item in response:
             if item["poster_path"]:
@@ -70,21 +51,69 @@ class TMDB:
 
             if "watch/providers" in item:
                 try:
-                    item["watch/providers"] = item["watch/providers"]["results"]["GB"]["flatrate"] # next task is to change country based on location
+                    item["watch/providers"] = item["watch/providers"]["results"]["GB"]["flatrate"]
+                    for i in item["watch/providers"]:
+                        i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
                 except KeyError:
-                    item["watch/providers"] = item["watch/providers"]["results"]["GB"]["free"]
+                    try:
+                        item["watch/providers"] = item["watch/providers"]["results"]["GB"]["free"]
+                        for i in item["watch/providers"]:
+                            i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
+                    except KeyError:
+                        item["watch/providers"] = None
 
-                for i in item["watch/providers"]:
-                    i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
         return response
 
 
-    def _process_logos(self, response):
 
-        if "flatrate" in response:
-            for i in response["flatrate"]:
-                i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
-        return response
+    # def _process_by_id(self, response):
+
+    #     if response['poster_path']:
+    #         response["poster_path"] = f"{self.IMAGES_URL}{response['poster_path']}"
+    #     else:
+    #         response["poster_path"] = f"{url_for('static', filename='img/no_image.png')}"
+            
+    #     if "watch/providers" in response:
+    #         try:
+    #             response["watch/providers"] = response["watch/providers"]["results"]["GB"]["flatrate"]
+    #             for i in response["watch/providers"]:
+    #                 i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
+    #         except KeyError:
+    #             try:
+    #                 response["watch/providers"] = response["watch/providers"]["results"]["GB"]["free"]
+    #                 for i in response["watch/providers"]:
+    #                     i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
+    #             except KeyError:
+    #                 response["watch/providers"] = None
+
+    #     return response
+
+
+    # def _process_multiple_items(self, response):
+
+    #     for item in response:
+    #         if item["poster_path"]:
+    #             item["poster_path"] = f"{self.IMAGES_URL}{item['poster_path']}"
+    #         else:
+    #             item["poster_path"] = f"{url_for('static', filename='img/no_image.png')}"
+
+    #         if "watch/providers" in item:
+    #             try:
+    #                 item["watch/providers"] = item["watch/providers"]["results"]["GB"]["flatrate"] # next task is to change country based on location
+    #             except KeyError:
+    #                 item["watch/providers"] = item["watch/providers"]["results"]["GB"]["free"]
+
+    #             for i in item["watch/providers"]:
+    #                 i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
+    #     return response
+
+
+    # def _process_logos(self, response):
+
+    #     if "flatrate" in response:
+    #         for i in response["flatrate"]:
+    #             i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
+    #     return response
 
 
 
@@ -100,7 +129,8 @@ class GetFilms(TMDB):
     }
 
     def set_countdown(self, item):
-        countdwn = countdown(item["release_date"])
+        for i in item:
+            countdwn = countdown(i["release_date"])
         return countdwn
 
 
@@ -108,7 +138,7 @@ class GetFilms(TMDB):
         path = self.paths.get("popular_films")
         response = self._request(path=path, path2="", item_id="", query="", append_to_response="")
         response = response["results"]
-        return self._process_multiple_items(response)
+        return self._process_json_response(response)
 
 
     def search_films(self, query):
@@ -116,20 +146,22 @@ class GetFilms(TMDB):
         path = self.paths.get("search_film")
         response = self._request(path=path, path2="", item_id="", query=query, append_to_response="")
         response = response["results"]
-        return self._process_multiple_items(response)
+        return self._process_json_response(response)
 
 
     def film_details(self, item_id):
         path = self.paths.get("film_details")
         append_to_response = "&append_to_response=watch/providers"
-        response = self._request(path=path, path2="", item_id=item_id, query="", append_to_response=append_to_response)
-        return self._process_by_id(response)
+        response = []
+        tmdb_req = self._request(path=path, path2="", item_id=item_id, query="", append_to_response=append_to_response)
+        response.append(tmdb_req)
+        return self._process_json_response(response)
 
 
     def async_film_details(self, list_of_ids):
         path = self.paths.get("film_details")
         response = self._async_requests(path=path, list_of_ids=list_of_ids, append_to_response="")
-        return self._process_multiple_items(response)
+        return self._process_json_response(response)
 
 
 
@@ -138,21 +170,21 @@ class GetFilms(TMDB):
         path2 = self.paths.get("similar")
         response = self._request(path=path, path2=path2, item_id=item_id, query="", append_to_response="")
         response = response["results"]
-        return self._process_multiple_items(response)
+        return self._process_json_response(response)
 
 
     def top_rated(self):
         path = self.paths.get("top_rated")
         response = self._request(path=path, path2="", item_id="", query="", append_to_response="")
         response = response["results"]
-        return self._process_multiple_items(response)
+        return self._process_json_response(response)
 
 
     def films_in_theatres(self):
         path = self.paths.get("in_theatres")
         response = self._request(path=path, path2="", item_id="", query="", append_to_response="")
         response = response["results"]
-        return self._process_multiple_items(response)
+        return self._process_json_response(response)
 
 
 
@@ -170,11 +202,12 @@ class GetSeries(TMDB):
     }
 
     def set_countdown(self, item):
-        if item["next_episode_to_air"]:
-            countdwn = countdown(item["next_episode_to_air"]["air_date"])
-        else:
-             # assign a high number to series with no new episodes so they can be displayed last
-            countdwn = 1000
+        for i in item:
+            if i["next_episode_to_air"]:
+                countdwn = countdown(i["next_episode_to_air"]["air_date"])
+            else:
+                # assign a high number to series with no new episodes so they can be displayed last
+                countdwn = 1000
         return countdwn
 
 
@@ -182,7 +215,7 @@ class GetSeries(TMDB):
         path = self.paths.get("popular_series")
         response = self._request(path=path, path2="", item_id="", query="", append_to_response="")
         response = response["results"]
-        return self._process_multiple_items(response)
+        return self._process_json_response(response)
 
 
     def search_series(self, query):
@@ -190,20 +223,22 @@ class GetSeries(TMDB):
         path = self.paths.get("search_series")
         response = self._request(path=path, path2="", item_id="", query=query, append_to_response="")
         response = response["results"]
-        return self._process_multiple_items(response)
+        return self._process_json_response(response)
 
 
     def series_details(self, item_id):
         path = self.paths.get("series_details")
         append_to_response = "&append_to_response=watch/providers"
-        response = self._request(path=path, path2="", item_id=item_id, query="", append_to_response=append_to_response)
-        return self._process_by_id(response)
+        response = []
+        tmdb_req = self._request(path=path, path2="", item_id=item_id, query="", append_to_response=append_to_response)
+        response.append(tmdb_req)
+        return self._process_json_response(response)
 
     def async_series_details(self, list_of_ids):
         path = self.paths.get("series_details")
         append_to_response = "&append_to_response=watch/providers"
         response = self._async_requests(path=path, list_of_ids=list_of_ids, append_to_response=append_to_response)
-        return self._process_multiple_items(response)
+        return self._process_json_response(response)
 
 
     def series_recommendations(self, item_id):
@@ -211,19 +246,19 @@ class GetSeries(TMDB):
         path2 = self.paths.get("similar")
         response = self._request(path=path, path2=path2, item_id=item_id, query="", append_to_response="")
         response = response["results"]
-        return self._process_multiple_items(response)
+        return self._process_json_response(response)
 
 
     def series_airing_today(self):
         path = self.paths.get("airing_today")
         response = self._request(path=path, path2="", item_id="", query="", append_to_response="")
         response = response["results"]
-        return self._process_multiple_items(response)
+        return self._process_json_response(response)
 
 
     def series_on_the_air(self):
         path = self.paths.get("on_the_air")
         response = self._request(path=path, path2="", item_id="", query="", append_to_response="")
         response = response["results"]
-        return self._process_multiple_items(response)
+        return self._process_json_response(response)
 

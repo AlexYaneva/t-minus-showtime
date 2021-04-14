@@ -131,7 +131,7 @@ def viewitem(item_id, title=None):
         countdwn = series.set_countdown(results)
         recommends = series.series_recommendations(item_id=item_id)
 
-    return render_template("viewitem.html", item_id=item_id, results=results, recommends=recommends,
+    return render_template("viewitem.html", item_id=item_id, results=results[0], recommends=recommends,
                                              countdown=countdwn)
 
 

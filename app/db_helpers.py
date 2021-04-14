@@ -94,14 +94,14 @@ def get_tracked(email, tracked_type):
         films = GetFilms(page=1)
         tracked_films = films.async_film_details(all_tracked_ids)
         for item in tracked_films:
-            item["countdown"] = films.set_countdown(item)
+            item["countdown"] = films.set_countdown([item])
             tracked_items.append(item)
 
     elif tracked_type == 'series':
         series = GetSeries(page=1)
         tracked_series = series.async_series_details(all_tracked_ids)
         for item in tracked_series:
-            item["countdown"] = series.set_countdown(item)
+            item["countdown"] = series.set_countdown([item])
             tracked_items.append(item)
 
     # sort the list by countdown
