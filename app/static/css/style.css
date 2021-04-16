@@ -82,33 +82,12 @@ html, body {
 }
 
 .container {
-    padding: 10px;
-    width: 80%;
+    padding: 5px;
+    width: 90%;
     margin: auto;
     text-align: center;
 }
 
-.container-dash-left {
-    width: 49%;
-    /* background: radial-gradient(ellipse at right, #3d6074 0%, #1e2330 100%); */
-    background: transparent;
-    border-top-style: solid;
-    /* border-right-style: solid; */
-    /* border-radius: 5px; */
-    border-color:  rgb(136, 135, 135);
-    margin-bottom: 10px;
-}
-
-.container-dash-right {
-    width: 49%;
-    /* background: radial-gradient(ellipse at left, #3d6074 0%, #1e2330 100%); */
-    background: transparent;
-    border-top-style: solid;
-    /* border-left-style: solid; */
-    /* border-radius: 5px; */
-    border-color:  rgb(136, 135, 135);
-    margin-bottom: 10px;
-}
 
 .card {
     /* background: radial-gradient(ellipse at bottom, #415866 0%, #353c4e 100%); */

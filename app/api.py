@@ -1,6 +1,7 @@
 import requests
 from config import API_key
 from flask import url_for
+from flask_login import current_user
 from app.utils import async_get_multiple, countdown
 
 
@@ -51,12 +52,12 @@ class TMDB:
 
             if "watch/providers" in item:
                 try:
-                    item["watch/providers"] = item["watch/providers"]["results"]["GB"]["flatrate"]
+                    item["watch/providers"] = item["watch/providers"]["results"][current_user.location["country_code"]]["flatrate"]
                     for i in item["watch/providers"]:
                         i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
                 except KeyError:
                     try:
-                        item["watch/providers"] = item["watch/providers"]["results"]["GB"]["free"]
+                        item["watch/providers"] = item["watch/providers"]["results"][current_user.location["country_code"]]["free"]
                         for i in item["watch/providers"]:
                             i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
                     except KeyError:
@@ -64,56 +65,6 @@ class TMDB:
 
         return response
 
-
-
-    # def _process_by_id(self, response):
-
-    #     if response['poster_path']:
-    #         response["poster_path"] = f"{self.IMAGES_URL}{response['poster_path']}"
-    #     else:
-    #         response["poster_path"] = f"{url_for('static', filename='img/no_image.png')}"
-            
-    #     if "watch/providers" in response:
-    #         try:
-    #             response["watch/providers"] = response["watch/providers"]["results"]["GB"]["flatrate"]
-    #             for i in response["watch/providers"]:
-    #                 i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
-    #         except KeyError:
-    #             try:
-    #                 response["watch/providers"] = response["watch/providers"]["results"]["GB"]["free"]
-    #                 for i in response["watch/providers"]:
-    #                     i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
-    #             except KeyError:
-    #                 response["watch/providers"] = None
-
-    #     return response
-
-
-    # def _process_multiple_items(self, response):
-
-    #     for item in response:
-    #         if item["poster_path"]:
-    #             item["poster_path"] = f"{self.IMAGES_URL}{item['poster_path']}"
-    #         else:
-    #             item["poster_path"] = f"{url_for('static', filename='img/no_image.png')}"
-
-    #         if "watch/providers" in item:
-    #             try:
-    #                 item["watch/providers"] = item["watch/providers"]["results"]["GB"]["flatrate"] # next task is to change country based on location
-    #             except KeyError:
-    #                 item["watch/providers"] = item["watch/providers"]["results"]["GB"]["free"]
-
-    #             for i in item["watch/providers"]:
-    #                 i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
-    #     return response
-
-
-    # def _process_logos(self, response):
-
-    #     if "flatrate" in response:
-    #         for i in response["flatrate"]:
-    #             i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
-    #     return response
 
 
 
@@ -128,9 +79,9 @@ class GetFilms(TMDB):
         "top_rated" : "/movie/top_rated"
     }
 
-    def set_countdown(self, item):
-        for i in item:
-            countdwn = countdown(i["release_date"])
+    def set_countdown(self, list_of_items):
+        for item in list_of_items:
+            countdwn = countdown(item["release_date"])
         return countdwn
 
 
@@ -155,7 +106,7 @@ class GetFilms(TMDB):
         response = []
         tmdb_req = self._request(path=path, path2="", item_id=item_id, query="", append_to_response=append_to_response)
         response.append(tmdb_req)
-        return self._process_json_response(response)
+        return self._process_json_response(response) 
 
 
     def async_film_details(self, list_of_ids):
@@ -202,6 +153,7 @@ class GetSeries(TMDB):
     }
 
     def set_countdown(self, item):
+        # this method receives a list of items
         for i in item:
             if i["next_episode_to_air"]:
                 countdwn = countdown(i["next_episode_to_air"]["air_date"])

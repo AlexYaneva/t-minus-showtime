@@ -75,8 +75,9 @@
             <a class="nav-link" href="{{ url_for('register') }}">Join</a>
           </li>
           {% else %}
+          <p><i class="fa fa-map-marker px-2"></i>{{ current_user.location["country"] }}</p>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">Watchlist</a>
+            <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">My Stuff</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>

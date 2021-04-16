@@ -3,6 +3,7 @@ from app.api import GetFilms, GetSeries
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from time import time
+from app.utils import get_country_by_ip
 import jwt
 import app.db_helpers as db
 
@@ -14,6 +15,7 @@ class User(UserMixin):
 
         self.email = email
         self.username = self.get_username(email)
+        self.location = get_country_by_ip()
 
 
     @staticmethod

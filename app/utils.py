@@ -1,6 +1,8 @@
 from datetime import date, datetime
+from flask import request
 import aiohttp
 import asyncio
+import requests
 
 def countdown(release):
 
@@ -14,8 +16,21 @@ def countdown(release):
     return countdown if countdown >= 0 else -1
 
 
+def get_country_by_ip():
+    try:
+        # ip_address = request.headers.get('X-Forwarded-For', request.remote_addr)
+        ip_address = "90.195.115.225"
+        response = requests.get(f"http://ip-api.com/json/{ip_address}").json()
+        location = {"country" : response["country"], "country_code" : response["countryCode"]}
+        return location
+    except Exception as e:
+        print(f"ERROR: {e}")
+        return "Unknown"
 
-# async functions for multiple get requests to the tmdb api - used when rendering the user dashboard
+
+
+
+# async functions for multiple GET requests to the tmdb api - used when rendering the user dashboard
 
 async def fetch(session, url):
     async with session.get(url) as response:
@@ -34,7 +49,6 @@ async def fetch_all(session, urls):
 async def main(tv_ids, urls):    
     async with aiohttp.ClientSession() as session:
         responses = await fetch_all(session, urls)
-        # print(list(responses))
         return list(responses)
 
 def async_get_multiple(tv_ids, urls):
