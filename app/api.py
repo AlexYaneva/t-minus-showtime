@@ -61,7 +61,7 @@ class TMDB:
                         for i in item["watch/providers"]:
                             i['logo_path'] = f"{self.LOGOS_URL}{i['logo_path']}"
                     except KeyError:
-                        item["watch/providers"] = None
+                        item["watch/providers"] = None 
 
         return response
 
@@ -214,3 +214,9 @@ class GetSeries(TMDB):
         response = response["results"]
         return self._process_json_response(response)
 
+# TEST
+    def watch_providers(self, item_id):
+        path = self.paths.get("series_details")
+        path2 = "/watch/providers"
+        response = self._request(path=path, path2=path2, item_id=item_id, query="", append_to_response="")
+        return response

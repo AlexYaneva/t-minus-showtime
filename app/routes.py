@@ -132,10 +132,15 @@ def viewitem(item_id, title=None):
         recommends = series.series_recommendations(item_id=item_id)
 
     return render_template("viewitem.html", item_id=item_id, results=results[0], recommends=recommends,
-                                             countdown=countdwn)
+                                             countdown=countdwn, countries=utils.countries)
 
 
-
+@app.route("/watch_providers/<int:item_id>", methods=["GET", "POST"])
+def watch_providers(item_id):
+    # TEST FOR SERIES ONLY
+    series = GetSeries(page=1)
+    results = series.watch_providers(item_id=item_id)
+    return jsonify(results)
 
 
 @app.route("/login", methods=["GET", "POST"])
