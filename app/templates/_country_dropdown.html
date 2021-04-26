@@ -1,6 +1,7 @@
 <div class='container-fluid stream-on'>
     <select class="form-select">
-        <option selected="selected">{{ current_user.location["country"] }}</option>
+        <option selected="selected" value='{{ current_user.location["country_code"] }}'>{{
+            current_user.location["country"] }}</option>
         {% for key, value in countries.items() %}
         <option value="{{ key }}">{{ value }}</option>
         {% endfor %}
@@ -15,6 +16,7 @@
 </div>
 
 
+
 <script>
     $(document).ready(function () {
 
@@ -24,32 +26,40 @@
 
         $.ajax($SCRIPT_ROOT + pathName + itemId).done(function (data) {
             var countries = data;
-            try {
-                var watchFree = countries.results["BE"].flatrate;
-            }
-            catch (err) {
-                console.log(err);
-                try {
-                    var watchFree = countries.results["BE"].free;
-                }
-                catch (err) {
-                    console.log(err);
-                    var watchFree = null;
-                }
-            }
-            console.log(watchFree);
-            if (watchFree !== null) {
-                watchFree.forEach((item) => {
-                    item.logo_path = logoPath + item.logo_path;
-                    console.log(item.logo_path);
-                });
-            }
+            console.log(countries);
+            changeStreamLogos(countries);
         });
 
-        $("select")
-            .change(function () {
-                var countryCode = $(this).val() + " ";
-                $("#content").text(countryCode);
-            })
+        function changeStreamLogos(countries) {
+            $("select")
+                .change(function () {
+                    var countryCode = $(this).val();
+                    $("#content").text(countryCode);
+                    try {
+                        var watchFree = countries.results[countryCode].flatrate;
+                    }
+                    catch (err) {
+                        console.log(err);
+                        try {
+                            var watchFree = countries.results[countryCode].free;
+                        }
+                        catch (err) {
+                            console.log(err);
+                            var watchFree = null;
+                        }
+                    }
+                    console.log(watchFree);
+                    if (watchFree !== null) {
+                        $("#content").empty();
+                        watchFree.forEach((item) => {
+                            item.logo_path = logoPath + item.logo_path;
+                            $("#content").append("<img class='logo' src='" + item.logo_path + "'>")
+
+
+                        });
+                    }
+
+                });
+        }
     });
 </script>
