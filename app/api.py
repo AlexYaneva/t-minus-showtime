@@ -214,7 +214,7 @@ class GetSeries(TMDB):
         response = response["results"]
         return self._process_json_response(response)
 
-# TEST
+
     def watch_providers(self, item_id):
         path = self.paths.get("series_details")
         path2 = "/watch/providers"
