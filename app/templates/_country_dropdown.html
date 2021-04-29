@@ -1,18 +1,25 @@
-<div class='container-fluid stream-on'>
-    <select class="form-select">
-        <option selected="selected" value='{{ current_user.location["country_code"] }}'>{{
-            current_user.location["country"] }}</option>
-        {% for key, value in countries.items() %}
-        <option value="{{ key }}">{{ value }}</option>
-        {% endfor %}
-    </select>
-    <h6>Stream on:</h6>
-    <div id="content" data="{{ item_id }}">
-        {% for i in results["watch/providers"] %}
-        <img class='logo' src='{{i["logo_path"]}}'>
-        {% endfor %}
+<div class='container-fluid rounded py-2 px-2 stream-on'>
+    <div class="row">
+        <div class="col-sm-6">
+            <h6>STREAM ON:</h6>
+            <div id="content" data="{{ item_id }}">
+                {% for i in results["watch/providers"] %}
+                <img class='logo' src='{{i["logo_path"]}}'>
+                {% endfor %}
+            </div>
+            <p> Powered by <a href="https://www.justwatch.com/JustWatch">JustWatch</a></p>
+        </div>
+        <div class="col-sm-6">
+            <select class="form-select mx-2 my-2"
+                style="background-color: #101516; color: rgb(155, 155, 155); border-top: none; border-left: none; border-right: none;">
+                <option selected="selected" value='{{ current_user.location["country_code"] }}'>{{
+                    current_user.location["country"] }}</option>
+                {% for key, value in countries.items() %}
+                <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
     </div>
-    <p> Powered by <a href="https://www.justwatch.com/JustWatch">JustWatch</a></p>
 </div>
 
 

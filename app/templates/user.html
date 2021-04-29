@@ -24,11 +24,12 @@
                 {% if series %}
                 <div class="row mb-5">
                     {% for tracked in series %}
-                    <div class="col-md-3" style="padding-bottom: 3rem;">
-                        <div class="card">
+                    <div class="col-sm-3" style="padding-bottom: 3rem;">
+                        <div class="card h-100">
                             {% if tracked["countdown"] == 0 %}
-                            <h5 class="card-header"><span class='days'><span class="pulse">WA</span>TCH TODAY!</span>
-                            </h5>
+                            <h6 class="card-header"><span class='days'><span class="pulse"><i
+                                            class="fas fa-rocket"></i></span>WATCH TODAY!</span>
+                            </h6>
                             {% elif tracked["countdown"] == 1000 %}
                             <h5 class="card-header">NO EPISODES</h5>
                             {% else %}
@@ -39,18 +40,18 @@
                                 <img class="card-img-top" src='{{ tracked["poster_path"] }}'>
                                 <form action="{{ url_for('untrack', item_id=tracked['id']) }}" method="POST">
                                     <button class='btn btn-secondary btn-sm img-button' type="submit"><i
-                                            class="fa fa-trash"></i></button>
+                                            class="fas fa-trash-alt"></i></button>
                                 </form>
                             </div>
                             <div class="card-body">
+                                {% if tracked["watch/providers"]%}
+                                <p>Stream on</p>
                                 <div class="stream-on-dash">
-                                    {% if tracked["watch/providers"]%}
-                                    <h6>Stream on:</h6>
                                     {% for i in tracked["watch/providers"] %}
                                     <img class='logo' src='{{i["logo_path"]}}'>
                                     {% endfor %}
-                                    {% endif %}
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -77,9 +78,9 @@
                     <div class="col-md-3" style="padding-bottom: 3rem;">
                         <div class="card">
                             {% if tracked["countdown"] == 0 %}
-                            <h3 class="card-header"><span class='days'>WATCH TODAY!</span></h3>
+                            <h6 class="card-header"><span class='days'>RELEASED TODAY!</span></h6>
                             {% else %}
-                            <h3 class="card-header"><span class='days'>T-{{ tracked["countdown"] }}</span></h3>
+                            <h5 class="card-header"><span class='days'>T-{{ tracked["countdown"] }}</span></h5>
                             {% endif %}
                             <div class="img-wrap">
                                 <div class="img-overlay"></div>

@@ -72,6 +72,9 @@ html, body {
     border-radius: .25rem;
 }
 
+.fas{
+    padding: 5px;
+}
 
 .fa-bars {
     color: #fff;
@@ -82,9 +85,7 @@ html, body {
 }
 
 .container {
-    padding: 5px;
     width: 90%;
-    margin: auto;
     text-align: center;
 }
 
@@ -94,22 +95,14 @@ html, body {
     background:#101516;
 }
 
-p {
-    padding: 5px;
-}
+
 
 
 form {
-    padding: 5px;
+    /* padding: 5px; */
     justify-content: center;
     text-align: center;
 }
-
-.track-btn {
-    justify-content: left !important;
-    text-align: left  !important;
-}
-
 
 
 h1,h2,h3 {
@@ -131,7 +124,7 @@ h4, h5, h6 {
     background-color: #ff4f4f;
     border-color: #ff6666;
     font-weight: bold;
-    margin-right: 1rem;
+    margin:auto;
 }
 
 .btn-secondary:hover {
@@ -143,6 +136,13 @@ h4, h5, h6 {
 .btn-dash {
     background-color: darkgrey;
     border-color: transparent;
+}
+
+.btn-track {
+    background-color: transparent; 
+    border-color: transparent; 
+    color:tomato; 
+    font-family: 'Audiowide', cursive;
 }
 
 
@@ -167,25 +167,23 @@ h4, h5, h6 {
 }
 
 .days {
-    font-size: large;
     text-transform: capitalize;
     font-family: 'Audiowide', cursive;
-    /* color: #ff4f4f; */
-    color: rgb(174, 184, 189);
-    padding: 5px;
+    /* color: rgb(174, 184, 189); */
+    color: #ff4f4f;
 
 }
 
 .my-img {
     border: none;
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px darkgrey;
+    border-radius: 5px;
+    box-shadow: 0 0 5px darkgrey;
 }
 
 
 .my-img:hover {
     transition: 0.3s;
-    box-shadow: 5px 5px 5px #fc8e8e;
+    box-shadow: 0 0 7px #fc8e8e;
 }
 
 
@@ -194,16 +192,8 @@ h4, h5, h6 {
 }
 
 .overview {
-    height: 13rem;
     overflow-y:auto;
 }
-
-
-.padded-row {
-    padding-bottom: 10px;
-}
-
-
 
 
 
@@ -260,8 +250,8 @@ h4, h5, h6 {
   }
 
   .logo {
-      max-height: 50px;
-      max-width: 50px;
+      max-height: 40px;
+      max-width: 40px;
       border-radius: 10px;
   }
 
@@ -304,12 +294,11 @@ h4, h5, h6 {
 
  .stream-on {
     background-color: #101516;
-    /* background-color: transparent; */
-    border-radius: 5px;
+    /* border-radius: 5px; */
     border: none;
     display: inline-block;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    /* padding-top: 5px;
+    padding-bottom: 5px; */
     
 }
 

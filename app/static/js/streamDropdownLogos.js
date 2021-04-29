@@ -6,15 +6,14 @@ $(document).ready(function () {
 
     $.ajax($SCRIPT_ROOT + pathName + itemId).done(function (data) {
         var countries = data;
-        console.log(countries);
         changeStreamLogos(countries);
     });
 
     function changeStreamLogos(countries) {
         $("select")
             .change(function () {
-                var countryCode = $(this).val();
-                $("#content").text(countryCode);
+                var countryCode = $("select").val();
+                // $("#content").text(countryCode);
                 try {
                     var watchFree = countries.results[countryCode].flatrate;
                 }

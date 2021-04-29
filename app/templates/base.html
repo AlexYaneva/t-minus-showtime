@@ -15,7 +15,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Jura&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{url_for('static', filename='font-awesome-4.7.0/css/font-awesome.min.css')}}">
   <link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static', filename='img/apple-touch-icon.png')}}">
   <link rel="icon" type="image/png" sizes="32x32" href="{{url_for('static', filename='img/favicon-32x32.png')}}">
   <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename='img/favicon-16x16.png')}}">
@@ -28,13 +27,13 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/d3a53527b8.js" crossorigin="anonymous"></script>
   <script type=text/javascript>
     $SCRIPT_ROOT = {{ request.script_root|tojson }};
   </script>
   <title>T-minus Showtime</title>
 </head>
 
-<!-- <body class="d-flex flex-column min-vh-100"> -->
 
 <body>
   <nav class="navbar navbar-expand-lg nav-my">
@@ -42,7 +41,7 @@
       <a class="navbar-brand" href="{{ url_for('index') }}">T-MINUS SHOWTIME</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="#navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"><i class="fa fa-lg fa-bars" aria-hidden="true" title="Menu"></i></span>
+        <span class="navbar-toggler-icon"><i class="fas fa-lg fa-bars" aria-hidden="true" title="Menu"></i></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -53,7 +52,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="{{ url_for('top_rated') }}">Top Rated</a>
               <a class="dropdown-item" href="{{ url_for('films_in_theatres') }}">In Theatres</a>
-              <a class="dropdown-item" href="{{ url_for('films') }}"><i class="fa fa-search"></i> Search</a>
+              <a class="dropdown-item" href="{{ url_for('films') }}">Search</a>
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -62,7 +61,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="{{ url_for('series_airing_today') }}">Airing today</a>
               <a class="dropdown-item" href="{{ url_for('series_on_the_air') }}">On the air</a>
-              <a class="dropdown-item" href="{{ url_for('tvseries') }}"><i class="fa fa-search"></i> Search</a>
+              <a class="dropdown-item" href="{{ url_for('tvseries') }}">Search</a>
             </div>
           </li>
         </ul>
@@ -75,11 +74,15 @@
             <a class="nav-link" href="{{ url_for('register') }}">Join</a>
           </li>
           {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">My Stuff</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link" id="navbarDropdown" data-toggle="dropdown" href="#" role="button"
+              aria-expanded="false"><i class="fas fa-user-astronaut"></i>My Stuff</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ url_for('user', username=current_user.username) }}"><i
+                  class="fas fa-th"></i>My Dashboard</a>
+              <a class="dropdown-item" href="#"><i class="fas fa-trash-alt"></i>Delete Account</a>
+              <a class="dropdown-item" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i>Sign Out</a>
+            </div>
           </li>
           {% endif %}
         </ul>

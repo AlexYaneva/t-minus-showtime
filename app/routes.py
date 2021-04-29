@@ -237,15 +237,16 @@ def track(item_id, group):
     if group == "films":
         film = GetFilms(page=1)
         tmdb_response = film.film_details(item_id=item_id)
-        title = tmdb_response["title"]
-        poster_path = tmdb_response["poster_path"]
+        title = tmdb_response[0]["title"]
+        poster_path = tmdb_response[0]["poster_path"]
         current_user.track_film(item_id, title, poster_path)
         flash("Success! We've added this film to your dashboard.")
     elif group == "series":
         series = GetSeries(page=1)
         tmdb_response = series.series_details(item_id=item_id)
-        title = tmdb_response["name"]
-        poster_path = tmdb_response["poster_path"]
+        print(tmdb_response)
+        title = tmdb_response[0]["name"]
+        poster_path = tmdb_response[0]["poster_path"]
         current_user.track_series(item_id, title, poster_path)
         flash("Success! We've added this show to your dashboard.")
     films = current_user.get_trackedfilms()

@@ -2,70 +2,89 @@
 
 {% block content %}
 <div class="container">
-    <div class="row padded-row">
-        <div class='col-sm-4'>
-            <img src='{{ results["poster_path"] }}' class='rounded img-fluid'>
-        </div>
-
-        <div class='col-sm-8 text-left'>
+    <div class="row py-2" style="border-bottom: 1px solid tomato;">
+        <div class="col-sm-3">
+            <img src='{{ results["poster_path"] }}' class='my-img img-fluid my-2'>
             {% if results["title"] %}
-            <h4 class="uppercase">{{ results["title"] }}</h4>
-            <br>
-            <div class="overview">
-                <p>{{ results["overview"] }}</p>
-            </div>
             {% if countdown == -1 %}
             <p><strong>Released on {{ results["release_date"] }}</strong></p>
             {% else %}
             <p><strong>Coming out on {{ results["release_date"] }}</strong></p>
-            <p><span class='days'>T-MINUS {{ countdown }}</span></p>
-            <form class="track-btn" action="{{ url_for('track', item_id=results['id'], group='films') }}" method="POST">
-                <input class='btn btn-secondary btn-lg' type="submit" value='Track'>
+            <p><span class='days'><i class="fas fa-rocket"></i>T-MINUS</span></p>
+            <p><span class='days'>{{ countdown }}</span></p>
+            <form action="{{ url_for('track', item_id=results['id'], group='films') }}" method="POST">
+                <button class='btn btn-secondary btn-track' type="submit"><i class="fas fa-plus"
+                        style="color: tomato;"></i>TRACK</button>
             </form>
             {% endif %}
-            {% else %}
-            <h4 class="uppercase"> {{ results['name'] }}</h4>
-            <br>
-            <div class="overview">
-                <p>{{ results['overview'] }}</p>
-            </div>
-            {% if countdown == 1000 and results['status'] == 'Ended' %}
-            <p><strong>Looks like this show has officialy ended and won't be releasing new seasons.</strong></p>
-            {% elif countdown == 1000 and results['status'] != 'Ended' %}
-            <p><strong>This show doesn't have new episodes, but it might in the future - worth keeping an eye on
-                    it.</strong> </p>
-            <form class="track-btn" action="{{ url_for('track', item_id=results['id'], group='series') }}"
-                method="POST">
-                <input class='btn btn-secondary btn-lg' type="submit" value='Track'>
-            </form>
-            {% elif countdown == 0 %}
-            <p><span class='days'>NEW EPISODE OUT TODAY!</span> </p>
-            <form class="track-btn" action="{{ url_for('track', item_id=results['id'], group='series') }}"
-                method="POST">
-                <input class='btn btn-secondary btn-lg' type="submit" value='Track'>
-            </form>
-            {% else %}
-            <p><strong>NEW EPISODE COMING ON:</strong> {{ results['next_episode_to_air']['air_date'] }}</p>
-            <p><span class='days'>T-MINUS {{ countdown }} </span></p>
-            <form class="track-btn" action="{{ url_for('track', item_id=results['id'], group='series') }}"
-                method="POST">
-                <input class='btn btn-secondary btn-lg' type="submit" value='Track'>
-            </form>
             {% endif %}
 
+            {% if results["name"] %}
+            {% if countdown == 1000 and results['status'] == 'Ended' %}
+            <p><strong>STATUS:</strong> ENDED</p>
+            {% elif countdown == 1000 and results['status'] != 'Ended' %}
+            <p><strong>STATUS:</strong> NO NEW EPISODES</p>
+            <form action="{{ url_for('track', item_id=results['id'], group='series') }}" method="POST">
+                <button class='btn btn-secondary btn-track' type="submit"><i class="fas fa-plus"
+                        style="color: tomato;"></i>TRACK</button>
+            </form>
+            {% elif countdown == 0 %}
+            <p><span class='days'>NEW EPISODE TODAY!</span> </p>
+            <form action="{{ url_for('track', item_id=results['id'], group='series') }}" method="POST">
+                <button class='btn btn-secondary btn-track' type="submit"><i class="fas fa-plus"
+                        style="color: tomato;"></i>TRACK</button>
+            </form>
+            {% else %}
+            <p>NEXT EPISODE: {{ results['next_episode_to_air']['air_date'] }}</p>
+            <p><span class='days'> <i class="fas fa-rocket"></i>T-MINUS {{ countdown }} </span></p>
+            <form action="{{ url_for('track', item_id=results['id'], group='series') }}" method="POST">
+                <button class='btn btn-secondary btn-track' type="submit"><i class="fas fa-plus"
+                        style="color: tomato;"></i>TRACK</button>
+            </form>
             {% endif %}
+            {% endif %}
+        </div>
+
+        <div class="col-sm-9">
+            {% if results["title"] %}
+            <h4 class="uppercase text-left py-2">{{ results["title"] }}</h4>
+            <div class="overview text-justify">
+                <p>{{ results["overview"] }}</p>
+            </div>
+            {% else %}
+            <h4 class="uppercase text-left py-2">{{ results["name"] }}</h4>
+            <div class="overview text-justify">
+                <p>{{ results["overview"] }}</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <p>some content in here or links</p>
+                </div>
+                <div class="col-sm-3">
+                    <p>maybe some info about seasons</p>
+                </div>
+                <div class="col-sm-3">
+                    <p>or actors or external links or some pics</p>
+                </div>
+                <div class="col-sm-3">
+                    <p>no idea just need filler to use space</p>
+                </div>
+            </div>
+            {% endif %}
+            {% if results["watch/providers"] %}
+            {% include "_country_dropdown.html" %}
+            {% else %}
             <br>
+            {% endif %}
         </div>
     </div>
-    {% if results["watch/providers"] %}
-    {% include "_country_dropdown.html" %}
-    {% else %}
+
     <br>
-    {% endif %}
+
     {% if recommends %}
     <div class="container-fluid">
         <br>
-        <h4 class="text-left">YOU MIGHT ALSO LIKE THESE</h4><br>
+        <h4>YOU MIGHT ALSO LIKE THESE</h4><br>
         <div class='row'>
             {% for i in recommends %}
             <div class='col-sm-2'>
@@ -79,5 +98,5 @@
         </div>
     </div>
     {% endif %}
-
-    {% endblock %}
+</div>
+{% endblock %}
