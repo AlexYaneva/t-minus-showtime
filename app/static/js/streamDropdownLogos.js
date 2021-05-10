@@ -18,16 +18,13 @@ $(document).ready(function () {
                     var watchFree = countries.results[countryCode].flatrate;
                 }
                 catch (err) {
-                    console.log(err);
                     try {
                         var watchFree = countries.results[countryCode].free;
                     }
                     catch (err) {
-                        console.log(err);
                         var watchFree = null;
                     }
                 }
-                console.log(watchFree);
                 if (watchFree !== null) {
                     $("#content").empty();
                     watchFree.forEach((item) => {
@@ -36,6 +33,10 @@ $(document).ready(function () {
 
 
                     });
+                }
+                else {
+                    $("#content").empty();
+                    $("#content").append("<h6> N/A </h6>");
                 }
 
             });

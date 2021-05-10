@@ -4,12 +4,12 @@
 {% block content %}
 
 <div class="container">
-    <h4>MY WATCHLIST</h4>
-    <p>Here you'll find the countdowns to your new releases. </p>
-    <p>Fasten your seatbelts, it's watching time! In T-minus 15 days or so anyway.</p>
+    <!-- <h4>MY WATCHLIST</h4> -->
+    <!-- <p>Here you'll find the countdowns to your new releases. </p>
+    <p>Fasten your seatbelts, it's watching time! In T-minus 15 days or so anyway.</p> -->
 </div>
 
-<div class='container'>
+<div class='container-fluid'>
     <ul class="nav nav-tabs justify-content-center">
         <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#series">MY SERIES</a>
@@ -24,16 +24,17 @@
                 {% if series %}
                 <div class="row mb-5">
                     {% for tracked in series %}
-                    <div class="col-sm-3" style="padding-bottom: 3rem;">
+                    <div class="col-md-3 col-lg-3 col-6" style="padding-bottom: 3rem;">
                         <div class="card h-100">
                             {% if tracked["countdown"] == 0 %}
                             <h6 class="card-header"><span class='days'><span class="pulse"><i
                                             class="fas fa-rocket"></i></span>WATCH TODAY!</span>
                             </h6>
                             {% elif tracked["countdown"] == 1000 %}
-                            <h5 class="card-header">NO EPISODES</h5>
+                            <h6 class="card-header">NO EPISODES</h6>
                             {% else %}
-                            <h5 class="card-header"><span class='days'>T-{{ tracked["countdown"] }}</span></h5>
+                            <h5 class="card-header"><span class='days'>T-{{ tracked["countdown"] }}</span>
+                            </h5>
                             {% endif %}
                             <div class="img-wrap">
                                 <div class="img-overlay"></div>
@@ -45,7 +46,7 @@
                             </div>
                             <div class="card-body">
                                 {% if tracked["watch/providers"]%}
-                                <p>Stream on</p>
+                                <p style="font-size: small; font-weight: bold;">STREAM</p>
                                 <div class="stream-on-dash">
                                     {% for i in tracked["watch/providers"] %}
                                     <img class='logo' src='{{i["logo_path"]}}'>
