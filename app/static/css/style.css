@@ -1,11 +1,9 @@
 html, body {
-    /* min-height: 100%; */
-    /* background: radial-gradient(ellipse at top, #1b2735 0%, #090a0f 100%); */
     background: radial-gradient(ellipse at center, #31475f 0%, #090a0f 100%);
 
     font-family: 'Jura', sans-serif;
     color:  rgb(212, 209, 209);
-    margin: 0;
+    overflow-x: hidden;
 }
 
 
@@ -13,6 +11,11 @@ html, body {
 
 .page-content {
     min-height: 90vh;
+}
+
+header {
+    /* border-bottom: 1px solid whitesmoke; */
+    box-shadow: 0px 0px 10px grey;
 }
 
 .nav-tabs .nav-link {
@@ -38,9 +41,7 @@ html, body {
     border-bottom-color: #fff;
 }
 
-.nav-my .nav-link + .nav-link {
-    margin-left: 1rem;
-}
+
 
 .nav-my .active {
     color: #fff;
@@ -55,8 +56,6 @@ html, body {
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    /* color: rgba(177, 172, 214, 0.5); */
-    /* background-color: transparent; */
     border-bottom: .25rem solid transparent;
 }
 
@@ -98,21 +97,6 @@ html, body {
     background:#101516;
 }
 
-.card-header {
-    padding: 0;
-    font-size: small;
-}
-
-.card-body {
-    padding: 0;
-}
-
-.card-body p {
-    margin-bottom: 0;
-    margin-top: 2px;
-    font-size: small; 
-    font-weight: bold;
-}
 
 form {
     /* padding: 5px; */
@@ -211,6 +195,9 @@ h4, h5, h6 {
     overflow-y:auto;
 }
 
+.view-title {
+    text-align: left;
+}
 
 
 .img-wrap {
@@ -266,8 +253,8 @@ h4, h5, h6 {
   }
 
   .logo {
-      max-height: 30px;
-      max-width: 30px;
+      max-height: 40px;
+      max-width: 40px;
       border-radius: 5px;
   }
 
@@ -361,3 +348,36 @@ h4, h5, h6 {
       /* box-shadow: 0 0 0 0 rgba(255, 82, 82, 0); */
     }
   }
+
+
+  @media only screen and (max-width: 768px) {
+    .card-header {
+        padding: 0;
+        font-size: small;
+    }
+    
+    .card-body {
+        padding: 0;
+    }
+    
+    .card-body p {
+        margin-bottom: 0;
+        margin-top: 2px;
+        font-size: small; 
+        font-weight: bold;
+    }
+
+    .view-title {
+        text-align: center;
+    }
+
+    .logo {
+        max-height: 30px;
+        max-width: 30px;
+        border-radius: 5px;
+    }
+  }
+
+  .dropdown-menu{
+    position:relative;
+    }

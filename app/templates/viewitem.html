@@ -47,12 +47,12 @@
 
         <div class="col-sm-9">
             {% if results["title"] %}
-            <h4 class="uppercase text-left py-2">{{ results["title"] }}</h4>
+            <h4 class="uppercase py-2 view-title">{{ results["title"] }}</h4>
             <div class="overview text-justify">
                 <p>{{ results["overview"] }}</p>
             </div>
             {% else %}
-            <h4 class="uppercase text-left py-2">{{ results["name"] }}</h4>
+            <h4 class="uppercase py-2 view-title">{{ results["name"] }}</h4>
             <div class="overview text-justify">
                 <p>{{ results["overview"] }}</p>
             </div>
