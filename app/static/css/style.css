@@ -13,10 +13,6 @@ html, body {
     min-height: 90vh;
 }
 
-header {
-    /* border-bottom: 1px solid whitesmoke; */
-    box-shadow: 0px 0px 10px grey;
-}
 
 .nav-tabs .nav-link {
     color:rgb(80, 77, 95);
@@ -27,57 +23,44 @@ header {
 }
 
 
-.nav-my .nav-link {
+
+header {
+    background-color: transparent;
+}
+
+.my-nav .nav-link {
     font-family: 'Jura', sans-serif;
-    padding: .25rem 0;
-    font-weight: 700;
+    font-weight: 500;
     color: rgb(255, 255, 255);
-    border-bottom: .25rem solid transparent;
-}
-
-.nav-my .nav-link:hover,
-.nav-my .nav-link:focus {
-    color: #fff;
-    border-bottom-color: #fff;
 }
 
 
-
-.nav-my .active {
-    color: #fff;
-    border-bottom-color: #fff;
+.my-nav a:hover {
+    color:rgb(189, 183, 183);
+    transition: color .30s ease-in-out;
 }
 
-.navbar-brand {
+
+
+.my-brand {
     font-family: 'Audiowide', cursive;
-    padding: .25rem 0;
     font-weight: 700;
     background: -webkit-linear-gradient(rgb(174, 184, 189), #596979);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    border-bottom: .25rem solid transparent;
 }
 
-.navbar-brand:hover{
-    color: #fff;
+.my-brand:hover{
+    color: rgb(167, 73, 73);
 }
 
-.navbar-toggler {
-    padding: .25rem .75rem;
-    font-size: 1.25rem;
-    line-height: 1;
-    background-color:transparent;
-    border-radius: .25rem;
-}
+
 
 .fas{
     padding: 5px;
 }
 
-.fa-bars {
-    color: #fff;
-}
 
 .col-md-2, .col-lg-2, .col-6 {
     padding: 5px;
@@ -375,6 +358,10 @@ h4, h5, h6 {
         max-height: 30px;
         max-width: 30px;
         border-radius: 5px;
+    }
+
+    header {
+        border-bottom: 1px solid rgb(80, 77, 95);
     }
   }
 

@@ -36,7 +36,7 @@
 
 
 <body>
-  <nav class="navbar navbar-expand-md nav-my">
+  <!-- <nav class="navbar navbar-expand-md nav-my">
     <div class="container">
       <a class="navbar-brand" href="{{ url_for('index') }}">T-MINUS SHOWTIME</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -88,26 +88,25 @@
         </ul>
       </div>
     </div>
-  </nav>
-  <!-- <header class="p-2 text-white text-center">
-    <div class="container-fluid">
+  </nav> -->
+  <header class="p-lg-3 p-1">
+    <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center">
-        <a href="{{ url_for('index') }}"
-          class="navbar-brand d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <a href="{{ url_for('index') }}" class="my-brand d-flex align-items-center ml-2 mr-2 mb-0 text-decoration-none"
+          style="background-color: tomato;">
           T-MINUS SHOWTIME
         </a>
-      </div>
 
-      <div class="d-flex flex-wrap align-items-center justify-content-center">
-        <ul class="nav nav-my col-12 col-lg-auto me-lg-auto justify-content-center mb-md-0">
-          <li><a href="{{ url_for('index') }}" class="nav-link px-2 text-secondary">Home</a></li>
-          <li><a href="{{ url_for('films') }}" class="nav-link px-2 text-white">Films</a></li>
-          <li><a href="{{ url_for('tvseries') }}" class="nav-link px-2 text-white">Series</a></li>
-          <li><a href="{{ url_for('login') }}" class="nav-link px-2 text-white">Login</a></li>
+        <ul class="nav my-nav col-12 col-lg-auto me-lg-auto mb-0 justify-content-center mb-md-0">
+          <li><a href="{{ url_for('index') }}" class="nav-link px-2">Home</a></li>
+          <li><a href="{{ url_for('tvseries') }}" class="nav-link px-2">Series</a></li>
+          <li><a href="{{ url_for('films') }}" class="nav-link px-2">Films</a></li>
+          <li><a href="{{ url_for('login') }}" class="nav-link px-2">Login</a></li>
         </ul>
+
       </div>
     </div>
-  </header> -->
+  </header>
 
 
 
