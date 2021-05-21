@@ -48,8 +48,17 @@
         <div class="col-sm-9">
             {% if results["title"] %}
             <h4 class="uppercase py-2 view-title">{{ results["title"] }}</h4>
-            <div class="overview text-justify">
-                <p>{{ results["overview"] }}</p>
+            <div class="overview justify-content-sm-center">
+                <div class="d-block d-sm-none">
+                    <button class="btn" type="button" data-toggle="collapse" data-target="#overview"
+                        aria-expanded="false" aria-controls="overview">
+                        Overview
+                    </button>
+                    <div class="collapse text-justify" id="overview">
+                        <p>{{ results["overview"] }}</p>
+                    </div>
+                </div>
+                <p class="d-none d-sm-block text-justify">{{ results["overview"] }}</p>
             </div>
             {% else %}
             <h4 class="uppercase py-2 view-title">{{ results["name"] }}</h4>

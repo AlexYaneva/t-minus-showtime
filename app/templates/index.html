@@ -2,9 +2,11 @@
 
 
 {% block content %}
-<div class="tst text-secondary mt-2 px-4 py-5 text-center">
-	<div class="py-5">
-		<h1 class="display-5 fw-bold text-white">COUNTDOWN TO YOUR FAVOURITE RELEASES</h1>
+<div class="index-wrap text-secondary mt-2 px-4 py-lg-5 py-1 text-center">
+	<div class="stars"></div>
+	<div class="twinkling"></div>
+	<div class="index-content py-5">
+		<h2 class="display-5 fw-bold text-white">COUNTDOWN TO YOUR FAVOURITE RELEASES</h2>
 		<div class="col-lg-6 mx-auto">
 			<p class="fs-5 mb-4">T-minus 10...9...8...</p>
 			<p class="fs-5 mb-4">"Created by NASA, the term t-minus is used for countdowns big and small,
@@ -12,30 +14,34 @@
 				launch, days
 				until the weekend or days until your favourite show releases new episodes. We have liftoff."</p>
 			<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-				<button type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold">Find films</button>
-				<button type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold">Find series</button>
-
+				<a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="{{ url_for('films') }}">Find
+					films</a>
+				<a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="{{ url_for('tvseries') }}">Find
+					series</a>
+			</div>
+		</div>
+		<div class="row align-items-md-stretch py-5">
+			<div class="col-md-6">
+				<div class="h-100 py-5 text-white border rounded" style="background-color: transparent;">
+					<h3>WHAT IS THIS</h3>
+					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, quia minima ullam a iure officia
+						modi suscipit eum corporis quod recusandae tempora sapiente cumque doloribus, dignissimos
+						adipisci deleniti, sit ad?</p>
+					<button class="btn btn-sm" type="button">Summin</button>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="h-100 py-5 bg-dark text-white border rounded">
+					<h3>WHY USE IT</h3>
+					<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur doloribus vero consequatur
+						optio, facere sapiente natus eos sint ut! Animi modi quam impedit ducimus explicabo inventore
+						nihil iusto nulla natus?</p>
+					<button class="btn btn-sm" type="button">Sign up</button>
+				</div>
 			</div>
 		</div>
 	</div>
+
 </div>
 
-
-<style>
-	.tst {
-		border-radius: 5px;
-		background-color: rgb(20, 25, 32);
-	}
-
-	.btn {
-		background-color: transparent;
-		color: #ff4f4f;
-		border-radius: 5px solid;
-		border-color: tomato;
-	}
-
-	.btn:hover {
-		background-color: #f78f8f;
-	}
-</style>
 {% endblock %}

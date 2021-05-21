@@ -46,6 +46,12 @@ def films():
         return redirect(url_for("results", group="films", title=film_title))
     films = GetFilms(page)
     results = films.popular_films()
+
+    #test
+    # top_rated = films.top_rated()
+    # in_theatres = films.films_in_theatres()
+    #end of test
+
     if page == 1:
         return render_template("films.html", results=results, form=form)
     elif page > 1:
@@ -63,6 +69,12 @@ def tvseries():
         return redirect(url_for("results", group="series", title=series_title))
     series = GetSeries(page)
     results = series.popular_series()
+
+    #test
+    # airing_today = series.series_airing_today()
+    # on_the_air = series.series_on_the_air()
+    #end of test
+
     if page == 1:
         return render_template("tvseries.html", results=results, form=form)
     elif page > 1:
