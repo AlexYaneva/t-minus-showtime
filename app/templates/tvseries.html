@@ -27,38 +27,35 @@
 	<div class="tab-pane fade active show" id="popular">
 		<div class="container-fluid animated fadeIn">
 			<div class='row' id='scroller'>
-				{% for i in results %}
 				{% include '_display_posters.html' %}
-				{% endfor %}
 			</div>
+			<div id="sentinel"></div>
 		</div>
 	</div>
 	<div class="tab-pane fade active show" id="airing_today">
 		<div class="container-fluid animated fadeIn">
 			<div class='row' id='scroller'>
-				{% for i in results %}
 				{% include '_display_posters.html' %}
-				{% endfor %}
 			</div>
+			<div id="sentinel"></div>
 		</div>
 	</div>
 	<div class="tab-pane fade active show" id="on_the_air">
 		<div class="container-fluid animated fadeIn">
 			<div class='row' id='scroller'>
-				{% for i in results %}
 				{% include '_display_posters.html' %}
-				{% endfor %}
 			</div>
+			<div id="sentinel"></div>
 		</div>
 	</div>
 </div>
 
 
-<div class='container'>
+<!-- <div class='container'>
 	<div class='row' id='scroller'>
 		{% include '_display_posters.html' %}
 	</div>
-</div>
+</div> -->
 
 <!-- div to be observed by intersectionobserver and trigger the infinite scroll -->
 <div id="sentinel"></div>

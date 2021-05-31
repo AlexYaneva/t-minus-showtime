@@ -1,4 +1,4 @@
-<!-- {% for i in results %} -->
+{% for i in results %}
 <div class='col-md-2 col-lg-2 col-6'>
     <div class='animated fadeIn'>
         <a href="{{ url_for('viewitem', item_id=i['id'], title=i['title']) }}">
@@ -12,4 +12,4 @@
         </a>
     </div>
 </div>
-<!-- {% endfor %} -->
+{% endfor %}
