@@ -1,22 +1,15 @@
-{% extends 'base.html' %}
-
-{% block content %}
-
-<div class='container'>
-    <h1 class='text-center'>FILMS IN THEATRES</h1>
-
-    <div class='row' id='scroller'>
-        {% include '_display_posters.html' %}
+{% for i in in_theatres %}
+<div class='col-md-2 col-lg-2 col-6'>
+    <div class='animated fadeIn'>
+        <a href="{{ url_for('viewitem', item_id=i['id'], title=i['title']) }}">
+            {% if i['title'] %}
+            <img src="{{ i['poster_path'] }}" class='my-img img-fluid' data-toggle="tooltip" data-placement="top"
+                title="{{ i['title'] }}">
+            {% else %}
+            <img src="{{ i['poster_path'] }}" class='my-img img-fluid' data-toggle="tooltip" data-placement="top"
+                title="{{ i['name'] }}">
+            {% endif %}
+        </a>
     </div>
 </div>
-
-<!-- div to be observed by intersectionobserver and trigger the infinite scroll -->
-<div id="sentinel"></div>
-
-{% block scripts %}
-
-<script src='{{ url_for("static", filename="js/infinitescroll.js") }}'></script>
-
-{% endblock %}
-
-{% endblock %}
+{% endfor %}

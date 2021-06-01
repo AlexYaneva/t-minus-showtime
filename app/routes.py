@@ -39,24 +39,46 @@ def results(group, title):
 
 @app.route("/films", methods=["GET", "POST"])
 def films():
-    page = request.args.get('page', 1, type=int)
+    page = 1
     form = SearchForm()
     if form.validate_on_submit():
         film_title = form.search.data
         return redirect(url_for("results", group="films", title=film_title))
     films = GetFilms(page)
+
+    results = films.popular_films()
+    top_rated = films.top_rated()
+    in_theatres = films.films_in_theatres()
+
+    return render_template("films.html", results=results, top_rated=top_rated, in_theatres=in_theatres, form=form)
+
+
+@app.route("/top_rated", methods=["GET", "POST"])
+def top_rated():
+    page = request.args.get('page', 2, type=int)
+    films = GetFilms(page)
+    results = films.top_rated()
+
+    return jsonify(render_template('_display_posters.html', results=results))
+
+
+
+@app.route("/films_in_theatres", methods=["GET", "POST"])
+def films_in_theatres():
+    page = request.args.get('page', 2, type=int)
+    films = GetFilms(page)
+    results = films.films_in_theatres()
+
+    return jsonify(render_template('_display_posters.html', results=results))
+
+
+@app.route("/popular_films", methods=["GET", "POST"])
+def popular_films():
+    page = request.args.get('page', 2, type=int)
+    films = GetFilms(page)
     results = films.popular_films()
 
-    #test
-    # top_rated = films.top_rated()
-    # in_theatres = films.films_in_theatres()
-    #end of test
-
-    if page == 1:
-        return render_template("films.html", results=results, form=form)
-    elif page > 1:
-        return jsonify(render_template('_display_posters.html', results=results))
-
+    return jsonify(render_template('_display_posters.html', results=results))
 
 
 
@@ -105,29 +127,6 @@ def popular_series():
     return jsonify(render_template('_display_posters.html', results=results))
 
 
-
-
-@app.route("/top_rated", methods=["GET", "POST"])
-def top_rated():
-    page = request.args.get('page', 1, type=int)
-    films = GetFilms(page)
-    results = films.top_rated()
-    if page == 1:
-        return render_template("top_rated_films.html", results=results)
-    elif page > 1:
-        return jsonify(render_template('_display_posters.html', results=results))
-
-
-
-@app.route("/films_in_theatres", methods=["GET", "POST"])
-def films_in_theatres():
-    page = request.args.get('page', 1, type=int)
-    films = GetFilms(page)
-    results = films.films_in_theatres()
-    if page == 1:
-        return render_template("films_in_theatres.html", results=results)
-    elif page > 1:
-        return jsonify(render_template('_display_posters.html', results=results))
 
 
 # makign 'title' an optional parameter
