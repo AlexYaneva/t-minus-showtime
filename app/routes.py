@@ -62,46 +62,49 @@ def films():
 
 @app.route("/tvseries", methods=["GET", "POST"])
 def tvseries():
-    page = request.args.get('page', 1, type=int)
+    page = 1
     form = SearchForm()
     if form.validate_on_submit():
         series_title = form.search.data
         return redirect(url_for("results", group="series", title=series_title))
     series = GetSeries(page)
+
     results = series.popular_series()
+    airing_today = series.series_airing_today()
+    on_the_air = series.series_on_the_air()
 
-    #test
-    # airing_today = series.series_airing_today()
-    # on_the_air = series.series_on_the_air()
-    #end of test
+    return render_template("tvseries.html", results=results, on_the_air=on_the_air, airing_today=airing_today,  form=form)
 
-    if page == 1:
-        return render_template("tvseries.html", results=results, form=form)
-    elif page > 1:
-        return jsonify(render_template('_display_posters.html', results=results))
 
 
 
 @app.route("/series_airing_today", methods=["GET", "POST"])
 def series_airing_today():
-    page = request.args.get('page', 1, type=int)
+    page = request.args.get('page', 2, type=int)
     series = GetSeries(page)
     results = series.series_airing_today()
-    if page == 1:
-        return render_template("series_airing_today.html", results=results)
-    elif page > 1:
-        return jsonify(render_template('_display_posters.html', results=results))
+
+    return jsonify(render_template('_display_posters.html', results=results))
 
 
 @app.route("/series_on_the_air", methods=["GET", "POST"])
 def series_on_the_air():
-    page = request.args.get('page', 1, type=int)
+    page = request.args.get('page', 2, type=int)
     series = GetSeries(page)
     results = series.series_on_the_air()
-    if page == 1:
-        return render_template("series_on_the_air.html", results=results)
-    elif page > 1:
-        return jsonify(render_template('_display_posters.html', results=results))
+
+    return jsonify(render_template('_display_posters.html', results=results))
+
+
+@app.route("/popular_series", methods=["GET", "POST"])
+def popular_series():
+    page = request.args.get('page', 2, type=int)
+    series = GetSeries(page)
+    results = series.popular_series()
+
+    return jsonify(render_template('_display_posters.html', results=results))
+
+
 
 
 @app.route("/top_rated", methods=["GET", "POST"])

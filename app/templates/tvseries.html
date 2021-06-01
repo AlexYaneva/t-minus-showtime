@@ -14,40 +14,39 @@
 
 <ul class="nav nav-tabs justify-content-center">
 	<li class="nav-item">
-		<a class="nav-link active" data-toggle="tab" href="#popular">POPULAR</a>
+		<a class="nav-link active" data-toggle="tab" href="#popular_series">POPULAR</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" data-toggle="tab" href="#airing_today">AIRING TODAY</a>
+		<a class="nav-link" data-toggle="tab" href="#series_airing_today">AIRING TODAY</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" data-toggle="tab" href="#on_the_air">ON THE AIR</a>
+		<a class="nav-link" data-toggle="tab" href="#series_on_the_air">ON THE AIR</a>
 	</li>
 </ul>
-<div id="myTabContent" class="tab-content">
-	<div class="tab-pane fade active show" id="popular">
+<div class="tab-content">
+	<div class="tab-pane fade active show" id="popular_series">
 		<div class="container-fluid animated fadeIn">
 			<div class='row' id='scroller'>
 				{% include '_display_posters.html' %}
 			</div>
-			<div id="sentinel"></div>
 		</div>
 	</div>
-	<div class="tab-pane fade active show" id="airing_today">
+	<div class="tab-pane fade" id="series_airing_today">
 		<div class="container-fluid animated fadeIn">
 			<div class='row' id='scroller'>
-				{% include '_display_posters.html' %}
+				{% include 'series_airing_today.html' %}
 			</div>
-			<div id="sentinel"></div>
 		</div>
 	</div>
-	<div class="tab-pane fade active show" id="on_the_air">
+	<div class="tab-pane fade" id="series_on_the_air">
 		<div class="container-fluid animated fadeIn">
 			<div class='row' id='scroller'>
-				{% include '_display_posters.html' %}
+				{% include 'series_on_the_air.html' %}
 			</div>
-			<div id="sentinel"></div>
 		</div>
 	</div>
+	<!-- div to be observed by intersectionobserver and trigger the infinite scroll -->
+	<div id="sentinel"></div>
 </div>
 
 
@@ -57,8 +56,7 @@
 	</div>
 </div> -->
 
-<!-- div to be observed by intersectionobserver and trigger the infinite scroll -->
-<div id="sentinel"></div>
+
 
 {% block scripts %}
 
