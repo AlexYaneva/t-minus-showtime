@@ -73,43 +73,41 @@
                 {% if films %}
                 <div class="row mb-5">
                     {% for tracked in films %}
-                    <div class="col-md-3" style="padding-bottom: 3rem;">
-                        <div class="card">
+                    <div class="col-md-3 col-lg-3 col-6" style="padding-bottom: 3rem;">
+                        <div class="card h-100">
                             {% if tracked["countdown"] == 0 %}
-                            <h6 class="card-header"><span class='days'>RELEASED TODAY!</span></h6>
+                            <h6 class="card-header"><span class='days'><span class="pulse"><i
+                                            class="fas fa-rocket"></i></span>OUT TODAY!</span>
+                            </h6>
                             {% else %}
-                            <h5 class="card-header"><span class='days'>T-{{ tracked["countdown"] }}</span></h5>
+                            <h5 class="card-header"><span class='days'>T-{{ tracked["countdown"] }}</span>
+                            </h5>
                             {% endif %}
-                            <div class="img-wrap">
-                                <div class="img-overlay"></div>
-                                <img class="card-img-top" src='{{ tracked["poster_path"] }}'>
-                                <form action="{{ url_for('untrack', item_id=tracked['id']) }}" method="POST">
+                            <img class="card-img-top" src='{{ tracked["poster_path"] }}'>
+                            <!-- <form action="{{ url_for('untrack', item_id=tracked['id']) }}" method="POST">
                                     <button class='btn btn-secondary btn-sm img-button' type="submit"><i
-                                            class="fa fa-trash"></i></button>
-                                </form>
-                            </div>
-                            <div class="card-body">
-                            </div>
+                                            class="fas fa-trash-alt"></i></button>
+                                </form> -->
                         </div>
                     </div>
                     {% endfor %}
                 </div>
-
-
-
-                {% else %}
-                <div class="container">
-                    <p>
-                        You are not tracking any films yet.
-                    </p>
-                    <br>
-                    <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find
-                        series</a>
-                </div>
-                {% endif %}
             </div>
+
+
+            {% else %}
+            <div class="container">
+                <p>
+                    You are not tracking any films yet.
+                </p>
+                <br>
+                <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find
+                    series</a>
+            </div>
+            {% endif %}
         </div>
     </div>
+</div>
 </div>
 </div>
 

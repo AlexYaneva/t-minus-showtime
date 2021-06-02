@@ -7,8 +7,9 @@ import requests
 def countdown(release):
 
     base = str(date.today())
-    release_d = release
-    release_date = datetime.strptime(release_d, "%Y-%m-%d")
+    # converted_release = datetime.strptime(release, "%Y-%m-%d")
+    # final_date = datetime.strftime(converted_release, "%d %b %Y")
+    release_date = datetime.strptime(release, "%Y-%m-%d")
     today = datetime.strptime(base, "%Y-%m-%d")
 
     difference = release_date - today
