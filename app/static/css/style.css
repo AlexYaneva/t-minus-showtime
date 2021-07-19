@@ -367,6 +367,35 @@ h4, h5, h6 {
 
 }
 
+
+.dashboard-img-base {
+    position:relative;
+    
+}
+
+.dashboard-img-base .overlay {
+    position:absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    opacity:0;
+    transition: .3s all;
+}
+
+.dashboard-img-base .img {
+    transition: .3s all;
+}
+
+.dashboard-img-base .overlay:hover {
+        opacity: 1;
+}
+
+.dashboard-img-base img:hover {
+    -webkit-filter: blur(2px);
+    filter: blur(2px);
+  }
+
     /* header {
         border-bottom: 1px solid rgb(80, 77, 95);
     } */

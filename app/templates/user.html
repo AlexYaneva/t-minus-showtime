@@ -36,11 +36,17 @@
                             <h5 class="card-header"><span class='days'>T-{{ tracked["countdown"] }}</span>
                             </h5>
                             {% endif %}
-                            <img class="card-img-top" src='{{ tracked["poster_path"] }}'>
-                            <!-- <form action="{{ url_for('untrack', item_id=tracked['id']) }}" method="POST">
+                            <div class="dashboard-img-base">
+                                <img class="card-img-top" src='{{ tracked["poster_path"] }}'>
+                                <div class="overlay">
+                                    <a href="#">Delete</a>
+                                    <a href="#">More info</a>
+                                </div>
+                                <!-- <form action="{{ url_for('untrack', item_id=tracked['id']) }}" method="POST">
                                     <button class='btn btn-secondary btn-sm img-button' type="submit"><i
                                             class="fas fa-trash-alt"></i></button>
                                 </form> -->
+                            </div>
                             <div class="card-body">
                                 {% if tracked["watch/providers"]%}
                                 <p>STREAM</p>
@@ -83,11 +89,13 @@
                             <h5 class="card-header"><span class='days'>T-{{ tracked["countdown"] }}</span>
                             </h5>
                             {% endif %}
-                            <img class="card-img-top" src='{{ tracked["poster_path"] }}'>
-                            <!-- <form action="{{ url_for('untrack', item_id=tracked['id']) }}" method="POST">
+                            <a href="{{ url_for('viewitem', item_id=tracked['id'], title=tracked['title']) }}">
+                                <img class="card-img-top" src='{{ tracked["poster_path"] }}'>
+                                <!-- <form action="{{ url_for('untrack', item_id=tracked['id']) }}" method="POST">
                                     <button class='btn btn-secondary btn-sm img-button' type="submit"><i
                                             class="fas fa-trash-alt"></i></button>
                                 </form> -->
+                            </a>
                         </div>
                     </div>
                     {% endfor %}
