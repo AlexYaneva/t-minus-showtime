@@ -130,7 +130,6 @@ h4, h5, h6 {
 
 .btn-track {
     background-color: transparent; 
-    border-color: transparent; 
     color:tomato; 
     font-family: 'Audiowide', cursive;
 }
@@ -249,7 +248,8 @@ h4, h5, h6 {
     border-radius: 5px;
     border: none;
     display: inline-block;
-    margin-bottom: 2px;
+    margin-top: 2px;
+    padding-top:2px;
     
 }
 
@@ -351,7 +351,7 @@ h4, h5, h6 {
         margin-bottom: 0;
         margin-top: 2px;
         font-size: small; 
-        font-weight: bold;
+        /* font-weight: bold; */
     }
 
     .view-title {
@@ -368,33 +368,8 @@ h4, h5, h6 {
 }
 
 
-.dashboard-img-base {
-    position:relative;
-    
-}
 
-.dashboard-img-base .overlay {
-    position:absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    opacity:0;
-    transition: .3s all;
-}
 
-.dashboard-img-base .img {
-    transition: .3s all;
-}
-
-.dashboard-img-base .overlay:hover {
-        opacity: 1;
-}
-
-.dashboard-img-base img:hover {
-    -webkit-filter: blur(2px);
-    filter: blur(2px);
-  }
 
     /* header {
         border-bottom: 1px solid rgb(80, 77, 95);
