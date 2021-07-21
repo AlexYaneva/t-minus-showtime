@@ -13,7 +13,7 @@
             <p><span class='days'><i class="fas fa-rocket"></i>T-MINUS</span></p>
             <p><span class='days'>{{ countdown }} DAYS</span></p>
             <form action="{{ url_for('track', item_id=results['id'], group='films') }}" method="POST">
-                <button class='btn btn-secondary btn-track' type="submit"><i class="fas fa-plus"
+                <button class='btn btn-track' type="submit"><i class="fas fa-plus"
                         style="color: tomato;"></i>TRACK</button>
             </form>
             {% endif %}
@@ -31,14 +31,14 @@
             {% elif countdown == 0 %}
             <p><span class='days'>NEW EPISODE TODAY!</span> </p>
             <form action="{{ url_for('track', item_id=results['id'], group='series') }}" method="POST">
-                <button class='btn btn-secondary btn-track' type="submit"><i class="fas fa-plus"
+                <button class='btn btn-track' type="submit"><i class="fas fa-plus"
                         style="color: tomato;"></i>TRACK</button>
             </form>
             {% else %}
             <p>NEXT EPISODE: {{ results['next_episode_to_air']['air_date'] }}</p>
             <p><span class='days'> <i class="fas fa-rocket"></i>T-MINUS {{ countdown }} DAYS</span></p>
             <form action="{{ url_for('track', item_id=results['id'], group='series') }}" method="POST">
-                <button class='btn btn-secondary btn-track' type="submit"><i class="fas fa-plus"
+                <button class='btn btn-track' type="submit"><i class="fas fa-plus"
                         style="color: tomato;"></i>TRACK</button>
             </form>
             {% endif %}
@@ -54,7 +54,7 @@
             <div class="overview justify-content-sm-center">
                 <div class="py-2 d-block d-sm-none">
                     <button class="btn" type="button" data-toggle="collapse" data-target="#overview"
-                        aria-expanded="false" aria-controls="overview">
+                        aria-expanded="false" aria-controls="overview" style="border: none;">
                         Overview
                     </button>
                     <div class="collapse text-justify" id="overview">

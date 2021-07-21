@@ -111,14 +111,18 @@ h4, h5, h6 {
 
 
 
-.btn{
+.btn, .btn-secondary{
     background-color: transparent;
     color: #ff4f4f;
     border-radius: 5px solid;
     border-color: tomato;
 }
 
-.btn:hover {
+.btn-dropdown-menu {
+    border: none;
+}
+
+.btn:hover, .btn-secondary:hover {
     border-color: #f78f8f;
     color: whitesmoke;
 }
@@ -338,6 +342,12 @@ h4, h5, h6 {
 }
 
   @media only screen and (max-width: 768px) {
+
+    .container-fluid {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
     .card-header {
         padding: 0;
         font-size: small;
@@ -362,6 +372,20 @@ h4, h5, h6 {
         max-height: 30px;
         max-width: 30px;
         border-radius: 5px;
+    }
+
+    .form-inline {
+        flex-flow: unset;
+    }
+
+    h1,h2,h3 {
+        padding:0px;
+        font-size: 1.5rem;
+    }
+
+    .row {
+        margin-left: -10px;
+        margin-right: -10px;
     }
 
 
