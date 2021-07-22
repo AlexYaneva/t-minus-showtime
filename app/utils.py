@@ -7,8 +7,6 @@ import requests
 def countdown(release):
 
     base = str(date.today())
-    # converted_release = datetime.strptime(release, "%Y-%m-%d")
-    # final_date = datetime.strftime(converted_release, "%d %b %Y")
     release_date = datetime.strptime(release, "%Y-%m-%d")
     today = datetime.strptime(base, "%Y-%m-%d")
 
@@ -16,6 +14,12 @@ def countdown(release):
     countdown = difference.days
     return countdown if countdown >= 0 else -1
 
+
+def convert_date(release_date):
+
+	formatted_date = datetime.strptime(release_date, "%Y-%m-%d")
+	date_to_str = formatted_date.strftime("%A %d %b")
+	return date_to_str
 
 def get_country_by_ip():
     try:

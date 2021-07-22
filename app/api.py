@@ -2,7 +2,7 @@ import requests
 from config import API_key
 from flask import url_for
 from flask_login import current_user
-from app.utils import async_get_multiple, countdown
+from app.utils import async_get_multiple, countdown, convert_date
 
 
 class TMDB:
@@ -49,6 +49,10 @@ class TMDB:
                 item["poster_path"] = f"{self.IMAGES_URL}{item['poster_path']}"
             else:
                 item["poster_path"] = f"{url_for('static', filename='img/no_image.png')}"
+
+            if "next_episode_to_air" in item:
+                if item["next_episode_to_air"]:
+                    item["next_episode_to_air"]['formatted_date'] = convert_date(item["next_episode_to_air"]['air_date'])
 
             if "watch/providers" in item:
                 try:

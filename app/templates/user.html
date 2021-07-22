@@ -59,7 +59,8 @@
                             <img class="card-img-top" src='{{ tracked["poster_path"] }}'>
                             <div class="card-body">
                                 {% if tracked["next_episode_to_air"] %}
-                                <p>New ep: {{tracked["next_episode_to_air"]['air_date']}}</p>
+                                <p style="color: tomato;">Next episode:</p>
+                                <p>{{tracked["next_episode_to_air"]['formatted_date']}}</p>
                                 {% endif %}
                                 {% if tracked["watch/providers"] %}
                                 <div class="stream-on-dash">

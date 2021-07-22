@@ -21,9 +21,9 @@
 
             {% if results["name"] %}
             {% if countdown == 1000 and results['status'] == 'Ended' %}
-            <p><strong>STATUS:</strong> ENDED</p>
+            <p><strong>SERIES STATUS:</strong> ENDED</p>
             {% elif countdown == 1000 and results['status'] != 'Ended' %}
-            <p><strong>STATUS:</strong> NO NEW EPISODES</p>
+            <p><strong>SERIES STATUS:</strong> NO NEW EPISODES</p>
             <form action="{{ url_for('track', item_id=results['id'], group='series') }}" method="POST">
                 <button class='btn btn-secondary btn-track' type="submit"><i class="fas fa-plus"
                         style="color: tomato;"></i>TRACK</button>
@@ -35,7 +35,8 @@
                         style="color: tomato;"></i>TRACK</button>
             </form>
             {% else %}
-            <p>NEXT EPISODE: {{ results['next_episode_to_air']['air_date'] }}</p>
+            <p><span style="color:tomato">Next episode:</span> {{ results['next_episode_to_air']['formatted_date'] }}
+            </p>
             <p><span class='days'> <i class="fas fa-rocket"></i>T-MINUS {{ countdown }} DAYS</span></p>
             <form action="{{ url_for('track', item_id=results['id'], group='series') }}" method="POST">
                 <button class='btn btn-track' type="submit"><i class="fas fa-plus"
