@@ -189,7 +189,7 @@ def register():
         db.create_new_user(form.email.data, form.username.data)
         password_hash = generate_password_hash(form.password.data)
         db.update_password(form.email.data, password_hash)
-        flash('You are now registered! Welcome on board.')
+        flash('You are now registered. Welcome on board!')
         return redirect(url_for('login'))
         
     return render_template('register.html', title='Register', form=form)
