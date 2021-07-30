@@ -17,6 +17,9 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#films">MY FILMS</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#account">ACCOUNT</a>
+        </li>
     </ul>
     <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade active show" id="series">
@@ -127,6 +130,13 @@
                     films</a>
             </div>
             {% endif %}
+        </div>
+
+        <div class="tab-pane fade" id="account">
+            <!-- here it should display the username -->
+            <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="{{ url_for('logout') }}">Log out</a>
+            <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="#">Change username</a>
+            <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="#">Delete account</a>
         </div>
     </div>
 </div>

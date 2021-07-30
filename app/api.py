@@ -54,6 +54,9 @@ class TMDB:
                 if item["next_episode_to_air"]:
                     item["next_episode_to_air"]['formatted_date'] = convert_date(item["next_episode_to_air"]['air_date'])
 
+            if "release_date" in item:
+                item['formatted_date'] = convert_date( item['release_date'])
+
             if "watch/providers" in item:
                 try:
                     item["watch/providers"] = item["watch/providers"]["results"][current_user.location["country_code"]]["flatrate"]
@@ -157,13 +160,11 @@ class GetSeries(TMDB):
     }
 
     def set_countdown(self, item):
-        # this method receives a list of items
-        for i in item:
-            if i["next_episode_to_air"]:
-                countdwn = countdown(i["next_episode_to_air"]["air_date"])
-            else:
-                # assign a high number to series with no new episodes so they can be displayed last
-                countdwn = 1000
+        if item["next_episode_to_air"]:
+            countdwn = countdown(item["next_episode_to_air"]["air_date"])
+        else:
+            # assign a high number to series with no new episodes so they can be displayed last
+            countdwn = 1000
         return countdwn
 
 

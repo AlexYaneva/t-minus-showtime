@@ -137,8 +137,8 @@ def get_all_releasing_tomorrow(tracked_type):
 
     # check which episodes are releasing in 1 day and delete the rest
     for i in tmdb_response:
-        countdwn = series.set_countdown(i)
-        if countdwn != 1:
+        countdwn = series_object.set_countdown(i)
+        if countdwn != 0: # changing the number for testing, should be 1
             shows_ids.remove(i["id"])
 
 

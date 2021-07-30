@@ -7,11 +7,10 @@
             <img src='{{ results["poster_path"] }}' class='my-img img-fluid my-2'>
             {% if results["title"] %}
             {% if countdown == -1 %}
-            <p><strong>Released on {{ results["release_date"] }}</strong></p>
+            <p><span style="color:tomato">Released on</span> {{ results["formatted_date"] }}</p>
             {% else %}
-            <p><strong>Coming out on {{ results["release_date"] }}</strong></p>
-            <p><span class='days'><i class="fas fa-rocket"></i>T-MINUS</span></p>
-            <p><span class='days'>{{ countdown }} DAYS</span></p>
+            <p><span style="color:tomato">Release: </span>{{ results["formatted_date"] }}</p>
+            <p><span class='days'><i class="fas fa-rocket"></i>T-MINUS {{ countdown }} DAYS</span></p>
             <form action="{{ url_for('track', item_id=results['id'], group='films') }}" method="POST">
                 <button class='btn btn-track' type="submit"><i class="fas fa-plus"
                         style="color: tomato;"></i>TRACK</button>
