@@ -156,11 +156,6 @@ def get_all_releasing_tomorrow(tracked_type):
 
 
 
-def update_username(email, tracked=0):
-    pass
-
-
-
 def delete_user(email):
     '''
     Delete the user record and all tracked records
