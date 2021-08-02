@@ -5,7 +5,7 @@
 <p><a href="#">Log-in to your account</a> to see where you can watch them.</p>
 </br>
 {% for i in a_list %}
-<img src='{{ i }}'>
+<img src='{{ i["Poster_path"] }}'>
 {% endfor %}
 </br>
 <p>Best,</p>

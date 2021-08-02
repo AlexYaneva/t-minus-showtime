@@ -19,12 +19,14 @@ def send_password_reset_email(user):
 
 #TEST
 
-def send_notification_emails(a_list):
-    user_email = "mandylmoore45@gmail.com"
-    send_email('[T-minus Showtime] New episodes tomorrow!',
-            sender = app.config.get("MAIL_USERNAME"),
-            recipients=[user_email],
-            html_body=render_template('email/notification_new_eps.html', a_list=a_list))
+def send_notification_emails(a_dict):
+    for key,value in a_dict.items():
+        key = "mandylmoore45@gmail.com"
+        # user_email = "mandylmoore45@gmail.com"
+        send_email('[T-minus Showtime] New episodes tomorrow!',
+                sender = app.config.get("MAIL_USERNAME"),
+                recipients=[key],
+                html_body=render_template('email/notification_new_eps.html', a_list=value))
 
 
 

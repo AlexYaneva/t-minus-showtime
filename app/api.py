@@ -86,9 +86,8 @@ class GetFilms(TMDB):
         "top_rated" : "/movie/top_rated"
     }
 
-    def set_countdown(self, list_of_items):
-        for item in list_of_items:
-            countdwn = countdown(item["release_date"])
+    def set_countdown(self, item):
+        countdwn = countdown(item["release_date"])
         return countdwn
 
 

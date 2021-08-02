@@ -15,8 +15,7 @@ import app.db_helpers as db
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
-    a_list = ["http://image.tmdb.org/t/p/w342/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg", "http://image.tmdb.org/t/p/w342/v6Xmj8Fy7ZruVTz3y2Po7O0TQh4.jpg", "http://image.tmdb.org/t/p/w342/zrPpUlehQaBf8YX2NrVrKK8IEpf.jpg"]
-    send_notification_emails(a_list)
+
     return render_template("index.html")
 
 
@@ -239,6 +238,12 @@ def reset_password(token):
 @app.route("/user/<username>", methods=["GET", "POST"])
 @login_required
 def user(username):
+
+    #TEST
+    # a_dict = db.get_all_releasing_tomorrow("series")
+    # send_notification_emails(a_dict)
+    #END
+
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
 
