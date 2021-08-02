@@ -55,7 +55,8 @@ class TMDB:
                     item["next_episode_to_air"]['formatted_date'] = convert_date(item["next_episode_to_air"]['air_date'])
 
             if "release_date" in item:
-                item['formatted_date'] = convert_date( item['release_date'])
+                if item["release_date"]:
+                    item['formatted_date'] = convert_date(item['release_date'])
 
             if "watch/providers" in item:
                 try:

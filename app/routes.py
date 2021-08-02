@@ -137,16 +137,18 @@ def popular_series():
 def viewitem(item_id, title=None):
     if title:
         film = GetFilms(page=1)
-        results = film.film_details(item_id=item_id) 
+        results = film.film_details(item_id=item_id)
+        results  = results[0]
         countdwn = film.set_countdown(results)
         recommends = film.film_recommendations(item_id=item_id)
     else:
         series = GetSeries(page=1)
         results = series.series_details(item_id=item_id)
+        results  = results[0]
         countdwn = series.set_countdown(results)
         recommends = series.series_recommendations(item_id=item_id)
 
-    return render_template("viewitem.html", item_id=item_id, results=results[0], recommends=recommends,
+    return render_template("viewitem.html", item_id=item_id, results=results, recommends=recommends,
                                              countdown=countdwn, countries=utils.countries)
 
 
