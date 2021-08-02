@@ -1,6 +1,6 @@
 from app import app, cache, dynamo, table
 from app.api import GetFilms, GetSeries
-from app.email import send_password_reset_email
+from app.email import send_password_reset_email, send_notification_emails
 from app.forms import LoginForm, RegistrationForm, ResetPasswordForm, ResetPasswordRequestForm, SearchForm
 from app.models import User
 from flask import flash, render_template, url_for, request, redirect, session, jsonify, make_response
@@ -15,6 +15,8 @@ import app.db_helpers as db
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
+    a_list = ["http://image.tmdb.org/t/p/w342/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg", "http://image.tmdb.org/t/p/w342/v6Xmj8Fy7ZruVTz3y2Po7O0TQh4.jpg", "http://image.tmdb.org/t/p/w342/zrPpUlehQaBf8YX2NrVrKK8IEpf.jpg"]
+    send_notification_emails(a_list)
     return render_template("index.html")
 
 
