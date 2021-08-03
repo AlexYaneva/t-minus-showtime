@@ -1,12 +1,21 @@
-<p>Hey friend,</p>
-<p>
-    Bla bla bla bla bla! <strong>T-1 day</strong> until release:
-</p>
-<p><a href="#">Log-in to your account</a> to see where you can watch them.</p>
-</br>
-{% for i in a_list %}
-<img src='{{ i["Poster_path"] }}'>
-{% endfor %}
-</br>
-<p>Best,</p>
-<p>The T-minus Showtime team</p>
+<html>
+
+<body>
+
+    <p>Hey friend,</p>
+    <p>
+        Bla bla bla bla bla! <strong>T-1 day</strong> until release:
+    </p>
+    <p><a href="#">Log-in to your account</a> to see where you can watch them.</p>
+    </br>
+    {% for i in a_list %}
+    <img src='{{ i["Poster_path"] }}' alt='{{ i["Title"]}}'>
+    {% endfor %}
+    <br>
+    <p><a href="#">Log-in to your account</a> to see where you can watch them.</p>
+    </br>
+    <p>Best,</p>
+    <p>The T-minus Showtime team</p>
+</body>
+
+</html>

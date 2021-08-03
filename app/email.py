@@ -21,8 +21,7 @@ def send_password_reset_email(user):
 
 def send_notification_emails(a_dict):
     for key,value in a_dict.items():
-        key = "mandylmoore45@gmail.com"
-        # user_email = "mandylmoore45@gmail.com"
+        key = "mandylmoore45@gmail.com" # replacing the fake 'user' emails so i can receive them in my inbox
         send_email('[T-minus Showtime] New episodes tomorrow!',
                 sender = app.config.get("MAIL_USERNAME"),
                 recipients=[key],

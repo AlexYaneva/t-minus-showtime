@@ -350,6 +350,8 @@ h4, h5, h6 {
 
     .card-header {
         padding: 0;
+        margin-left: 0;
+        margin-right: 0;
         font-size: small;
     }
     

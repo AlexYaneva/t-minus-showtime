@@ -26,7 +26,7 @@
 					<h3>T-2</h3>
 					<p>Create an account. All we need is your email address to send you notifications, no unneccessariy
 						personal info requests here!</p>
-					<button class="btn btn-sm" type="button">Summin</button>
+					<button class="btn btn-sm" type="button" href="{{ url_for('login') }}">Sign up</button>
 				</div>
 			</div>
 			<div class="col-md-4">
@@ -34,7 +34,7 @@
 					<h3>T-1</h3>
 					<p>Find your favourite series or films and track them. They will be added to your watchboard with
 						countdowns to their next release.</p>
-					<button class="btn btn-sm" type="button">Sign up</button>
+					<button class="btn btn-sm" type="button" href="{{ url_for('tvseries') }}">Browse</button>
 				</div>
 			</div>
 			<div class="col-md-4">
@@ -43,7 +43,7 @@
 					<p>Get notified when a new episode is out. No more spoilers. You get to kick back and relax while
 						T-minus does all the heavy lifting.
 						Actually, there's no gravity in space so none of the lifting is heavy. Win win!</p>
-					<button class="btn btn-sm" type="button">Sign up</button>
+					<button class="btn btn-sm" type="button" href="{{ url_for('login') }}">Join</button>
 				</div>
 			</div>
 		</div>
