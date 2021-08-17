@@ -2,13 +2,13 @@
 
 
 {% block content %}
-<div class="index-wrap text-secondary mt-2 px-4 py-lg-5 py-1 text-center">
+<div class="index-wrap mt-2 px-4 py-lg-5 py-1 text-center">
 	<div class="stars"></div>
 	<div class="twinkling"></div>
 	<div class="index-content py-5">
 		<h2 class="display-5 fw-bold text-white">COUNTDOWN TO YOUR FAVOURITE RELEASES</h2>
 		<div class="col-lg-6 mx-auto">
-			<p class="fs-5 mb-4">T-minus 10...9...8...</p>
+			<p class="mb-4">T-minus 10...9...8...</p>
 			<p class="fs-5 mb-4">"Created by NASA, the term t-minus is used for countdowns big and small,
 				whether it be a rocket
 				launch, days
@@ -26,7 +26,7 @@
 					<h3>T-2</h3>
 					<p>Create an account. All we need is your email address to send you notifications, no unneccessariy
 						personal info requests here!</p>
-					<button class="btn btn-sm" type="button" href="{{ url_for('login') }}">Sign up</button>
+					<a class="btn btn-sm" type="button" href="{{ url_for('login') }}">Sign up</a>
 				</div>
 			</div>
 			<div class="col-md-4">
@@ -34,7 +34,7 @@
 					<h3>T-1</h3>
 					<p>Find your favourite series or films and track them. They will be added to your watchboard with
 						countdowns to their next release.</p>
-					<button class="btn btn-sm" type="button" href="{{ url_for('tvseries') }}">Browse</button>
+					<a class="btn btn-sm" type="button" href="{{ url_for('tvseries') }}">Browse</a>
 				</div>
 			</div>
 			<div class="col-md-4">
@@ -43,7 +43,7 @@
 					<p>Get notified when a new episode is out. No more spoilers. You get to kick back and relax while
 						T-minus does all the heavy lifting.
 						Actually, there's no gravity in space so none of the lifting is heavy. Win win!</p>
-					<button class="btn btn-sm" type="button" href="{{ url_for('login') }}">Join</button>
+					<a class="btn btn-sm" type="button" href="{{ url_for('login') }}">Join</a>
 				</div>
 			</div>
 		</div>

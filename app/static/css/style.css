@@ -139,25 +139,9 @@ h4, h5, h6 {
 }
 
 
-/* .jumbotron {
-    margin-top: 1rem;
-    text-align: center;
-    background-color: transparent;
-    color: rgb(212, 209, 209);
-}
 
-.jumbotron .jumbotron-fluid {
-    background-size: cover;
-}
 
-.jumbotron-text {
-    font-family: 'Audiowide', cursive;
-    color: rgb(212, 209, 209);
-    background: -webkit-linear-gradient(white, #38495a);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-} */
+
 
 .days {
     text-transform: capitalize;
