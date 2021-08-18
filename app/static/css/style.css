@@ -141,7 +141,6 @@ h4, h5, h6 {
 
 .notification-toasts {
 
-    /* position: absolute; top: 0; right: 0; */
     border: #dee2e6;
     font-family: 'Jura', sans-serif;
     color:  rgb(212, 209, 209);
@@ -149,7 +148,7 @@ h4, h5, h6 {
 
 .toast {
     background: radial-gradient(ellipse at center, #31475f 0%, #090a0f 100%);
-    text-align: left;
+    /* text-align: left; */
     border: 1px solid rgb(78, 78, 78);
 }
 
@@ -163,11 +162,17 @@ h4, h5, h6 {
     color: rgb(212, 209, 209);
 }
 
+.alert-info {
+    color: rgb(212, 209, 209); 
+    border-color: rgb(80, 79, 79);
+    /* background-color: transparent; */
+    background: radial-gradient(ellipse at center, #31475f 0%, #090a0f 100%);
+
+}
 
 .days {
     text-transform: capitalize;
     font-family: 'Audiowide', cursive;
-    /* color: rgb(174, 184, 189); */
     color: #ff4f4f;
 
 }
@@ -395,7 +400,23 @@ h4, h5, h6 {
         margin-right: -10px;
     }
 
+    .alert-dismissible {
+        padding-right: 1rem;
+    }
 
+    .block-1 h5 {
+        font-size: 0.9rem;
+    }
+
+    .block-1 h6 {
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 2px;
+        padding-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+        font-size: small;
+    }
 }
 
 
