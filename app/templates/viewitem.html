@@ -7,7 +7,7 @@
             <img src='{{ results["poster_path"] }}' class='my-img img-fluid my-2'>
             {% if results["title"] %}
             {% if countdown == -1 %}
-            <p><span style="color:tomato">Released on</span> {{ results["formatted_date"] }}</p>
+            <p><span style="color:tomato">Released on:</span> {{ results["formatted_date"] }}</p>
             {% else %}
             <p><span style="color:tomato">Release: </span>{{ results["formatted_date"] }}</p>
             <p><span class='days'><i class="fas fa-rocket"></i>T-MINUS {{ countdown }} DAYS</span></p>

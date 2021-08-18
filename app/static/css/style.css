@@ -139,8 +139,29 @@ h4, h5, h6 {
 }
 
 
+.notification-toasts {
+
+    /* position: absolute; top: 0; right: 0; */
+    border: #dee2e6;
+    font-family: 'Jura', sans-serif;
+    color:  rgb(212, 209, 209);
+}
+
+.toast {
+    background: radial-gradient(ellipse at center, #31475f 0%, #090a0f 100%);
+    text-align: left;
+    border: 1px solid rgb(78, 78, 78);
+}
 
 
+.toast-header {
+    color:  rgb(212, 209, 209);
+    background-color: transparent;
+}
+
+.toast-header .close{
+    color: rgb(212, 209, 209);
+}
 
 
 .days {
