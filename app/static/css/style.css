@@ -162,12 +162,16 @@ h4, h5, h6 {
     color: rgb(212, 209, 209);
 }
 
-/* .alert-info {
+#welcome_alert {
     color: rgb(212, 209, 209); 
     border-color: rgb(80, 79, 79);
     background: radial-gradient(ellipse at center, #31475f 0%, #090a0f 100%);
 
-} */
+} 
+
+#welcome_alert h4 {
+    color: #ff4f4f;
+}
 
 .days {
     text-transform: capitalize;

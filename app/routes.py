@@ -161,7 +161,8 @@ def watch_providers(item_id):
 
 
 @app.route("/login", methods=["GET", "POST"])
-def login():
+@app.route("/login/<new_user>", methods=["GET", "POST"])
+def login(new_user=None):
     if current_user.is_authenticated:
         return redirect(url_for("user"))
     form = LoginForm()
@@ -174,7 +175,7 @@ def login():
         login_user(user, remember=False)
         next_page = request.args.get("next")
         if not next_page or url_parse(next_page).netloc != "":
-            next_page = url_for("user", username=user.username)
+            next_page = url_for("user", username=user.username, new_user=new_user)
         return redirect(next_page)
 
     return render_template("login.html", title="Sign In", form=form)
@@ -193,7 +194,8 @@ def register():
         password_hash = generate_password_hash(form.password.data)
         db.update_password(form.email.data, password_hash)
         flash('You are now registered. Welcome on board!')
-        return redirect(url_for('login'))
+        new_user = "newusr" #variable to drive dynamic welcome message on first log in
+        return redirect(url_for('login', new_user=new_user))
         
     return render_template('register.html', title='Register', form=form)
 
@@ -238,8 +240,9 @@ def reset_password(token):
 
 
 @app.route("/user/<username>", methods=["GET", "POST"])
+@app.route("/user/<username>/<new_user>", methods=["GET", "POST"])
 @login_required
-def user(username):
+def user(username, new_user=None):
 
     #TEST
     # a_dict = db.get_all_releasing_tomorrow("series")
@@ -249,7 +252,7 @@ def user(username):
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
 
-    return render_template("user.html", user=current_user, films=films, series=series)
+    return render_template("user.html", user=current_user, films=films, series=series, new_user=new_user)
 
 
 
@@ -267,7 +270,6 @@ def track(item_id, group):
     elif group == "series":
         series = GetSeries(page=1)
         tmdb_response = series.series_details(item_id=item_id)
-        print(tmdb_response)
         title = tmdb_response[0]["name"]
         poster_path = tmdb_response[0]["poster_path"]
         current_user.track_series(item_id, title, poster_path)
