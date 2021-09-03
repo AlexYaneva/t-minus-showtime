@@ -162,14 +162,15 @@ h4, h5, h6 {
     color: rgb(212, 209, 209);
 }
 
-#welcome_alert {
+#welcomeAlert {
     color: rgb(212, 209, 209); 
     border-color: rgb(80, 79, 79);
     background: radial-gradient(ellipse at center, #31475f 0%, #090a0f 100%);
 
 } 
 
-#welcome_alert h4 {
+#welcomeAlert h4 {
+    font-family: 'Audiowide', cursive;
     color: #ff4f4f;
 }
 

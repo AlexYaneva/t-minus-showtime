@@ -32,8 +32,8 @@
     </div>
 
 
-    <div class="alert alert-info alert-dismissible fade show" id="welcome_alert" role="alert">
-        <h4 class="text-center" style="font-family: 'Audiowide', cursive; color: tomato;">WELCOME TO YOUR WATCHLIST!
+    <div class="alert alert-info alert-dismissible fade show" id="welcomeAlert" role="alert">
+        <h4 class="text-center">WELCOME TO YOUR WATCHLIST!
         </h4>
         <p>This is where you'll find the countdowns to your new releases. </p>
         <p>Fasten your seatbelts, it's watching time! In T-minus 15 days or so anyway.</p>
@@ -181,8 +181,16 @@
     </div>
 </div>
 
-<script>$(document).ready(function () {
+<script>
+    $(document).ready(function () {
         $('.toast').toast('show');
-    });</script>
+    });
+
+    if (localStorage.getItem("visited") == "true") {
+        $('#welcomeAlert').hide();
+
+
+    };
+</script>
 
 {% endblock %}
