@@ -141,16 +141,22 @@ h4, h5, h6 {
 
 .notification-toasts {
 
-    border: #dee2e6;
+    border: none;
     font-family: 'Jura', sans-serif;
     color:  rgb(212, 209, 209);
 }
 
+.notification-toasts .fade {
+    transition-duration: 1.5s;
+  }
+
 .toast {
-    background: radial-gradient(ellipse at center, #31475f 0%, #090a0f 100%);
-    /* text-align: left; */
-    border: 1px solid rgb(78, 78, 78);
+    background: radial-gradient(ellipse at center, #242d3a 0%, #12181b 100%);
+    /* border: 1px solid rgb(78, 78, 78); */
+    box-shadow: 0 0 5px rgb(102, 102, 102);
 }
+
+
 
 
 .toast-header {

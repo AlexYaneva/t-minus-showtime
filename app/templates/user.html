@@ -5,7 +5,8 @@
 
 <div class="container justify-content-center">
     <div class="notification-toasts">
-        <div role="alert" aria-live="assertive" aria-atomic="true" class="toast mt-2 mb-2" data-autohide="false">
+        <div role="alert" aria-live="assertive" aria-atomic="true" data-animation="true" data-autohide="true"
+            data-delay="8000" class="toast mt-2 mb-2">
             <div class="toast-header">
                 <i class="fas fa-satellite-dish"></i>
                 <strong class="mr-auto">Today!</strong>
@@ -17,7 +18,8 @@
                 <span class="days">Love Island</span> has a new episode
             </div>
         </div>
-        <div role="alert" aria-live="assertive" aria-atomic="true" class="toast mt-2 mb-2" data-autohide="false">
+        <div role="alert" aria-live="assertive" aria-atomic="true" data-animation="true" data-autohide="true"
+            data-delay="8000" class="toast mt-2 mb-2">
             <div class="toast-header">
                 <i class="fas fa-satellite-dish"></i>
                 <strong class="mr-auto">Today!</strong>
@@ -148,10 +150,6 @@
                             {% endif %}
                             <a href="{{ url_for('viewitem', item_id=tracked['id'], title=tracked['title']) }}">
                                 <img class="card-img-top" src='{{ tracked["poster_path"] }}'>
-                                <!-- <form action="{{ url_for('untrack', item_id=tracked['id']) }}" method="POST">
-                                    <button class='btn btn-secondary btn-sm img-button' type="submit"><i
-                                            class="fas fa-trash-alt"></i></button>
-                                </form> -->
                             </a>
                         </div>
                     </div>
@@ -174,6 +172,7 @@
 
         <div class="tab-pane fade" id="account">
             <!-- here it should display the username -->
+            <h4>Hey {{ current_user.username }}!</h4>
             <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="{{ url_for('logout') }}">Log out</a>
             <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="#">Change username</a>
             <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="#">Delete account</a>
@@ -183,14 +182,21 @@
 
 <script>
     $(document).ready(function () {
-        $('.toast').toast('show');
+        $('#welcomeAlert').hide();
+        $('.notification-toasts').hide();
+
+        if (localStorage.getItem("wasVisited") == null) {
+            $('#welcomeAlert').show();
+            localStorage.setItem('wasVisited', 'true');
+        };
+
+        if (sessionStorage.getItem("visited") == null) {
+            $('.toast').toast('show');
+            $('.notification-toasts').show();
+            sessionStorage.setItem('visited', 'true');
+        };
     });
 
-    if (localStorage.getItem("visited") == "true") {
-        $('#welcomeAlert').hide();
-
-
-    };
 </script>
 
 {% endblock %}
