@@ -4,9 +4,12 @@
 {% block content %}
 
 <div class="container justify-content-center">
+    {% if series %}
+    {% for tracked in series %}
+    {% if tracked["countdown"] == 0 %}
     <div class="notification-toasts">
         <div role="alert" aria-live="assertive" aria-atomic="true" data-animation="true" data-autohide="true"
-            data-delay="8000" class="toast mt-2 mb-2">
+            data-delay="9000" class="toast mt-2 mb-2">
             <div class="toast-header">
                 <i class="fas fa-satellite-dish"></i>
                 <strong class="mr-auto">Today!</strong>
@@ -15,23 +18,35 @@
                 </button>
             </div>
             <div class="toast-body">
-                <span class="days">Love Island</span> has a new episode
-            </div>
-        </div>
-        <div role="alert" aria-live="assertive" aria-atomic="true" data-animation="true" data-autohide="true"
-            data-delay="8000" class="toast mt-2 mb-2">
-            <div class="toast-header">
-                <i class="fas fa-satellite-dish"></i>
-                <strong class="mr-auto">Today!</strong>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="toast-body">
-                <span class="days">The Wicher</span> has a new episode
+                <span class="days">{{ tracked["name"] }}</span> has a new episode
             </div>
         </div>
     </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    {% if films %}
+    {% for tracked in films %}
+    {% if tracked["countdown"] == 0 %}
+    <div class="notification-toasts">
+        <div role="alert" aria-live="assertive" aria-atomic="true" data-animation="true" data-autohide="true"
+            data-delay="9000" class="toast mt-2 mb-2">
+            <div class="toast-header">
+                <i class="fas fa-satellite-dish"></i>
+                <strong class="mr-auto">Today!</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <span class="days">{{ tracked["title"] }}</span> is in cinemas now
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
 
 
     <div class="alert alert-info alert-dismissible fade show" id="welcomeAlert" role="alert">
@@ -142,15 +157,19 @@
                         <div class="card h-100">
                             {% if tracked["countdown"] == 0 %}
                             <h6 class="card-header"><span class='days'><span class="pulse"><i
-                                            class="fas fa-rocket"></i></span>OUT TODAY</span>
+                                            class="fas fa-rocket"></i></span>OUT TODAY!</span>
                             </h6>
-                            {% else %}
-                            <h5 class="card-header"><span class='days'>T-{{ tracked["countdown"] }}</span>
+                            {% elif tracked["countdown"] == -1 %}
+                            <h5 class="card-header"><span>Released on {{ tracked["formatted_date"]
+                                    }}</span>
                             </h5>
-                            {% endif %}
-                            <a href="{{ url_for('viewitem', item_id=tracked['id'], title=tracked['title']) }}">
-                                <img class="card-img-top" src='{{ tracked["poster_path"] }}'>
-                            </a>
+                            {% else %}
+                            <h5><span class='days'>T-{{ tracked["countdown"]
+                                    }}</span>
+                                {% endif %}
+                                <a href="{{ url_for('viewitem', item_id=tracked['id'], title=tracked['title']) }}">
+                                    <img class="card-img-top" src='{{ tracked["poster_path"] }}'>
+                                </a>
                         </div>
                     </div>
                     {% endfor %}
@@ -171,7 +190,6 @@
         </div>
 
         <div class="tab-pane fade" id="account">
-            <!-- here it should display the username -->
             <h4>Hey {{ current_user.username }}!</h4>
             <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="{{ url_for('logout') }}">Log out</a>
             <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="#">Change username</a>
@@ -180,23 +198,6 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('#welcomeAlert').hide();
-        $('.notification-toasts').hide();
-
-        if (localStorage.getItem("wasVisited") == null) {
-            $('#welcomeAlert').show();
-            localStorage.setItem('wasVisited', 'true');
-        };
-
-        if (sessionStorage.getItem("visited") == null) {
-            $('.toast').toast('show');
-            $('.notification-toasts').show();
-            sessionStorage.setItem('visited', 'true');
-        };
-    });
-
-</script>
+<script src='{{ url_for("static", filename="js/userNotifications.js") }}'></script>
 
 {% endblock %}
