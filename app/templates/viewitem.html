@@ -2,18 +2,17 @@
 
 {% block content %}
 <div class="container">
-    <div class="row py-2" style="border-bottom: 1px solid tomato;">
+    <div class="row py-2 divider">
         <div class="col-sm-3">
             <img src='{{ results["poster_path"] }}' class='my-img img-fluid my-2'>
             {% if results["title"] %}
             {% if countdown == -1 %}
-            <p><span style="color:tomato">Released on:</span> {{ results["formatted_date"] }}</p>
+            <p><span class="text_colour">Released on:</span> {{ results["formatted_date"] }}</p>
             {% else %}
-            <p><span style="color:tomato">Release: </span>{{ results["formatted_date"] }}</p>
+            <p><span class="text_colour">Release: </span>{{ results["formatted_date"] }}</p>
             <p><span class='days'><i class="fas fa-rocket"></i>T-MINUS {{ countdown }} DAYS</span></p>
             <form action="{{ url_for('track', item_id=results['id'], group='films') }}" method="POST">
-                <button class='btn btn-track' type="submit"><i class="fas fa-plus"
-                        style="color: tomato;"></i>TRACK</button>
+                <button class='btn btn-track' type="submit"><i class="fas fa-plus text_colour"></i>TRACK</button>
             </form>
             {% endif %}
             {% endif %}
@@ -24,22 +23,20 @@
             {% elif countdown == 1000 and results['status'] != 'Ended' %}
             <p><strong>SERIES STATUS:</strong> NO NEW EPISODES</p>
             <form action="{{ url_for('track', item_id=results['id'], group='series') }}" method="POST">
-                <button class='btn btn-secondary btn-track' type="submit"><i class="fas fa-plus"
-                        style="color: tomato;"></i>TRACK</button>
+                <button class='btn btn-secondary btn-track' type="submit"><i
+                        class="fas fa-plus text_colour"></i>TRACK</button>
             </form>
             {% elif countdown == 0 %}
             <p><span class='days'>NEW EPISODE TODAY!</span> </p>
             <form action="{{ url_for('track', item_id=results['id'], group='series') }}" method="POST">
-                <button class='btn btn-track' type="submit"><i class="fas fa-plus"
-                        style="color: tomato;"></i>TRACK</button>
+                <button class='btn btn-track' type="submit"><i class="fas fa-plus text_colour"></i>TRACK</button>
             </form>
             {% else %}
-            <p><span style="color:tomato">Next ep:</span> {{ results['next_episode_to_air']['formatted_date'] }}
+            <p><span class="text_colour">Next ep:</span> {{ results['next_episode_to_air']['formatted_date'] }}
             </p>
             <p><span class='days'> <i class="fas fa-rocket"></i>T-MINUS {{ countdown }} DAYS</span></p>
             <form action="{{ url_for('track', item_id=results['id'], group='series') }}" method="POST">
-                <button class='btn btn-track' type="submit"><i class="fas fa-plus"
-                        style="color: tomato;"></i>TRACK</button>
+                <button class='btn btn-track' type="submit"><i class="fas fa-plus text_colour"></i>TRACK</button>
             </form>
             {% endif %}
             {% endif %}
@@ -54,8 +51,8 @@
             <div class="overview justify-content-sm-center">
                 <div class="py-2 d-block d-sm-none">
                     <button class="btn" type="button" data-toggle="collapse" data-target="#overview"
-                        aria-expanded="false" aria-controls="overview" style="border: none;">
-                        Overview
+                        aria-expanded="false" aria-controls="overview">
+                        Overview <i class="fas fa-caret-down"></i>
                     </button>
                     <div class="collapse text-justify" id="overview">
                         <p>{{ results["overview"] }}</p>

@@ -38,6 +38,14 @@ header {
     background-color: transparent;
 }
 
+.text_colour {
+    color: tomato;
+}
+
+.divider {
+    border-bottom: 1px solid tomato;
+}
+
 .my-nav .nav-link {
     font-family: 'Jura', sans-serif;
     font-weight: 500;
@@ -71,6 +79,10 @@ header {
     padding: 5px;
 }
 
+.fa-caret-down {
+    padding: 0px;
+}
+
 
 .col-md-2, .col-lg-2, .col-6 {
     padding: 5px;
@@ -88,6 +100,11 @@ header {
 
 .card {
     background:#101516;
+}
+
+.card-header {
+    display:flex; 
+    justify-content: space-between;
 }
 
 
@@ -208,6 +225,11 @@ h4, h5, h6 {
     overflow-y:auto;
 }
 
+.overview div .btn {
+    border: none;
+    color: rgb(212, 209, 209);
+}
+
 .view-title {
     text-align: left;
 }
@@ -256,6 +278,14 @@ h4, h5, h6 {
     animation-name: fadeIn;
  }
 
+ .info-block {
+    background-color: transparent;
+ }
+
+ #error_text {
+    color: red;
+ }
+
  .stream-on {
     background-color: #101516;
     /* border-radius: 5px; */
@@ -275,6 +305,14 @@ h4, h5, h6 {
     margin-top: 2px;
     padding-top:2px;
     
+}
+
+#country_dropdown {
+    background-color: #101516; 
+    color: rgb(155, 155, 155); 
+    border-top: none; 
+    border-left: none; 
+    border-right: none;
 }
 
 

@@ -10,12 +10,12 @@
                 {{ form.hidden_tag() }}
                 <div class="form-group">
                     {% for error in form.email.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
+                    <span id="error_text">[{{ error }}]</span>
                     {% endfor %}
                     {{ form.email(class='form-control', size=32, placeholder='Email') }}<br>
 
                     {% for error in form.password.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
+                    <span id="error_text">[{{ error }}]</span>
                     {% endfor %}
                     {{ form.password(class='form-control', size=32, placeholder='Password') }}<br>
 

@@ -59,144 +59,139 @@
 
 </div>
 
-<div class='container-fluid'>
-    <ul class="nav nav-tabs justify-content-center">
-        <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#series">MY SERIES</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#films">MY FILMS</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#account">ACCOUNT</a>
-        </li>
-    </ul>
-    <div id="myTabContent" class="tab-content">
-        <div class="tab-pane fade active show" id="series">
-            {% if series %}
-            <div class="container-fluid animated fadeIn">
-                <div class="row mb-5">
-                    {% for tracked in series %}
-                    <div class="col-md-3 col-lg-3 col-6" style="padding-bottom: 3rem;">
-                        <div class="card h-100">
-                            <div class="card-header">
-                                <div style="display:flex; justify-content: space-between;">
-                                    <div class="block-1">
-                                        {% if tracked["countdown"] == 0 %}
-                                        <h6><span class='days'><span class="pulse"><i
-                                                        class="fas fa-rocket"></i></span>WATCH
-                                                TODAY</span>
-                                        </h6>
-                                        {% elif tracked["countdown"] == 1000 %}
-                                        <h6>NO EPISODES</h6>
-                                        {% else %}
-                                        <h5><span class='days'>T-{{ tracked["countdown"]
-                                                }}</span>
-                                        </h5>
-                                        {% endif %}
-                                    </div>
-                                    <div class="block-2">
-                                        <div class="dropdown show">
-                                            <a class="btn btn-sm btn-dropdown-menu" href="#" role="button"
-                                                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v" style="padding: 5;"></i>
-                                            </a>
 
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item"
-                                                    href="{{ url_for('untrack', item_id=tracked['id']) }}"
-                                                    method="POST"><i class="fas fa-trash-alt"></i> Remove</a>
-                                                <a class="dropdown-item"
-                                                    href="{{ url_for('viewitem', item_id=tracked['id']) }}"><i
-                                                        class="fas fa-info"></i> More details</a>
-                                            </div>
-                                        </div>
+<ul class="nav nav-tabs justify-content-center">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#series">MY SERIES</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#films">MY FILMS</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#account">ACCOUNT</a>
+    </li>
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active show" id="series">
+        {% if series %}
+        <div class="container-fluid animated fadeIn">
+            <div class="row mb-5">
+                {% for tracked in series %}
+                <div class="col-md-3 col-lg-3 col-6 py-3">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <div class="block-1">
+                                {% if tracked["countdown"] == 0 %}
+                                <h6><span class='days'><span class="pulse"><i class="fas fa-rocket"></i></span>WATCH
+                                        TODAY</span>
+                                </h6>
+                                {% elif tracked["countdown"] == 1000 %}
+                                <h6>NO EPISODES</h6>
+                                {% else %}
+                                <h5><span class='days'>T-{{ tracked["countdown"]
+                                        }}</span>
+                                </h5>
+                                {% endif %}
+                            </div>
+                            <div class="block-2">
+                                <div class="dropdown show">
+                                    <a class="btn btn-sm btn-dropdown-menu" href="#" role="button" id="dropdownMenuLink"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{{ url_for('untrack', item_id=tracked['id']) }}"
+                                            method="POST"><i class="fas fa-trash-alt"></i> Remove</a>
+                                        <a class="dropdown-item"
+                                            href="{{ url_for('viewitem', item_id=tracked['id']) }}"><i
+                                                class="fas fa-info"></i> More details</a>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <img class="card-img-top" src='{{ tracked["poster_path"] }}'>
-                            <div class="card-body">
-                                {% if tracked["next_episode_to_air"] %}
-                                <p style="color: tomato;">Next episode:</p>
-                                <p>{{tracked["next_episode_to_air"]['formatted_date']}}</p>
-                                {% endif %}
-                                {% if tracked["watch/providers"] %}
-                                <div class="stream-on-dash">
-                                    {% for i in tracked["watch/providers"] %}
-                                    <img class='logo' src='{{i["logo_path"]}}'>
-                                    {% endfor %}
-                                </div>
-                                {% endif %}
+                        <img class="card-img-top" src='{{ tracked["poster_path"] }}'>
+                        <div class="card-body">
+                            {% if tracked["next_episode_to_air"] %}
+                            <p class="text_colour">Next episode:</p>
+                            <p>{{tracked["next_episode_to_air"]['formatted_date']}}</p>
+                            {% endif %}
+                            {% if tracked["watch/providers"] %}
+                            <div class="stream-on-dash">
+                                {% for i in tracked["watch/providers"] %}
+                                <img class='logo' src='{{i["logo_path"]}}'>
+                                {% endfor %}
                             </div>
+                            {% endif %}
                         </div>
                     </div>
-                    {% endfor %}
                 </div>
+                {% endfor %}
             </div>
-
-            {% else %}
-
-            <div class="container-fluid animated fadeIn">
-                <p>
-                    You are not tracking any series yet.
-                </p>
-                <br>
-                <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find
-                    series</a>
-            </div>
-            {% endif %}
         </div>
-        <div class="tab-pane fade" id="films">
-            {% if films %}
-            <div class="container-fluid animated fadeIn">
-                <div class="row mb-5">
-                    {% for tracked in films %}
-                    <div class="col-md-3 col-lg-3 col-6" style="padding-bottom: 3rem;">
-                        <div class="card h-100">
-                            {% if tracked["countdown"] == 0 %}
-                            <h6 class="card-header"><span class='days'><span class="pulse"><i
-                                            class="fas fa-rocket"></i></span>OUT TODAY!</span>
-                            </h6>
-                            {% elif tracked["countdown"] == -1 %}
-                            <h5 class="card-header"><span>Released on {{ tracked["formatted_date"]
-                                    }}</span>
-                            </h5>
-                            {% else %}
-                            <h5><span class='days'>T-{{ tracked["countdown"]
-                                    }}</span>
-                                {% endif %}
-                                <a href="{{ url_for('viewitem', item_id=tracked['id'], title=tracked['title']) }}">
-                                    <img class="card-img-top" src='{{ tracked["poster_path"] }}'>
-                                </a>
-                        </div>
+
+        {% else %}
+
+        <div class="container-fluid animated fadeIn">
+            <p>
+                You are not tracking any series yet.
+            </p>
+            <br>
+            <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find
+                series</a>
+        </div>
+        {% endif %}
+    </div>
+    <div class="tab-pane fade" id="films">
+        {% if films %}
+        <div class="container-fluid animated fadeIn">
+            <div class="row mb-5">
+                {% for tracked in films %}
+                <div class="col-md-3 col-lg-3 col-6 py-3">
+                    <div class="card h-100">
+                        {% if tracked["countdown"] == 0 %}
+                        <h6 class="card-header"><span class='days'><span class="pulse"><i
+                                        class="fas fa-rocket"></i></span>OUT TODAY!</span>
+                        </h6>
+                        {% elif tracked["countdown"] == -1 %}
+                        <h5 class="card-header"><span>Released on {{ tracked["formatted_date"]
+                                }}</span>
+                        </h5>
+                        {% else %}
+                        <h5><span class='days'>T-{{ tracked["countdown"]
+                                }}</span>
+                            {% endif %}
+                            <a href="{{ url_for('viewitem', item_id=tracked['id'], title=tracked['title']) }}">
+                                <img class="card-img-top" src='{{ tracked["poster_path"] }}'>
+                            </a>
                     </div>
-                    {% endfor %}
                 </div>
+                {% endfor %}
             </div>
-
-
-            {% else %}
-            <div class="container-fluid animated fadeIn">
-                <p>
-                    You are not tracking any films yet.
-                </p>
-                <br>
-                <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find
-                    films</a>
-            </div>
-            {% endif %}
         </div>
 
-        <div class="tab-pane fade" id="account">
-            <h4>Hey {{ current_user.username }}!</h4>
-            <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="{{ url_for('logout') }}">Log out</a>
-            <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="#">Change username</a>
-            <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="#">Delete account</a>
+
+        {% else %}
+        <div class="container-fluid animated fadeIn">
+            <p>
+                You are not tracking any films yet.
+            </p>
+            <br>
+            <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find
+                films</a>
         </div>
+        {% endif %}
+    </div>
+
+    <div class="tab-pane fade" id="account">
+        <h4>Hey {{ current_user.username }}!</h4>
+        <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="{{ url_for('logout') }}">Log out</a>
+        <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="#">Change username</a>
+        <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="#">Delete account</a>
     </div>
 </div>
+
 
 <script src='{{ url_for("static", filename="js/userNotifications.js") }}'></script>
 
