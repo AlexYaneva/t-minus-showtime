@@ -3,7 +3,9 @@
 
 {% block content %}
 <div class='container'>
-    <p>NO RESULTS FOUND</p>
+    <h2>OOPS...</h2>
+    <p>We didn't find anything</p>
+    <img src="{{url_for('static', filename='img/lost_alien.jpg')}}"></img>
     <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find films</a>
     <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find series</a>
 </div>
