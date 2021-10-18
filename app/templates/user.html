@@ -217,9 +217,12 @@
 
     <div class="tab-pane fade" id="account">
         <h4>Hey {{ current_user.username }}!</h4>
-        <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="{{ url_for('logout') }}">Log out</a>
-        <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="#">Change username</a>
-        <a type="button" class="btn  btn-lg m-1 me-sm-3 fw-bold" href="#">Delete account</a>
+        <div class="btn-group-lg btn-group-vertical">
+            <a type="button" class="btn m-1 me-sm-3 fw-bold" href="{{ url_for('reset_password_request') }}">Change
+                password</a>
+            <a type="button" class="btn m-1 me-sm-3 fw-bold" href="{{ url_for('logout') }}">Log out</a>
+            <a type="button" class="btn m-1 me-sm-3 fw-bold" href="#">Delete account</a>
+        </div>
     </div>
 </div>
 

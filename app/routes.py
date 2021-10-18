@@ -190,11 +190,15 @@ def register():
         return redirect(url_for("user"))
     form = RegistrationForm()
     if form.validate_on_submit():
-        db.create_new_user(form.email.data, form.username.data)
-        password_hash = generate_password_hash(form.password.data)
-        db.update_password(form.email.data, password_hash)
-        flash('You are now registered. Welcome on board!')
-        new_user = "newusr" #variable to drive dynamic welcome message on first log in
+        user_record = db.get_user(form.email.data)
+        if user_record is None:
+            db.create_new_user(form.email.data, form.username.data)
+            password_hash = generate_password_hash(form.password.data)
+            db.update_password(form.email.data, password_hash)
+            flash('You are now registered. Welcome on board!')
+            new_user = "newusr" #variable to drive dynamic welcome message on first log in
+        else:
+            flash("Oops... This email is already registered!")
         return redirect(url_for('login', new_user=new_user))
         
     return render_template('register.html', title='Register', form=form)
@@ -204,8 +208,6 @@ def register():
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
     form = ResetPasswordRequestForm()
     if form.validate_on_submit():
         user_record = db.get_user(form.email.data)
@@ -213,7 +215,7 @@ def reset_password_request():
             user = User(email=user_record["Email"])
             send_password_reset_email(user).apply_async()
 
-        flash('Check your email for instructions to reset your password')
+        flash('Check your email for instructions to reset your password.')
         return redirect(url_for('login'))
 
     return render_template('reset_password_request.html', form=form)
