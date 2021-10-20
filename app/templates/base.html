@@ -42,19 +42,20 @@
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center">
         <a href="{{ url_for('index') }}" class="my-brand d-flex align-items-center ml-2 mr-2 mb-0 text-decoration-none">
-          <img src="{{url_for('static', filename='img/logo.png')}}" width="25" height="25" style="padding-right: 2px;">
-          T-MINUS SHOWTIME
+          <span class='d-md-block d-none'>T-MINUS SHOWTIME</span>
         </a>
 
         <ul class="nav my-nav col-12 col-lg-auto me-lg-auto mb-0 justify-content-center mb-md-0">
-          <li><a href="{{ url_for('index') }}" class="nav-link px-2">Home</a></li>
-          <li><a href="{{ url_for('tvseries') }}" class="nav-link px-2">Series</a></li>
-          <li><a href="{{ url_for('films') }}" class="nav-link px-2">Films</a></li>
+          <li><a href="#"><img src="{{url_for('static', filename='img/logo.png')}}" class='d-block d-md-none' width="40"
+                height="40" style='padding-right: 2px;'></a></li>
+          <li><a href="{{ url_for('index') }}" class="nav-link px-md-2 px-1">Home</a></li>
+          <li><a href="{{ url_for('tvseries') }}" class="nav-link px-md-2 px-1">Series</a></li>
+          <li><a href="{{ url_for('films') }}" class="nav-link px-md-2 px-1">Films</a></li>
           {% if current_user.is_anonymous %}
-          <li><a href="{{ url_for('login') }}" class="nav-link px-2">Login</a></li>
+          <li><a href="{{ url_for('login') }}" class="nav-link px-md-2 px-1">Login</a></li>
           {% else %}
-          <li><a href="{{ url_for('user', username=current_user.username) }}" class="nav-link px-2"><i
-                class="fas fa-user-astronaut"></i>My stuff</a></li>
+          <li><a href="{{ url_for('user', username=current_user.username) }}"
+              class="nav-link px-md-2 px-1">Watchlist</a></li>
           {% endif %}
         </ul>
 

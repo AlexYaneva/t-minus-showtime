@@ -217,6 +217,13 @@ h4, h5, h6 {
     box-shadow: 0 0 7px #fc8e8e;
 }
 
+.not-found-img {
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 0 5px darkgrey;
+    opacity: 0.5;
+    
+}
 
 .uppercase {
     text-transform: uppercase;
