@@ -1,7 +1,9 @@
+$('#welcomeAlert').hide();
+$('.notification-toasts').hide();
+
 $(document).ready(function () {
-    console.log(sessionStorage.getItem("visited"));
-    $('#welcomeAlert').hide(); // can this be set by default i.e. with css? does jquery's "show()" simply change the css?
-    $('.notification-toasts').hide();
+    // $('#welcomeAlert').hide();
+    // $('.notification-toasts').hide();
 
     if (localStorage.getItem("wasVisited") == null) {
         $('#welcomeAlert').show();
