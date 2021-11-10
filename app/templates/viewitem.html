@@ -8,6 +8,11 @@
             {% if results["title"] %}
             {% if countdown == -1 %}
             <p><span class="text_colour">Released on:</span> {{ results["formatted_date"] }}</p>
+            {% elif countdown == 1000 %}
+            <p><span class="text_colour">Release: </span>Unknown</p>
+            <form action="{{ url_for('track', item_id=results['id'], group='films') }}" method="POST">
+                <button class='btn btn-track' type="submit"><i class="fas fa-plus text_colour"></i>TRACK</button>
+            </form>
             {% else %}
             <p><span class="text_colour">Release: </span>{{ results["formatted_date"] }}</p>
             <p><span class='days'><i class="fas fa-rocket"></i>T-MINUS {{ countdown }} DAYS</span></p>

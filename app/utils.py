@@ -17,9 +17,17 @@ def countdown(release):
 
 def convert_date(release_date):
 
-	formatted_date = datetime.strptime(release_date, "%Y-%m-%d")
-	date_to_str = formatted_date.strftime("%A %d %b")
+	try:
+		# check if the date is in ISO format
+		datetime_obj = datetime.fromisoformat(release_date[:-1])
+		date_to_str = datetime.strftime(datetime_obj, "%d %B %Y")
+	except ValueError:
+		formatted_date = datetime.strptime(release_date, "%Y-%m-%d")
+		date_to_str = formatted_date.strftime("%A %d %b")
+
 	return date_to_str
+
+
 
 def get_country_by_ip():
     try:

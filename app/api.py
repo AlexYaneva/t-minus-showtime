@@ -54,9 +54,15 @@ class TMDB:
                 if item["next_episode_to_air"]:
                     item["next_episode_to_air"]['formatted_date'] = convert_date(item["next_episode_to_air"]['air_date'])
 
-            if "release_date" in item:
-                if item["release_date"]:
-                    item['formatted_date'] = convert_date(item['release_date'])
+
+            # get release date by country based on current user's location
+            if "release_dates" in item:
+                results_list = item["release_dates"]["results"]
+                country_dict = next((item for item in results_list if item["iso_3166_1"] == current_user.location["country_code"]), None)
+                if country_dict:
+                    item['formatted_date'] = convert_date(country_dict["release_dates"][0]["release_date"])
+
+
 
             if "watch/providers" in item:
                 try:
@@ -88,7 +94,10 @@ class GetFilms(TMDB):
     }
 
     def set_countdown(self, item):
-        countdwn = countdown(item["release_date"])
+        if item["formatted_date"]:
+            countdwn = countdown(item["formatted_date"])
+        else:
+            countdwn = 1000
         return countdwn
 
 
@@ -109,7 +118,7 @@ class GetFilms(TMDB):
 
     def film_details(self, item_id):
         path = self.paths.get("film_details")
-        append_to_response = "&append_to_response=watch/providers"
+        append_to_response = "&append_to_response=watch/providers,release_dates"
         response = []
         tmdb_req = self._request(path=path, path2="", item_id=item_id, query="", append_to_response=append_to_response)
         response.append(tmdb_req)
