@@ -45,13 +45,13 @@ class TMDB:
     def _process_json_response(self, response):
 
         for item in response:
-            if item["poster_path"]:
+            if "poster_path" in item:
                 item["poster_path"] = f"{self.IMAGES_URL}{item['poster_path']}"
             else:
                 item["poster_path"] = f"{url_for('static', filename='img/no_image.png')}"
 
-            if "next_episode_to_air" in item:
-                if item["next_episode_to_air"]:
+            if "next_episode_to_air" in item and item["next_episode_to_air"] is not None:
+                if "air_date" in item["next_episode_to_air"] and item["next_episode_to_air"]["air_date"] is not None:
                     item["next_episode_to_air"]['formatted_date'] = convert_date(item["next_episode_to_air"]['air_date'])
 
 
@@ -94,7 +94,7 @@ class GetFilms(TMDB):
     }
 
     def set_countdown(self, item):
-        if item["formatted_date"]:
+        if "formatted_date" in item:
             countdwn = countdown(item["formatted_date"])
         else:
             countdwn = 1000
@@ -169,8 +169,9 @@ class GetSeries(TMDB):
     }
 
     def set_countdown(self, item):
-        if item["next_episode_to_air"]:
-            countdwn = countdown(item["next_episode_to_air"]["air_date"])
+        if "next_episode_to_air" in item and item["next_episode_to_air"] is not None:
+            if "air_date" in item["next_episode_to_air"] and item["next_episode_to_air"]["air_date"] is not None:
+                countdwn = countdown(item["next_episode_to_air"]["air_date"])
         else:
             # assign a high number to series with no new episodes so they can be displayed last
             countdwn = 1000
