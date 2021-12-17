@@ -170,8 +170,7 @@ class GetSeries(TMDB):
 
     def set_countdown(self, item):
         if "next_episode_to_air" in item and item["next_episode_to_air"] is not None:
-            if "air_date" in item["next_episode_to_air"] and item["next_episode_to_air"]["air_date"] is not None:
-                countdwn = countdown(item["next_episode_to_air"]["air_date"])
+            countdwn = countdown(item["next_episode_to_air"]["air_date"])
         else:
             # assign a high number to series with no new episodes so they can be displayed last
             countdwn = 1000
@@ -212,8 +211,9 @@ class GetSeries(TMDB):
         path = self.paths.get("series_details")
         path2 = self.paths.get("similar")
         response = self._request(path=path, path2=path2, item_id=item_id, query="", append_to_response="")
-        response = response["results"]
-        return self._process_json_response(response)
+        if "results" in response and response["results"] is not None:
+            response = response["results"]
+            return self._process_json_response(response)
 
 
     def series_airing_today(self):

@@ -6,13 +6,26 @@ import requests
 
 def countdown(release):
 
-    base = str(date.today())
-    release_date = datetime.strptime(release, "%Y-%m-%d")
-    today = datetime.strptime(base, "%Y-%m-%d")
+	""" 
+	The function of tears 
+	
+	@param: str date 
+	Param can be in
+	two different formats:
+	'01 Jan 2000' or '2000-01-01'
 
-    difference = release_date - today
-    countdown = difference.days
-    return countdown if countdown >= 0 else -1
+	"""
+	try:
+		release_date_str = datetime.strptime(release, "%d %B %Y").strftime('%Y-%m-%d')
+		release_date = datetime.strptime(release_date_str, '%Y-%m-%d')
+	except ValueError:
+		release_date = datetime.strptime(release, '%Y-%m-%d')
+
+	base = date.today().strftime('%Y-%m-%d')
+	today = datetime.strptime(base,'%Y-%m-%d')
+	difference = release_date - today
+	countdown = difference.days
+	return countdown if countdown >= 0 else -1
 
 
 def convert_date(release_date):
