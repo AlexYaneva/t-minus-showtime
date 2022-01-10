@@ -127,7 +127,8 @@ class GetFilms(TMDB):
 
     def async_film_details(self, list_of_ids):
         path = self.paths.get("film_details")
-        response = self._async_requests(path=path, list_of_ids=list_of_ids, append_to_response="")
+        append_to_response = "&append_to_response=watch/providers,release_dates"
+        response = self._async_requests(path=path, list_of_ids=list_of_ids, append_to_response=append_to_response)
         return self._process_json_response(response)
 
 

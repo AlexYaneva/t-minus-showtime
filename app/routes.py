@@ -252,6 +252,7 @@ def user(username, new_user=None):
     #END
 
     films = current_user.get_trackedfilms()
+    print(films)
     series = current_user.get_trackedseries()
 
     return render_template("user.html", user=current_user, films=films, series=series, new_user=new_user)
