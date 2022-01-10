@@ -159,13 +159,10 @@
                                 {% elif tracked["countdown"] == -1 %}
                                 <h6>RELEASED</h6>
                                 {% elif tracked["countdown"] == 1000 %}
-                                <h5><span class='days'>T-UNCONFIRMED</span>
-
-                                    {% else %}
-                                    <h5><span class='days'>T-{{ tracked["countdown"]
-                                            }}</span>
-                                    </h5>
-                                    {% endif %}
+                                <h5><span class='days'>T-UNCONFIRMED</span></h5>
+                                {% else %}
+                                <h5><span class='days'>T-{{ tracked["countdown"]}}</span></h5>
+                                {% endif %}
                             </div>
                             <div class="block-2">
                                 <div class="dropdown show">
