@@ -1,5 +1,6 @@
 html, body {
     background: radial-gradient(ellipse at center, #31475f 0%, #090a0f 100%);
+    /* background-color: #101516; */
 
     font-family: 'Jura', sans-serif;
     color:  rgb(212, 209, 209);

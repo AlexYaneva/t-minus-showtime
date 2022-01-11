@@ -161,11 +161,7 @@
                                 {% elif tracked["countdown"] == 1000 %}
                                 <h5><span class='days'>T-UNCONFIRMED</span></h5>
                                 {% else %}
-<<<<<<< HEAD
-                                <h5><span class='days'>T-{{ tracked["countdown"]}}</span></h5>
-=======
                                 <h5><span class='days'>T-{{ tracked["countdown"] }}</span></h5>
->>>>>>> dev
                                 {% endif %}
                             </div>
                             <div class="block-2">
@@ -179,7 +175,7 @@
                                         <a class="dropdown-item" href="{{ url_for('untrack', item_id=tracked['id']) }}"
                                             method="POST"><i class="fas fa-trash-alt"></i> Remove</a>
                                         <a class="dropdown-item"
-                                            href="{{ url_for('viewitem', item_id=tracked['id']) }}"><i
+                                            href="{{ url_for('viewitem', item_id=tracked['id'], title=tracked['title']) }}"><i
                                                 class="fas fa-info"></i> More details</a>
                                     </div>
                                 </div>
