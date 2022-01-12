@@ -49,12 +49,18 @@
 
         <div class="col-sm-9">
             {% if results["title"] %}
-            <h4 class="uppercase py-2 d-none d-sm-none d-md-block view-title">{{ results["title"] }}</h4>
+            <h4 class="uppercase d-none d-sm-none d-md-block view-title">{{ results["title"] }}</h4>
             {% else %}
-            <h4 class="uppercase py-2 d-none d-sm-none d-md-block view-title">{{ results["name"] }}</h4>
+            <h4 class="uppercase d-none d-sm-none d-md-block view-title">{{ results["name"] }}</h4>
             {% endif %}
+            <h6 class="font-itallic d-none d-sm-none d-md-block view-title">{{ results["tagline"] }}</h6>
+            {% for i in results["genres"] %}
+            <span class="d-none d-sm-none d-md-block view-title" style="display: inline-block;">
+                <h6>{{ i["name"] }}</h6>
+            </span>
+            {% endfor %}
             <div class="overview justify-content-sm-center">
-                <div class="py-2 d-block d-sm-none">
+                <div class="d-block d-sm-none">
                     <button class="btn" type="button" data-toggle="collapse" data-target="#overview"
                         aria-expanded="false" aria-controls="overview">
                         Overview <i class="fas fa-caret-down"></i>

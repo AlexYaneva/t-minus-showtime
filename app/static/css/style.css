@@ -125,7 +125,7 @@ h1,h2,h3 {
 h4, h5, h6 {
     font-family: 'Jura', sans-serif;
     color: rgb(212, 209, 209);
-    padding: 5px;
+    padding-bottom: 5px;
 }
 
 

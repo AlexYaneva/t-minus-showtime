@@ -36,7 +36,7 @@ $(document).ready(function () {
                 }
                 else {
                     $("#content").empty();
-                    $("#content").append("<h6> N/A </h6>");
+                    $("#content").append("<h6> Not available </h6>");
                 }
 
             });
