@@ -154,7 +154,11 @@ class GetFilms(TMDB):
         response = response["results"]
         return self._process_json_response(response)
 
-
+    def watch_providers(self, item_id):
+        path = self.paths.get("film_details")
+        path2 = "/watch/providers"
+        response = self._request(path=path, path2=path2, item_id=item_id, query="", append_to_response="")
+        return response
 
 
 

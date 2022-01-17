@@ -141,20 +141,28 @@ def viewitem(item_id, title=None):
         results  = results[0]
         countdwn = film.set_countdown(results)
         recommends = film.film_recommendations(item_id=item_id)
+        media_type = "film"
     else:
         series = GetSeries(page=1)
         results = series.series_details(item_id=item_id)
         results  = results[0]
         countdwn = series.set_countdown(results)
         recommends = series.series_recommendations(item_id=item_id)
+        media_type = "series"
 
     return render_template("viewitem.html", item_id=item_id, results=results, recommends=recommends,
-                                             countdown=countdwn, countries=utils.countries)
+                                             countdown=countdwn, countries=utils.countries, media_type=media_type)
 
 
-@app.route("/watch_providers/<int:item_id>", methods=["GET", "POST"])
-def watch_providers(item_id):
-    # TEST FOR SERIES ONLY
+@app.route("/film_watch/<int:item_id>", methods=["GET", "POST"])
+def film_watch(item_id):
+    film = GetFilms(page=1)
+    results = film.watch_providers(item_id=item_id)
+    return jsonify(results)
+
+
+@app.route("/series_watch/<int:item_id>", methods=["GET", "POST"])
+def series_watch(item_id):
     series = GetSeries(page=1)
     results = series.watch_providers(item_id=item_id)
     return jsonify(results)

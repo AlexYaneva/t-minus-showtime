@@ -2,7 +2,9 @@ $(document).ready(function () {
 
     var logoPath = "http://image.tmdb.org/t/p/original";
     var itemId = $("#content").attr("data");
-    var pathName = "/watch_providers/";
+    var mediaType = $("#stream_dropdown").attr("data");
+    // var pathName = "/watch_providers/";
+    var pathName = `/${mediaType}_watch/`;
 
     $.ajax($SCRIPT_ROOT + pathName + itemId).done(function (data) {
         var countries = data;
