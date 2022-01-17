@@ -1,13 +1,14 @@
 html, body {
     background: radial-gradient(ellipse at center, #31475f 0%, #090a0f 100%);
-    /* background-color: #101516; */
 
     font-family: 'Jura', sans-serif;
     color:  rgb(212, 209, 209);
     overflow-x: hidden;
 }
 
-
+.bg-black {
+    background: #050707 !important;
+}
 
 
 .page-content {
@@ -251,6 +252,18 @@ h4, h5, h6 {
   }
 
 
+  .genres {
+    display: inline; 
+    font-size: small; 
+    color:rgb(136, 135, 135);
+  }
+
+
+  .imdb {
+    max-height: 40px; 
+    max-width: 60px; 
+    border-radius: 2px;
+  }
 
   #footer{
       background-color: transparent;

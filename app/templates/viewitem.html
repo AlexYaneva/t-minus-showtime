@@ -53,10 +53,12 @@
             {% else %}
             <h4 class="uppercase d-none d-sm-none d-md-block view-title">{{ results["name"] }}</h4>
             {% endif %}
+            {% if results["tagline"] %}
             <h6 class="font-italic d-none d-sm-none d-md-block view-title">"{{ results["tagline"] }}"</h6>
+            {% endif %}
             <span class="d-none d-sm-none d-md-block view-title">
                 {% for i in results["genres"] %}
-                <p class="mr-2" style="display: inline; font-size: small; color:rgb(136, 135, 135);">{{ i["name"] }}</p>
+                <p class="mr-2 genres">{{ i["name"] }}</p>
                 {% endfor %}
             </span>
             <div class="overview justify-content-sm-center">
@@ -78,8 +80,7 @@
             {% endif %}
             <div class=" text-left mt-2">
                 <a href="https://www.imdb.com/title/{{ results['imdb_id'] }}" target="_blank"><img
-                        src="{{ url_for('static', filename='img/imdblogo.png') }}"
-                        style="max-height: 40px; max-width: 60px; border-radius: 2px;"></a>
+                        src="{{ url_for('static', filename='img/imdblogo.png') }}" class="imdb"></a>
             </div>
         </div>
     </div>
