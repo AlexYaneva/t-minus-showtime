@@ -50,15 +50,23 @@
         <div class="col-sm-9">
             {% if results["title"] %}
             <h4 class="uppercase d-none d-sm-none d-md-block view-title">{{ results["title"] }}</h4>
+            <div class=" text-left mt-2 mb-2">
+                <a href="https://www.imdb.com/title/{{ results['imdb_id'] }}" target="_blank"><img
+                        src="{{ url_for('static', filename='img/imdblogo.png') }}" class="imdb"></a>
+            </div>
             {% else %}
             <h4 class="uppercase d-none d-sm-none d-md-block view-title">{{ results["name"] }}</h4>
+            <div class=" text-left mt-2 mb-2">
+                <a href="https://www.imdb.com/title/{{ results['external_ids']['imdb_id'] }}" target="_blank"><img
+                        src="{{ url_for('static', filename='img/imdblogo.png') }}" class="imdb"></a>
+            </div>
             {% endif %}
             {% if results["tagline"] %}
             <h6 class="font-italic d-none d-sm-none d-md-block view-title">"{{ results["tagline"] }}"</h6>
             {% endif %}
             <span class="d-none d-sm-none d-md-block view-title">
                 {% for i in results["genres"] %}
-                <p class="mr-2 genres">{{ i["name"] }}</p>
+                <p class="mr-2 genres"><small class="text-muted">{{ i["name"] }}</small></p>
                 {% endfor %}
             </span>
             <div class="overview justify-content-sm-center">
@@ -78,10 +86,6 @@
             {% else %}
             <br>
             {% endif %}
-            <div class=" text-left mt-2">
-                <a href="https://www.imdb.com/title/{{ results['imdb_id'] }}" target="_blank"><img
-                        src="{{ url_for('static', filename='img/imdblogo.png') }}" class="imdb"></a>
-            </div>
         </div>
     </div>
 

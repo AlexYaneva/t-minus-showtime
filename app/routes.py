@@ -146,6 +146,7 @@ def viewitem(item_id, title=None):
         series = GetSeries(page=1)
         results = series.series_details(item_id=item_id)
         results  = results[0]
+        print(results)
         countdwn = series.set_countdown(results)
         recommends = series.series_recommendations(item_id=item_id)
         media_type = "series"

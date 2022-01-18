@@ -199,7 +199,7 @@ class GetSeries(TMDB):
 
     def series_details(self, item_id):
         path = self.paths.get("series_details")
-        append_to_response = "&append_to_response=watch/providers"
+        append_to_response = "&append_to_response=watch/providers,external_ids"
         response = []
         tmdb_req = self._request(path=path, path2="", item_id=item_id, query="", append_to_response=append_to_response)
         response.append(tmdb_req)
