@@ -39,15 +39,17 @@
 
 <body>
   <header class="p-lg-3 p-1">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center">
+    <div class="container-fluid">
+      <div class="d-flex flex-wrap align-items-center justify-content-md-center justify-content-between">
         <a href="{{ url_for('index') }}" class="my-brand d-flex align-items-center ml-2 mr-2 mb-0 text-decoration-none">
           <span class='d-md-block d-none'>T-MINUS SHOWTIME</span>
         </a>
 
-        <ul class="nav my-nav col-12 col-lg-auto me-lg-auto mb-0 justify-content-center mb-md-0">
-          <li><a href="#"><img src="{{url_for('static', filename='img/logo.png')}}" class='d-block d-md-none' width="40"
-                height="40" style='padding-right: 2px;'></a></li>
+        <ul
+          class="nav my-nav col-12 col-lg-auto me-lg-auto mb-0 justify-content-md-center justify-content-between mb-md-0">
+          <li class='navbar-brand'><a href="#"><img src="{{url_for('static', filename='img/logo.png')}}"
+                class='d-block d-md-none'
+                style="max-height: 35px; max-width: 35px; border-radius: 5px; border: 1px solid darkgray;"></a></li>
           <li><a href="{{ url_for('index') }}" class="nav-link px-md-2 px-1">Home</a></li>
           <li><a href="{{ url_for('tvseries') }}" class="nav-link px-md-2 px-1">Series</a></li>
           <li><a href="{{ url_for('films') }}" class="nav-link px-md-2 px-1">Films</a></li>
