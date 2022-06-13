@@ -20,4 +20,35 @@ class Config:
     CELERY_RESULT_BACKEND = 'redis://localhost:6379'
     CACHE_TYPE = "simple"
     CACHE_DEFAULT_TIMEOUT = 300
+    # DYNAMO_TABLES = [
+    #     {
+    #         'TableName': "Users",
+    #         'KeySchema': [
+    #             {'AttributeName': "Email", 'KeyType': "HASH"},
+    #             {'AttributeName': "Tracked_id", 'KeyType': "RANGE"},
+    #         ],
+    #         'AttributeDefinitions': [
+    #             {'AttributeName': "Email", 'AttributeType': "S"},
+    #             {'AttributeName': "Tracked_id", 'AttributeType': "N"},
+    #             {'AttributeName': "Tracked_type", 'AttributeType': "S"}
 
+    #         ],
+    #         'ProvisionedThroughput': {
+    #             'ReadCapacityUnits': 5,
+    #             'WriteCapacityUnits': 5
+    #         },
+    #         'GlobalSecondaryIndexes': [
+    #             {
+    #                 'IndexName': 'Tracked',
+    #                 'KeySchema': [
+    #                     {'AttributeName': 'Tracked_type', 'KeyType': 'HASH'}
+    #                 ],
+    #                 'Projection': {'ProjectionType': 'ALL'},
+    #                 'ProvisionedThroughput': {
+    #                     'ReadCapacityUnits': 5,
+    #                     'WriteCapacityUnits': 5
+    #                 }
+
+    #             }
+    #         ]
+    #     }]

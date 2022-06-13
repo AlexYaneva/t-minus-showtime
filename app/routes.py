@@ -11,14 +11,11 @@ import app.utils as utils
 import app.db_helpers as db
 
 
-
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
 
     return render_template("index.html")
-
-
 
 
 @app.route("/results/<group>/<title>", methods=["GET", "POST"])
@@ -34,8 +31,6 @@ def results(group, title):
         return render_template("notfound.html")
 
     return render_template("results.html", results=results)
-
-
 
 
 @app.route("/films", methods=["GET", "POST"])
@@ -63,7 +58,6 @@ def top_rated():
     return jsonify(render_template('_display_posters.html', results=results))
 
 
-
 @app.route("/films_in_theatres", methods=["GET", "POST"])
 def films_in_theatres():
     page = request.args.get('page', 2, type=int)
@@ -82,7 +76,6 @@ def popular_films():
     return jsonify(render_template('_display_posters.html', results=results))
 
 
-
 @app.route("/tvseries", methods=["GET", "POST"])
 def tvseries():
     page = 1
@@ -97,8 +90,6 @@ def tvseries():
     on_the_air = series.series_on_the_air()
 
     return render_template("tvseries.html", results=results, on_the_air=on_the_air, airing_today=airing_today,  form=form)
-
-
 
 
 @app.route("/series_airing_today", methods=["GET", "POST"])
@@ -128,8 +119,6 @@ def popular_series():
     return jsonify(render_template('_display_posters.html', results=results))
 
 
-
-
 # makign 'title' an optional parameter
 @app.route("/viewitem/<int:item_id>/", methods=["GET", "POST"])
 @app.route("/viewitem/<int:item_id>/<title>", methods=["GET", "POST"])
@@ -138,20 +127,20 @@ def viewitem(item_id, title=None):
     if title:
         film = GetFilms(page=1)
         results = film.film_details(item_id=item_id)
-        results  = results[0]
+        results = results[0]
         countdwn = film.set_countdown(results)
         recommends = film.film_recommendations(item_id=item_id)
         media_type = "film"
     else:
         series = GetSeries(page=1)
         results = series.series_details(item_id=item_id)
-        results  = results[0]
+        results = results[0]
         countdwn = series.set_countdown(results)
         recommends = series.series_recommendations(item_id=item_id)
         media_type = "series"
 
     return render_template("viewitem.html", item_id=item_id, results=results, recommends=recommends,
-                                             countdown=countdwn, countries=utils.countries, media_type=media_type)
+                           countdown=countdwn, countries=utils.countries, media_type=media_type)
 
 
 @app.route("/film_watch/<int:item_id>", methods=["GET", "POST"])
@@ -183,13 +172,11 @@ def login(new_user=None):
         login_user(user, remember=False)
         next_page = request.args.get("next")
         if not next_page or url_parse(next_page).netloc != "":
-            next_page = url_for("user", username=user.username, new_user=new_user)
+            next_page = url_for(
+                "user", username=user.username, new_user=new_user)
         return redirect(next_page)
 
     return render_template("login.html", title="Sign In", form=form)
-
-
-
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -204,14 +191,12 @@ def register():
             password_hash = generate_password_hash(form.password.data)
             db.update_password(form.email.data, password_hash)
             flash('You are now registered. Welcome on board!')
-            new_user = "newusr" #variable to drive dynamic welcome message on first log in
+            new_user = "newusr"  # variable to drive dynamic welcome message on first log in
         else:
             flash("Oops... This email is already registered!")
         return redirect(url_for('login', new_user=new_user))
-        
+
     return render_template('register.html', title='Register', form=form)
-
-
 
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
@@ -227,7 +212,6 @@ def reset_password_request():
         return redirect(url_for('login'))
 
     return render_template('reset_password_request.html', form=form)
-
 
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
@@ -247,24 +231,20 @@ def reset_password(token):
     return render_template('reset_password.html', form=form)
 
 
-
-
 @app.route("/user/<username>", methods=["GET", "POST"])
 @app.route("/user/<username>/<new_user>", methods=["GET", "POST"])
 @login_required
 def user(username, new_user=None):
 
-    #TEST
+    # TEST
     # a_dict = db.get_all_releasing_tomorrow("series")
     # send_notification_emails(a_dict)
-    #END
+    # END
 
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
 
     return render_template("user.html", user=current_user, films=films, series=series, new_user=new_user)
-
-
 
 
 @app.route("/track/<int:item_id>/", methods=["GET", "POST"])
@@ -288,7 +268,6 @@ def track(item_id, group):
     series = current_user.get_trackedseries()
 
     return render_template("user.html", user=current_user, films=films, series=series)
-
 
 
 @app.route("/untrack/<int:item_id>/", methods=["GET", "POST"])
