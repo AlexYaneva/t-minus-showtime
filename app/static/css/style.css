@@ -44,6 +44,7 @@ header {
 }
 
 .text_colour {
+    /* color: tomato; */
     color: tomato;
 }
 
@@ -68,14 +69,14 @@ header {
 .my-brand {
     font-family: 'Audiowide', cursive;
     font-size: large;
-    color: tomato;
+    color: #bc8fd6;
     /* background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent; */
 }
 
 .my-brand:hover {
-    color: rgb(167, 73, 73);
+    color: #d9bce9;
 }
 
 
@@ -107,7 +108,7 @@ header {
 
 
 .card {
-    background: #101516;
+    background: #000000;
 }
 
 .card-header {
@@ -143,9 +144,10 @@ h6 {
 .btn,
 .btn-secondary {
     background-color: transparent;
-    color: #ff4f4f;
+    color: tomato;
     border-radius: 5px solid;
     border-color: tomato;
+
 }
 
 .btn-dropdown-menu {
@@ -154,7 +156,7 @@ h6 {
 
 .btn:hover,
 .btn-secondary:hover {
-    border-color: #f78f8f;
+    border-color: tomato;
     color: whitesmoke;
 }
 
@@ -208,13 +210,13 @@ h6 {
 
 #welcomeAlert h4 {
     font-family: 'Audiowide', cursive;
-    color: #ff4f4f;
+    color: tomato;
 }
 
 .days {
     text-transform: capitalize;
     font-family: 'Audiowide', cursive;
-    color: #ff4f4f;
+    color: #bc8fd6;
 
 }
 
@@ -227,7 +229,7 @@ h6 {
 
 .my-img:hover {
     transition: 0.3s;
-    box-shadow: 0 0 7px #fc8e8e;
+    box-shadow: 0 0 7px tomato;
 }
 
 .not-found-img {
@@ -328,7 +330,7 @@ h6 {
 }
 
 .stream-on {
-    background-color: #101516;
+    background-color: #000000;
     /* border-radius: 5px; */
     border: none;
     display: inline-block;
@@ -349,7 +351,7 @@ h6 {
 }
 
 #country_dropdown {
-    background-color: #101516;
+    background-color: #000000;
     color: rgb(155, 155, 155);
     border-top: none;
     border-left: none;
