@@ -1,12 +1,19 @@
+:root {
+    --main-color: tomato;
+    --main-text-color: rgb(212, 209, 209);
+    --main-brand-font: 'Audiowide', cursive;
+    --main-text-font: 'Jura', sans-serif;
+}
+
+
+
 html,
 body {
     background: radial-gradient(ellipse at center, #2b2b2c 0%, #050707 100%);
-
-
-    font-family: 'Jura', sans-serif;
+    font-family: var(--main-text-font);
     font-weight: bold;
     font-size: medium;
-    color: rgb(212, 209, 209);
+    color: var(--main-text-color);
     overflow-x: hidden;
 }
 
@@ -28,7 +35,7 @@ body {
 
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
-    color: #b7bfc7;
+    color: var(--main-text-color);
     background-color: transparent;
     border-color: #dee2e6 #dee2e6 #fff;
 }
@@ -44,18 +51,17 @@ header {
 }
 
 .text_colour {
-    /* color: tomato; */
-    color: tomato;
+    color: var(--main-color);
 }
 
 .divider {
-    border-bottom: 1px solid tomato;
+    border-bottom: 1px solid var(--main-color);
 }
 
 .my-nav .nav-link {
-    font-family: 'Jura', sans-serif;
+    font-family: var(--main-text-font);
     font-weight: 1000;
-    color: #f5f5f5;
+    color: var(--main-text-color);
 }
 
 
@@ -67,7 +73,7 @@ header {
 
 
 .my-brand {
-    font-family: 'Audiowide', cursive;
+    font-family: var(--main-brand-font);
     font-size: large;
     color: #bc8fd6;
     /* background-clip: text;
@@ -126,16 +132,16 @@ form {
 h1,
 h2,
 h3 {
-    font-family: 'Audiowide', cursive;
-    color: rgb(212, 209, 209);
+    font-family: var(--main-brand-font);
+    color: var(--main-text-color);
     padding: 10px;
 }
 
 h4,
 h5,
 h6 {
-    font-family: 'Jura', sans-serif;
-    color: rgb(212, 209, 209);
+    font-family: var(--main-text-font);
+    color: var(--main-text-color);
     padding-bottom: 5px;
 }
 
@@ -144,9 +150,9 @@ h6 {
 .btn,
 .btn-secondary {
     background-color: transparent;
-    color: tomato;
+    color: var(--main-color);
     border-radius: 5px solid;
-    border-color: tomato;
+    border-color: var(--main-color);
 
 }
 
@@ -156,27 +162,23 @@ h6 {
 
 .btn:hover,
 .btn-secondary:hover {
-    border-color: tomato;
-    color: whitesmoke;
+    border-color: var(--main-color);
+    color: var(--main-text-color);
 }
 
-.btn-dash {
-    background-color: darkgrey;
-    border-color: transparent;
-}
 
 .btn-track {
     background-color: transparent;
-    color: tomato;
-    font-family: 'Audiowide', cursive;
+    color: var(--main-color);
+    font-family: var(--main-brand-font);
 }
 
 
 .notification-toasts {
 
     border: none;
-    font-family: 'Jura', sans-serif;
-    color: rgb(212, 209, 209);
+    font-family: var(--main-text-font);
+    color: var(--main-text-color);
 }
 
 .notification-toasts .fade {
@@ -184,8 +186,7 @@ h6 {
 }
 
 .toast {
-    background: radial-gradient(ellipse at center, #242d3a 0%, #12181b 100%);
-    /* border: 1px solid rgb(78, 78, 78); */
+    background: radial-gradient(ellipse at center, #666666 0%, #12181b 100%);
     box-shadow: 0 0 5px rgb(102, 102, 102);
 }
 
@@ -193,29 +194,29 @@ h6 {
 
 
 .toast-header {
-    color: rgb(212, 209, 209);
+    color: var(--main-text-color);
     background-color: transparent;
 }
 
 .toast-header .close {
-    color: rgb(212, 209, 209);
+    color: var(--main-text-color);
 }
 
 #welcomeAlert {
-    color: rgb(212, 209, 209);
-    border-color: rgb(80, 79, 79);
-    background: radial-gradient(ellipse at center, #31475f 0%, #090a0f 100%);
+    color: var(--main-text-color);
+    /* border-color: rgb(80, 79, 79); */
+    background: radial-gradient(ellipse at center, #666666 0%, #090a0f 100%);
 
 }
 
 #welcomeAlert h4 {
-    font-family: 'Audiowide', cursive;
-    color: tomato;
+    font-family: var(--main-brand-font);
+    color: var(--main-color);
 }
 
 .days {
     text-transform: capitalize;
-    font-family: 'Audiowide', cursive;
+    font-family: var(--main-brand-font);
     color: #bc8fd6;
 
 }
@@ -229,7 +230,7 @@ h6 {
 
 .my-img:hover {
     transition: 0.3s;
-    box-shadow: 0 0 7px tomato;
+    box-shadow: 0 0 7px var(--main-color);
 }
 
 .not-found-img {
@@ -250,7 +251,7 @@ h6 {
 
 .overview div .btn {
     border: none;
-    color: rgb(212, 209, 209);
+    color: var(--main-text-color);
 }
 
 .view-title {
@@ -326,7 +327,7 @@ h6 {
 }
 
 #error_text {
-    color: red;
+    color: var(--main-color);
 }
 
 .stream-on {
@@ -352,7 +353,7 @@ h6 {
 
 #country_dropdown {
     background-color: #000000;
-    color: rgb(155, 155, 155);
+    color: var(--main-text-color);
     border-top: none;
     border-left: none;
     border-right: none;
@@ -367,7 +368,6 @@ h6 {
     transform: scale(1);
     background: transparent;
     box-shadow: 0 0 0 0 rgba(255, 255, 255, 1);
-    /* box-shadow: 0 0 0 0 rgba(255, 82, 82, 1); */
     animation: pulse-red 2s infinite;
 }
 
@@ -375,7 +375,6 @@ h6 {
     0% {
         transform: scale(0.95);
         box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
-        /* box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7); */
     }
 
     70% {
@@ -438,7 +437,7 @@ h6 {
 
 
 .form-inline {
-    border-color: tomato;
+    border-color: var(--main-color);
 }
 
 @media only screen and (max-width: 768px) {
