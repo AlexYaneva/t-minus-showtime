@@ -49,10 +49,11 @@
     {% endif %}
 
 
-    <div class="alert alert-info alert-dismissible fade show" id="welcomeAlert" role="alert">
-        <h4 class="text-center">WELCOME TO YOUR WATCHLIST!
-        </h4>
-        <p>This is where you'll find the countdowns to your new releases. </p>
+    <!-- <div class="alert alert-info alert-dismissible fade show" id="welcomeAlert" role="alert"> -->
+    <div class="alert alert-info alert-dismissible mt-5 mb-5" id="welcomeAlert" role="alert">
+        <h1 class="text-center">WELCOME TO YOUR WATCHLIST!</h1>
+        <p>Search for your favourite series or films and track them - this is where you'll find the countdowns to their
+            next release and where to watch them. </p>
         <p>Fasten your seatbelts, it's watching time! In T-minus 15 days or so anyway.</p>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
     </div>
@@ -138,7 +139,8 @@
                 You are not tracking any series yet.
             </p>
             <br>
-            <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Find
+            <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">
+                Find
                 series</a>
         </div>
         {% endif %}

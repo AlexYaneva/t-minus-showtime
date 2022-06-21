@@ -151,6 +151,8 @@ h6 {
 .btn-secondary {
     background-color: transparent;
     color: var(--main-color);
+    font-weight: bold;
+    font-size: medium;
     border-radius: 5px solid;
     border-color: var(--main-color);
 
@@ -163,6 +165,7 @@ h6 {
 .btn:hover,
 .btn-secondary:hover {
     border-color: var(--main-color);
+    background-color: transparent;
     color: var(--main-text-color);
 }
 
@@ -202,16 +205,19 @@ h6 {
     color: var(--main-text-color);
 }
 
+
+
 #welcomeAlert {
     color: var(--main-text-color);
+    border: none;
     /* border-color: rgb(80, 79, 79); */
-    background: radial-gradient(ellipse at center, #666666 0%, #090a0f 100%);
+    background-color: #050707;
 
 }
 
-#welcomeAlert h4 {
+#welcomeAlert h1 {
     font-family: var(--main-brand-font);
-    color: var(--main-color);
+    color: #bc8fd6;
 }
 
 .days {
