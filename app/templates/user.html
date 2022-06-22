@@ -136,12 +136,14 @@
 
         <div class="container-fluid animated fadeIn">
             <p>
-                You are not tracking any series yet.
+                You are not tracking any series yet
             </p>
             <br>
             <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">
                 Find
                 series</a>
+            <!-- <img src="{{ url_for('static', filename='img/T-MINUS.gif') }}" class='img-fluid'
+                style="border-radius: 15px;"> -->
         </div>
         {% endif %}
     </div>
@@ -208,7 +210,7 @@
         {% else %}
         <div class="container-fluid animated fadeIn">
             <p>
-                You are not tracking any films yet.
+                You are not tracking any films yet
             </p>
             <br>
             <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Find
