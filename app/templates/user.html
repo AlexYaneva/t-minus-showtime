@@ -117,6 +117,8 @@
                             {% if tracked["next_episode_to_air"] %}
                             <p class="text_colour">Next episode:</p>
                             <p>{{tracked["next_episode_to_air"]['formatted_date']}}</p>
+                            {% else %}
+                            <p class="text_colour">Previous episodes:</p>
                             {% endif %}
                             {% if tracked["watch/providers"] %}
                             <div class="stream-on-dash">
