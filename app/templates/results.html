@@ -3,12 +3,10 @@
 {% block content %}
 
 <div class="container-fluid animated fadeIn">
-	<h4 class='text-center'>HERE'S WHAT WE FOUND:</h4>
-	<br>
-	<div class='row justify-content-center' id='scroller'>
+	<h2 class='text-center'>HERE'S WHAT WE FOUND:</h2>
+	<div class='row justify-content-center results-divider py-2' id='scroller'>
 		{% include '_display_posters.html' %}
 	</div>
-	<br>
 	<a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">More films</a>
 	<a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">More series</a>
 </div>

@@ -58,6 +58,10 @@ header {
     border-bottom: 1px solid var(--main-color);
 }
 
+.results-divider {
+    border-top: 1px solid var(--main-text-color);
+}
+
 .my-nav .nav-link {
     font-family: var(--main-text-font);
     font-weight: 1000;
