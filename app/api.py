@@ -1,4 +1,5 @@
 import requests
+import json
 from config import API_key
 from flask import url_for
 from flask_login import current_user
@@ -43,6 +44,7 @@ class TMDB:
                 item["poster_path"] = f"{self.IMAGES_URL}{item['poster_path']}"
             else:
                 item["poster_path"] = f"{url_for('static', filename='img/no_image.png')}"
+
             if "next_episode_to_air" in item and item["next_episode_to_air"] is not None:
                 if "air_date" in item["next_episode_to_air"] and item["next_episode_to_air"]["air_date"] is not None:
                     item["next_episode_to_air"]['formatted_date'] = convert_date(
