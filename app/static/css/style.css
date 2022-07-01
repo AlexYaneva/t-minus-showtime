@@ -193,7 +193,7 @@ h6 {
 }
 
 .toast {
-    background: radial-gradient(ellipse at center, #666666 0%, #12181b 100%);
+    background-color: #000000;
     box-shadow: 0 0 5px rgb(102, 102, 102);
 }
 
@@ -456,6 +456,7 @@ h6 {
         padding-left: 5px;
         padding-right: 5px;
     }
+
 
     .card-header {
         padding: 0;

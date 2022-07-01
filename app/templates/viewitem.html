@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <div class="row py-2 divider">
-        <div class="col-sm-3">
+        <div class="col-sm-3" id="view-left">
             <img src='{{ results["poster_path"] }}' class='my-img img-fluid my-2'>
             {% if results["title"] %}
             {% if countdown == -1 %}
@@ -47,7 +47,7 @@
             {% endif %}
         </div>
 
-        <div class="col-sm-9">
+        <div class="col-sm-9" id="view-right">
             {% if results["title"] %}
             <h4 class="uppercase d-none d-sm-none d-md-block view-title">{{ results["title"] }}</h4>
             <div class=" text-left mt-2 mb-2">
@@ -56,7 +56,7 @@
             </div>
             {% else %}
             <h4 class="uppercase d-none d-sm-none d-md-block view-title">{{ results["name"] }}</h4>
-            <div class=" text-left mt-2 mb-2">
+            <div class="mt-2 mb-2">
                 <a href="https://www.imdb.com/title/{{ results['external_ids']['imdb_id'] }}" target="_blank"><img
                         src="{{ url_for('static', filename='img/imdblogo.png') }}" class="imdb"></a>
             </div>
