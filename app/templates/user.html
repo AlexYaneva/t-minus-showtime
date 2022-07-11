@@ -8,17 +8,19 @@
     {% for tracked in series %}
     {% if tracked["countdown"] == 0 %}
     <div class="notification-toasts">
-        <div role="alert" aria-live="assertive" aria-atomic="true" data-animation="true" data-autohide="true"
-            data-delay="9000" class="toast mt-2 mb-2">
-            <div class="toast-header">
-                <i class="fas fa-satellite-dish"></i>
-                <strong class="mr-auto">Today!</strong>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="toast-body">
-                <span class="days">{{ tracked["name"] }}</span> has a new episode
+        <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
+            <div role="alert" aria-live="assertive" aria-atomic="true" data-animation="true" data-autohide="true"
+                data-delay="9000" class="toast mt-2 mb-2">
+                <div class="toast-header">
+                    <i class="fas fa-satellite-dish"></i>
+                    <strong class="mr-auto">Today!</strong>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    <span class="days">{{ tracked["name"] }}</span> has a new episode
+                </div>
             </div>
         </div>
     </div>

@@ -2,8 +2,6 @@ $('#welcomeAlert').hide();
 $('.notification-toasts').hide();
 
 $(document).ready(function () {
-    // $('#welcomeAlert').hide();
-    // $('.notification-toasts').hide();
 
     if (localStorage.getItem("wasVisited") == null) {
         $('#welcomeAlert').show();
