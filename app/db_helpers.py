@@ -1,40 +1,40 @@
 from app import table
 from decimal import Decimal
-from app.api import GetFilms, GetSeries
+from app.tmdb_api import GetFilms, GetSeries
 from app.utils import countdown
 
 
 def create_new_user(email, username):
     tracked_id = 0
     new_user = table.put_item(
-                                Item={
-                                    "Email": email,
-                                    "Tracked_id": tracked_id,
-                                    "Username": username
-                                                            }
-                                                                )
+        Item={
+            "Email": email,
+            "Tracked_id": tracked_id,
+            "Username": username
+        }
+    )
 
 
 def update_password(email, password_hash):
     tracked_id = 0
     table.update_item(
-                        Key={
-                            "Email": email,
-                            "Tracked_id": tracked_id
-                                                    },
-                        UpdateExpression="SET Password_hash = :setpass",
-                        ExpressionAttributeValues={":setpass": password_hash}
-                                                                                )
+        Key={
+            "Email": email,
+            "Tracked_id": tracked_id
+        },
+        UpdateExpression="SET Password_hash = :setpass",
+        ExpressionAttributeValues={":setpass": password_hash}
+    )
 
 
 def get_user(email):
     tracked_id = 0
     db_user_item = table.get_item(
-                                    Key={
-                                        "Email": email,
-                                        "Tracked_id": tracked_id
-                                                                }
-                                                                    )
+        Key={
+            "Email": email,
+            "Tracked_id": tracked_id
+        }
+    )
     try:
         user = db_user_item["Item"]
     except KeyError:
@@ -42,26 +42,25 @@ def get_user(email):
     return user
 
 
-
 def track(email, tracked_id, tracked_type, title, poster_path):
     table.put_item(
-                    Item={
-                        "Email": email,
-                        "Tracked_id": tracked_id,
-                        "Tracked_type": tracked_type,
-                        "Title" : title,
-                        "Poster_path": poster_path
-                                                            }
-                                                                )
+        Item={
+            "Email": email,
+            "Tracked_id": tracked_id,
+            "Tracked_type": tracked_type,
+            "Title": title,
+            "Poster_path": poster_path
+        }
+    )
 
 
 def untrack(email, tracked_id):
     table.delete_item(
-                        Key={
-                            "Email": email,
-                            "Tracked_id": tracked_id
-                                                    }
-                                                        )
+        Key={
+            "Email": email,
+            "Tracked_id": tracked_id
+        }
+    )
 
 
 def get_tracked(email, tracked_type):
@@ -73,12 +72,13 @@ def get_tracked(email, tracked_type):
     '''
     # query the db for all tracked series/films for a user
     all_tracked = table.query(
-                        TableName="Users",
-                        KeyConditionExpression="Email = :email",
-                        FilterExpression="Tracked_type = :tracked_type",
-                        ProjectionExpression="Tracked_id",
-                        ExpressionAttributeValues={":tracked_type" : tracked_type, ":email" : email}
-                                                                                    )
+        TableName="Users",
+        KeyConditionExpression="Email = :email",
+        FilterExpression="Tracked_type = :tracked_type",
+        ProjectionExpression="Tracked_id",
+        ExpressionAttributeValues={
+            ":tracked_type": tracked_type, ":email": email}
+    )
     all_tracked = all_tracked["Items"]
 
     # extract the series/films IDs from the db response and add them to a list
@@ -105,7 +105,7 @@ def get_tracked(email, tracked_type):
             tracked_items.append(item)
 
     # sort the list by countdown
-    return  sorted(tracked_items, key=lambda x: x["countdown"])
+    return sorted(tracked_items, key=lambda x: x["countdown"])
 
 
 def get_all_releasing_tomorrow(tracked_type):
@@ -116,44 +116,39 @@ def get_all_releasing_tomorrow(tracked_type):
 
     # retrieve all tracked from the db
     db_response = table.query(
-                            TableName="Users",
-                            IndexName= "Tracked",
-                            KeyConditionExpression="Tracked_type = :tracked_type",
-                            ProjectionExpression="Tracked_id, Email, Title, Poster_path",
-                            ExpressionAttributeValues={":tracked_type" : tracked_type}
-                                                                                        )
-    
+        TableName="Users",
+        IndexName="Tracked",
+        KeyConditionExpression="Tracked_type = :tracked_type",
+        ProjectionExpression="Tracked_id, Email, Title, Poster_path",
+        ExpressionAttributeValues={":tracked_type": tracked_type}
+    )
+
     db_response = db_response["Items"]
 
     # add all id's to a set (eliminates duplicates)
     shows_ids = {int(i["Tracked_id"]) for i in db_response}
-
 
     # make the http requests to the tmdb api asynchronously
     # SERIES only for testing
     series_object = GetSeries(page=1)
     tmdb_response = series_object.async_series_details(shows_ids)
 
-
     # check which episodes are releasing in 1 day and delete the rest
     for i in tmdb_response:
         countdwn = series_object.set_countdown(i)
-        if countdwn != 0: # changing the number for testing, should be 1
+        if countdwn != 0:  # changing the number for testing, should be 1
             shows_ids.remove(i["id"])
 
-
     # create dict with user emails as the keys and a list of shows they track as the values
-    email_dict = {i["Email"] : [] for i in db_response}
-
+    email_dict = {i["Email"]: [] for i in db_response}
 
     # populate the dict only with details of shows which release in 1 day i.e. only the shows in the shows_id list
     for i in db_response:
         if i["Tracked_id"] in shows_ids:
-            email_dict[i["Email"]].append({"id" : int(i["Tracked_id"]), "Title" : i["Title"], "Poster_path" : i["Poster_path"]})
+            email_dict[i["Email"]].append(
+                {"id": int(i["Tracked_id"]), "Title": i["Title"], "Poster_path": i["Poster_path"]})
 
     return email_dict
-
-
 
 
 def delete_user(email):
@@ -162,4 +157,3 @@ def delete_user(email):
     '''
     # get_tracked()
     pass
-

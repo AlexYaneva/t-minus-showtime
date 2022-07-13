@@ -1,5 +1,5 @@
 from app import app, cache, dynamo, table
-from app.api import GetFilms, GetSeries
+from app.tmdb_api import GetFilms, GetSeries
 from app.email import send_password_reset_email, send_notification_emails
 from app.forms import LoginForm, RegistrationForm, ResetPasswordForm, ResetPasswordRequestForm, SearchForm
 from app.models import User
