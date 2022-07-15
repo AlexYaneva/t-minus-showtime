@@ -1,30 +1,29 @@
 $(document).ready(function () {
 
-    var logoPath = "http://image.tmdb.org/t/p/original";
-    var itemId = $("#content").attr("data");
-    var mediaType = $("#stream_dropdown").attr("data");
-    // var pathName = "/watch_providers/";
-    var pathName = `/${mediaType}_watch/`;
+    let logoPath = "http://image.tmdb.org/t/p/original";
+    let itemId = $("#content").attr("data");
+    let mediaType = $("#stream_dropdown").attr("data");
+    let pathName = `/${mediaType}_watch/`;
 
     $.ajax($SCRIPT_ROOT + pathName + itemId).done(function (data) {
-        var countries = data;
+        let countries = data;
         changeStreamLogos(countries);
     });
 
     function changeStreamLogos(countries) {
         $("select")
             .change(function () {
-                var countryCode = $("select").val();
+                let countryCode = $("select").val();
                 // $("#content").text(countryCode);
                 try {
-                    var watchFree = countries.results[countryCode].flatrate;
+                    let watchFree = countries.results[countryCode].flatrate;
                 }
                 catch (err) {
                     try {
-                        var watchFree = countries.results[countryCode].free;
+                        let watchFree = countries.results[countryCode].free;
                     }
                     catch (err) {
-                        var watchFree = null;
+                        let watchFree = null;
                     }
                 }
                 if (watchFree !== null) {

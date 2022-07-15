@@ -155,5 +155,7 @@ def delete_user(email):
     '''
     Delete the user record and all tracked records
     '''
-    # get_tracked()
-    pass
+    with table.batch_writer() as batch:
+        # this needs to be changed to a query operation to get all user itmes and then it should be len(query_result) instead of 20
+        for i in range(20):
+            batch.delete_item(Key={"Email": email})

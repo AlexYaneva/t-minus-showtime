@@ -6,7 +6,7 @@ $(document).ready(function () {
         currentPage = 2;
     })
 
-    var currentPage = 2;
+    let currentPage = 2;
 
     // each time the user scrolls to the bottom of the page content, this function fires;
     // it grabs the active tab's id which is used to hit the corresponding server route;
@@ -15,9 +15,9 @@ $(document).ready(function () {
     const observer = new IntersectionObserver(entries => {
         const firstEntry = entries[0];
         if (firstEntry.isIntersecting) {
-            var activeTab = $(".tab-content").find(".active");
-            var container = activeTab.find("#scroller");
-            var pathName = activeTab.attr('id');
+            let activeTab = $(".tab-content").find(".active");
+            let container = activeTab.find("#scroller");
+            let pathName = activeTab.attr('id');
             $.ajax($SCRIPT_ROOT + pathName + '?page=' + currentPage).done(function (data) {
                 currentPage++;
                 // data returned from the server is an html template

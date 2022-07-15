@@ -1,3 +1,4 @@
+
 from flask import Flask
 from config import Config
 from flask_login import LoginManager
@@ -14,8 +15,10 @@ cache = Cache(app)
 dynamo = Dynamo(app)
 table = dynamo.tables["Users"]
 mail = Mail(app)
-celery = Celery(app.import_name, 
+celery = Celery(app.import_name,
                 backend=app.config['CELERY_RESULT_BACKEND'],
                 broker=app.config['CELERY_BROKER_URL'])
 
-from app import routes, models, api
+
+from app import routes, models, tmdb_api
+
