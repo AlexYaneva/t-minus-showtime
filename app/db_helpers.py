@@ -155,7 +155,19 @@ def delete_user(email):
     '''
     Delete the user record and all tracked records
     '''
+
+    all_user_records = table.query(
+        TableName="Users",
+        KeyConditionExpression="Email = :email",
+        ProjectionExpression="Tracked_id, Email",
+        ExpressionAttributeValues={":email": email}
+
+    )
+
+    all_tracked_ids = [int(i["Tracked_id"]) for i in all_user_records["Items"]]
+
     with table.batch_writer() as batch:
-        # this needs to be changed to a query operation to get all user itmes and then it should be len(query_result) instead of 20
-        for i in range(20):
-            batch.delete_item(Key={"Email": email})
+        for tracked_id in all_tracked_ids:
+            batch.delete_item(Key={"Email": email, "Tracked_id": tracked_id})
+
+    # need an alert here confirming account deleted and return to home screen

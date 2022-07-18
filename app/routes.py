@@ -14,7 +14,7 @@ import app.db_helpers as db
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
-
+    db.delete_user("geralt@rivia.com")
     return render_template("index.html")
 
 
