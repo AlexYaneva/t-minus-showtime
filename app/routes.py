@@ -14,7 +14,7 @@ import app.db_helpers as db
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
-    db.delete_user("geralt@rivia.com")
+
     return render_template("index.html")
 
 
@@ -158,8 +158,7 @@ def series_watch(item_id):
 
 
 @app.route("/login", methods=["GET", "POST"])
-@app.route("/login/<new_user>", methods=["GET", "POST"])
-def login(new_user=None):
+def login():
     if current_user.is_authenticated:
         return redirect(url_for("user"))
     form = LoginForm()
@@ -173,7 +172,7 @@ def login(new_user=None):
         next_page = request.args.get("next")
         if not next_page or url_parse(next_page).netloc != "":
             next_page = url_for(
-                "user", username=user.username, new_user=new_user)
+                "user", username=user.username)
         return redirect(next_page)
 
     return render_template("login.html", title="Sign In", form=form)
@@ -191,10 +190,9 @@ def register():
             password_hash = generate_password_hash(form.password.data)
             db.update_password(form.email.data, password_hash)
             flash('You are now registered. Welcome on board!')
-            new_user = "newusr"  # variable to drive dynamic welcome message on first log in
         else:
             flash("Oops... This email is already registered!")
-        return redirect(url_for('login', new_user=new_user))
+        return redirect(url_for('login'))
 
     return render_template('register.html', title='Register', form=form)
 
@@ -232,9 +230,8 @@ def reset_password(token):
 
 
 @app.route("/user/<username>", methods=["GET", "POST"])
-@app.route("/user/<username>/<new_user>", methods=["GET", "POST"])
 @login_required
-def user(username, new_user=None):
+def user(username):
 
     # TEST
     # a_dict = db.get_all_releasing_tomorrow("series")
@@ -244,7 +241,7 @@ def user(username, new_user=None):
     films = current_user.get_trackedfilms()
     series = current_user.get_trackedseries()
 
-    return render_template("user.html", user=current_user, films=films, series=series, new_user=new_user)
+    return render_template("user.html", user=current_user, films=films, series=series)
 
 
 @app.route("/track/<int:item_id>/", methods=["GET", "POST"])
@@ -283,4 +280,11 @@ def untrack(item_id):
 def logout():
     logout_user()
 
+    return redirect(url_for("index"))
+
+
+@app.route("/delete_account/<email>", methods=["GET", "POST"])
+def delete_account(email):
+    db.delete_user(email)
+    flash("Your account has been deleted.")
     return redirect(url_for("index"))
