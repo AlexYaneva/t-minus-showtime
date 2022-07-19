@@ -2,6 +2,7 @@ from app import table
 from decimal import Decimal
 from app.tmdb_api import GetFilms, GetSeries
 from app.utils import countdown
+from flask_login import logout_user
 
 
 def create_new_user(email, username):
@@ -156,6 +157,7 @@ def delete_user(email):
     Delete the user record and all tracked records
     '''
 
+    logout_user()
     all_user_records = table.query(
         TableName="Users",
         KeyConditionExpression="Email = :email",
@@ -169,5 +171,3 @@ def delete_user(email):
     with table.batch_writer() as batch:
         for tracked_id in all_tracked_ids:
             batch.delete_item(Key={"Email": email, "Tracked_id": tracked_id})
-
-    # need an alert here confirming account deleted and return to home screen
