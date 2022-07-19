@@ -336,6 +336,14 @@ h6 {
     background-color: transparent;
 }
 
+.info-block a {
+    color: var(--main-color);
+}
+
+.login-links a {
+    color: var(--main-color);
+}
+
 #error_text {
     color: var(--main-color);
 }
