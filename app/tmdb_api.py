@@ -9,21 +9,20 @@ from app.utils import async_get_multiple, countdown, convert_date
 class TMDB:
 
     APIKEY = f"?api_key={API_key}"
+    BASE_URL = "https://api.themoviedb.org/3"
     IMAGES_URL = "http://image.tmdb.org/t/p/w342"
     LOGOS_URL = "http://image.tmdb.org/t/p/original"
     BACKDROPS_URL = "http://image.tmdb.org/t/p/w780"
 
     def __init__(self, page):
         self.page = f"&page={page}"
-        # should be self.get_base_url().. or should this be a separate task?
-        self.base_url = "https://api.themoviedb.org/3"
         self.language = "&language=en-US"
 
     def _request(self, path, path2, item_id, query, append_to_response):
         ''' method to issue a single http request'''
 
         response = requests.get(
-            f"{self.base_url}{path}{item_id}{path2}{self.APIKEY}{self.language}{self.page}{query}{append_to_response}"
+            f"{self.BASE_URL}{path}{item_id}{path2}{self.APIKEY}{self.language}{self.page}{query}{append_to_response}"
         ).json()
         return response
 
@@ -32,7 +31,7 @@ class TMDB:
 
         urls = []
         for i in list_of_ids:
-            url = f"{self.base_url}{path}{i}{self.APIKEY}{self.language}{self.page}{append_to_response}"
+            url = f"{self.BASE_URL}{path}{i}{self.APIKEY}{self.language}{self.page}{append_to_response}"
             urls.append(url)
 
         return async_get_multiple(list_of_ids, urls)
