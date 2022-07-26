@@ -18,8 +18,8 @@ class Config:
     MAIL_USE_SSL = True
     CELERY_BROKER_URL = 'redis://localhost:6379'
     CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-    CACHE_TYPE = "simple"
-    CACHE_DEFAULT_TIMEOUT = 300
+    CACHE_TYPE = "SimpleCache"
+    CACHE_DEFAULT_TIMEOUT = 60
     # DYNAMO_TABLES = [
     #     {
     #         'TableName': "Users",

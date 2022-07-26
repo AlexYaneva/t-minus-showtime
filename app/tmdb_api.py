@@ -1,5 +1,6 @@
 import requests
 import json
+from app import cache
 from config import API_key
 from flask import url_for
 from flask_login import current_user

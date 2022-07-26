@@ -14,19 +14,19 @@ $(document).ready(function () {
         $("select")
             .change(function () {
                 let countryCode = $("select").val();
-                // $("#content").text(countryCode);
+                let watchFree;
                 try {
-                    let watchFree = countries.results[countryCode].flatrate;
+                    watchFree = countries.results[countryCode].flatrate;
                 }
                 catch (err) {
                     try {
-                        let watchFree = countries.results[countryCode].free;
+                        watchFree = countries.results[countryCode].free;
                     }
                     catch (err) {
-                        let watchFree = null;
+                        watchFree = undefined;
                     }
                 }
-                if (watchFree !== null) {
+                if (watchFree !== undefined) {
                     $("#content").empty();
                     watchFree.forEach((item) => {
                         item.logo_path = logoPath + item.logo_path;
@@ -37,7 +37,7 @@ $(document).ready(function () {
                 }
                 else {
                     $("#content").empty();
-                    $("#content").append("<h6> Not available </h6>");
+                    $("#content").append("<h6> Not available in this country </h6>");
                 }
 
             });

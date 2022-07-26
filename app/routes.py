@@ -35,7 +35,6 @@ def results(group, title):
 
 
 @app.route("/films", methods=["GET", "POST"])
-@cache.cached(timeout=600)
 def films():
     page = 1
     form = SearchForm()
@@ -52,7 +51,6 @@ def films():
 
 
 @app.route("/top_rated", methods=["GET", "POST"])
-@cache.cached(timeout=600)
 def top_rated():
     page = request.args.get('page', 2, type=int)
     films = GetFilms(page)
@@ -62,7 +60,6 @@ def top_rated():
 
 
 @app.route("/films_in_theatres", methods=["GET", "POST"])
-@cache.cached(timeout=600)
 def films_in_theatres():
     page = request.args.get('page', 2, type=int)
     films = GetFilms(page)
@@ -72,7 +69,6 @@ def films_in_theatres():
 
 
 @app.route("/popular_films", methods=["GET", "POST"])
-@cache.cached(timeout=600)
 def popular_films():
     page = request.args.get('page', 2, type=int)
     films = GetFilms(page)
@@ -82,7 +78,6 @@ def popular_films():
 
 
 @app.route("/tvseries", methods=["GET", "POST"])
-@cache.cached(timeout=600)
 def tvseries():
     page = 1
     form = SearchForm()
@@ -99,7 +94,6 @@ def tvseries():
 
 
 @app.route("/series_airing_today", methods=["GET", "POST"])
-@cache.cached(timeout=600)
 def series_airing_today():
     page = request.args.get('page', 2, type=int)
     series = GetSeries(page)
@@ -109,7 +103,6 @@ def series_airing_today():
 
 
 @app.route("/series_on_the_air", methods=["GET", "POST"])
-@cache.cached(timeout=600)
 def series_on_the_air():
     page = request.args.get('page', 2, type=int)
     series = GetSeries(page)
@@ -119,7 +112,6 @@ def series_on_the_air():
 
 
 @app.route("/popular_series", methods=["GET", "POST"])
-@cache.cached(timeout=600)
 def popular_series():
     page = request.args.get('page', 2, type=int)
     series = GetSeries(page)
@@ -131,7 +123,6 @@ def popular_series():
 # makign 'title' an optional parameter
 @app.route("/viewitem/<int:item_id>/", methods=["GET", "POST"])
 @app.route("/viewitem/<int:item_id>/<title>", methods=["GET", "POST"])
-@cache.cached(timeout=600)
 @login_required
 def viewitem(item_id, title=None):
     if title:
@@ -154,7 +145,6 @@ def viewitem(item_id, title=None):
 
 
 @app.route("/film_watch/<int:item_id>", methods=["GET", "POST"])
-@cache.cached(timeout=600)
 def film_watch(item_id):
     film = GetFilms(page=1)
     results = film.watch_providers(item_id=item_id)
@@ -162,7 +152,6 @@ def film_watch(item_id):
 
 
 @app.route("/series_watch/<int:item_id>", methods=["GET", "POST"])
-@cache.cached(timeout=600)
 def series_watch(item_id):
     series = GetSeries(page=1)
     results = series.watch_providers(item_id=item_id)
@@ -172,7 +161,7 @@ def series_watch(item_id):
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for("user"))
+        return redirect(url_for("user", username=current_user.username))
     form = LoginForm()
     if form.validate_on_submit():
         user_record = db.get_user(form.email.data)
@@ -193,7 +182,7 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for("user"))
+        return redirect(url_for("user", username=current_user.username))
     form = RegistrationForm()
     if form.validate_on_submit():
         user_record = db.get_user(form.email.data)
