@@ -11,15 +11,15 @@ import app.utils as utils
 import app.db_helpers as db
 
 
-@app.route("/", methods=["GET", "POST"])
-@app.route("/index", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
+@app.route("/index", methods=["GET"])
 @cache.cached(timeout=600)
 def index():
 
     return render_template("index.html")
 
 
-@app.route("/results/<group>/<title>", methods=["GET", "POST"])
+@app.route("/results/<group>/<title>", methods=["GET"])
 def results(group, title):
 
     if group == "films":
@@ -50,7 +50,7 @@ def films():
     return render_template("films.html", results=results, top_rated=top_rated, in_theatres=in_theatres, form=form)
 
 
-@app.route("/top_rated", methods=["GET", "POST"])
+@app.route("/top_rated", methods=["GET"])
 def top_rated():
     page = request.args.get('page', 2, type=int)
     films = GetFilms(page)
@@ -59,7 +59,7 @@ def top_rated():
     return jsonify(render_template('_display_posters.html', results=results))
 
 
-@app.route("/films_in_theatres", methods=["GET", "POST"])
+@app.route("/films_in_theatres", methods=["GET"])
 def films_in_theatres():
     page = request.args.get('page', 2, type=int)
     films = GetFilms(page)
@@ -68,7 +68,7 @@ def films_in_theatres():
     return jsonify(render_template('_display_posters.html', results=results))
 
 
-@app.route("/popular_films", methods=["GET", "POST"])
+@app.route("/popular_films", methods=["GET"])
 def popular_films():
     page = request.args.get('page', 2, type=int)
     films = GetFilms(page)
@@ -93,7 +93,7 @@ def tvseries():
     return render_template("tvseries.html", results=results, on_the_air=on_the_air, airing_today=airing_today,  form=form)
 
 
-@app.route("/series_airing_today", methods=["GET", "POST"])
+@app.route("/series_airing_today", methods=["GET"])
 def series_airing_today():
     page = request.args.get('page', 2, type=int)
     series = GetSeries(page)
@@ -102,7 +102,7 @@ def series_airing_today():
     return jsonify(render_template('_display_posters.html', results=results))
 
 
-@app.route("/series_on_the_air", methods=["GET", "POST"])
+@app.route("/series_on_the_air", methods=["GET"])
 def series_on_the_air():
     page = request.args.get('page', 2, type=int)
     series = GetSeries(page)
@@ -111,7 +111,7 @@ def series_on_the_air():
     return jsonify(render_template('_display_posters.html', results=results))
 
 
-@app.route("/popular_series", methods=["GET", "POST"])
+@app.route("/popular_series", methods=["GET"])
 def popular_series():
     page = request.args.get('page', 2, type=int)
     series = GetSeries(page)
@@ -121,8 +121,8 @@ def popular_series():
 
 
 # makign 'title' an optional parameter
-@app.route("/viewitem/<int:item_id>/", methods=["GET", "POST"])
-@app.route("/viewitem/<int:item_id>/<title>", methods=["GET", "POST"])
+@app.route("/viewitem/<int:item_id>/", methods=["GET"])
+@app.route("/viewitem/<int:item_id>/<title>", methods=["GET"])
 @login_required
 def viewitem(item_id, title=None):
     if title:
@@ -144,14 +144,14 @@ def viewitem(item_id, title=None):
                            countdown=countdwn, countries=utils.countries, media_type=media_type)
 
 
-@app.route("/film_watch/<int:item_id>", methods=["GET", "POST"])
+@app.route("/film_watch/<int:item_id>", methods=["GET"])
 def film_watch(item_id):
     film = GetFilms(page=1)
     results = film.watch_providers(item_id=item_id)
     return jsonify(results)
 
 
-@app.route("/series_watch/<int:item_id>", methods=["GET", "POST"])
+@app.route("/series_watch/<int:item_id>", methods=["GET"])
 def series_watch(item_id):
     series = GetSeries(page=1)
     results = series.watch_providers(item_id=item_id)
