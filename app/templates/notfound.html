@@ -3,13 +3,13 @@
 
 {% block content %}
 <div class='container'>
-    <h2>OOPS...</h2>
-    <p>We didn't find anything</p>
+    <h2>SORRY!</h2>
+    <p>We couldn't find anything that matched your search</p>
     <div class="py-2 px-2">
         <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Search films</a>
         <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Search series</a>
     </div>
-    <img src="{{url_for('static', filename='img/lost_alien.jpg')}}" class="not-found-img img-fluid mb-2"></img>
+    <img src="{{url_for('static', filename='img/notfound.jpg')}}" class="not-found-img img-fluid mb-2"></img>
 </div>
 
 {% endblock %}

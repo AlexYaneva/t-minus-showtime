@@ -24,9 +24,9 @@
 
             {% if results["name"] %}
             {% if countdown == 1000 and results['status'] == 'Ended' %}
-            <p><strong>SERIES STATUS:</strong> ENDED</p>
+            <p><span class="text_colour">Series status:</span> ENDED</p>
             {% elif countdown == 1000 and results['status'] != 'Ended' %}
-            <p><strong>SERIES STATUS:</strong> NO NEW EPISODES</p>
+            <p><span class="text_colour">Series status:</span> NO NEW EPISODES</p>
             <form action="{{ url_for('track', item_id=results['id'], group='series') }}" method="POST">
                 <button class='btn btn-secondary btn-track' type="submit"><i
                         class="fas fa-plus text_colour"></i>TRACK</button>

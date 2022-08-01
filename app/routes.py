@@ -289,3 +289,8 @@ def delete_account(email):
     db.delete_user(email)
     flash("Your account has been deleted.")
     return redirect(url_for("index"))
+
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html'), 404
