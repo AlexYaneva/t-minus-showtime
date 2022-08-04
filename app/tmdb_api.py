@@ -8,31 +8,55 @@ from app.utils import async_get_multiple, countdown, convert_date
 
 
 class TMDB:
+    ''' Base class for making and processing http requests to the TMDB API
+
+    @params  : page (int, required as part of the http request 
+                    as it returns 1 page of results at a time)
+
+    '''
 
     APIKEY = f"?api_key={API_key}"
     BASE_URL = "https://api.themoviedb.org/3"
     IMAGES_URL = "http://image.tmdb.org/t/p/w342"
     LOGOS_URL = "http://image.tmdb.org/t/p/original"
     BACKDROPS_URL = "http://image.tmdb.org/t/p/w780"
+    LANGUAGE = "&language=en-US"
 
     def __init__(self, page):
         self.page = f"&page={page}"
-        self.language = "&language=en-US"
 
     def _request(self, path, path2, item_id, query, append_to_response):
-        ''' method to issue a single http request'''
+        '''Issue a single http request
+
+        @params  :  path (str)
+                    path2 (str, needed only for certain req's)
+                    item_id (int, unique identifier for each series/film)
+                    query (str from a user's search)
+                    append_to_response (str, for additional req's)
+
+        @returns  : json
+
+        '''
 
         response = requests.get(
-            f"{self.BASE_URL}{path}{item_id}{path2}{self.APIKEY}{self.language}{self.page}{query}{append_to_response}"
+            f"{self.BASE_URL}{path}{item_id}{path2}{self.APIKEY}{self.LANGUAGE}{self.page}{query}{append_to_response}"
         ).json()
         return response
 
     def _async_requests(self, path, list_of_ids, append_to_response):
-        ''' method to issue multiple http requests asynchronously'''
+        '''Issue multiple http requests asynchronously
+
+        @params  :  path (str)
+                    list_of_ids (list, the id's of series/films to be returned)
+                    append_to_response (str, for additional req's)
+
+        @returns  :  callable (func, returns list of dicts)
+
+        '''
 
         urls = []
         for i in list_of_ids:
-            url = f"{self.BASE_URL}{path}{i}{self.APIKEY}{self.language}{self.page}{append_to_response}"
+            url = f"{self.BASE_URL}{path}{i}{self.APIKEY}{self.LANGUAGE}{self.page}{append_to_response}"
             urls.append(url)
 
         return async_get_multiple(list_of_ids, urls)

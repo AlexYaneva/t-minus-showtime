@@ -65,11 +65,12 @@ def untrack(email, tracked_id):
 
 
 def get_tracked(email, tracked_type):
-    '''
-    Get all tracked series or films for a user
+    '''Get all tracked series or films for a user
+    ----
+    @params  : email (str, current_user's email address)
+               tracked_type (str, either "films" or "series")
 
-    :Params: email
-             tracked_type - 'films' or 'series'
+    @returns : list of dicts
     '''
     # query the db for all tracked series/films for a user
     all_tracked = table.query(
@@ -110,9 +111,14 @@ def get_tracked(email, tracked_type):
 
 
 def get_all_releasing_tomorrow(tracked_type):
-    '''
-    Get all films or series accross all users
-    GSI
+    '''Get all films or series accross all users
+
+    Uses the database's GSI to return all tracked series/films by all users,
+    then issues asynchronous calls to the TMDB API to get each series/film's details
+    and keeps only the ones which have a countdown of 1 day to release. 
+    ----
+    @params  : tracked_type (str, either "films" or "series")
+    @returns : dict
     '''
 
     # retrieve all tracked from the db
@@ -137,7 +143,7 @@ def get_all_releasing_tomorrow(tracked_type):
     # check which episodes are releasing in 1 day and delete the rest
     for i in tmdb_response:
         countdwn = series_object.set_countdown(i)
-        if countdwn != 0:  # changing the number for testing, should be 1
+        if countdwn != 1:
             shows_ids.remove(i["id"])
 
     # create dict with user emails as the keys and a list of shows they track as the values
@@ -153,8 +159,16 @@ def get_all_releasing_tomorrow(tracked_type):
 
 
 def delete_user(email):
-    '''
-    Delete the user record and all tracked records
+    '''Delete the user 
+
+    Two-step process - first, query the db and return all user records 
+    and tracked id's, add all tracked id's to a list and pass the list
+    to boto's batch_writer() to delete the records. This deletes the user record
+    and all tracked series/films records. 
+    ----
+    @params  : email (str, current_user's email address)
+    @returns : none
+
     '''
 
     logout_user()
