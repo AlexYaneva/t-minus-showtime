@@ -9,10 +9,8 @@ def countdown(release):
     """
     The function of tears
 
-    @param: str date
-    Param can be in
-    two different formats:
-    '01 Jan 2000' or '2000-01-01'
+    @params: release (str, can be in two different formats:
+                     '01 Jan 2000' or '2000-01-01')
 
     """
     try:

@@ -66,7 +66,7 @@ def untrack(email, tracked_id):
 
 def get_tracked(email, tracked_type):
     '''Get all tracked series or films for a user
-    ----
+
     @params  : email (str, current_user's email address)
                tracked_type (str, either "films" or "series")
 

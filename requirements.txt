@@ -3,7 +3,6 @@ alembic==1.0.10
 amqp==5.0.1
 asn1crypto==0.24.0
 async-timeout==3.0.1
-asyncio==3.4.3
 attrs==20.3.0
 autopep8==1.6.0
 awscli==1.18.85
