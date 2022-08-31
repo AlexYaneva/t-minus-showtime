@@ -1,5 +1,7 @@
 service: t-minus-showtime
 
+useDotenv: true
+
 frameworkVersion: '3'
 
 custom:
@@ -11,7 +13,7 @@ provider:
   name: aws
   runtime: python3.7
   region: eu-west-2
-  stage: dev
+  stage: devsls
   iam:
     role:
       statements:
@@ -25,8 +27,10 @@ provider:
             - dynamodb:DeleteItem
           Resource: "arn:aws:dynamodb:eu-west-2:616727868396:table/Users"
 
-  environment:
-    USERS: ${self:custom.tableName}
+        - Effect: Allow
+          Action:
+          - 's3:*'
+          Resource: "arn:aws:s3:::t-minus-static-files/*"
 
 functions:
   t-minus-showtime:
@@ -49,5 +53,3 @@ package:
     - '!.vscode/**'
     - '!DynamoDB/**'
     - '!node_modules/**'
-
-useDotenv: true

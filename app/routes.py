@@ -15,7 +15,6 @@ import app.db_helpers as db
 @app.route("/index", methods=["GET"])
 @cache.cached(timeout=600)
 def index():
-
     return render_template("index.html")
 
 

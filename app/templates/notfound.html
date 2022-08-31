@@ -9,7 +9,8 @@
         <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('films') }}">Search films</a>
         <a class="btn btn-secondary my-2 my-sm-0" role='button' href="{{ url_for('tvseries') }}">Search series</a>
     </div>
-    <img src="{{url_for('static', filename='img/notfound.jpg')}}" class="not-found-img img-fluid mb-2"></img>
+    <img src="https://t-minus-static-files.s3.eu-west-2.amazonaws.com/static/img/notfound.jpg"
+        class="not-found-img img-fluid mb-2"></img>
 </div>
 
 {% endblock %}
