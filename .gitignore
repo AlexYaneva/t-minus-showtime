@@ -17,5 +17,6 @@ about.txt
 node_modules/
 app.py
 README.md
+serverlessREADME.md
 .serverless/
 handler_venv/

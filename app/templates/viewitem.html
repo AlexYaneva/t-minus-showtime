@@ -52,13 +52,15 @@
             <h4 class="uppercase d-none d-sm-none d-md-block view-title">{{ results["title"] }}</h4>
             <div class="text-md-left mt-2 mb-2">
                 <a href="https://www.imdb.com/title/{{ results['imdb_id'] }}" target="_blank"><img
-                        src="{{ url_for('static', filename='img/imdblogo.png') }}" class="imdb"></a>
+                        src="https://t-minus-static-files.s3.eu-west-2.amazonaws.com/static/img/imdblogo.png"
+                        class="imdb"></a>
             </div>
             {% else %}
             <h4 class="uppercase d-none d-sm-none d-md-block view-title">{{ results["name"] }}</h4>
             <div class="text-md-left mt-2 mb-2">
                 <a href="https://www.imdb.com/title/{{ results['external_ids']['imdb_id'] }}" target="_blank"><img
-                        src="{{ url_for('static', filename='img/imdblogo.png') }}" class="imdb"></a>
+                        src="https://t-minus-static-files.s3.eu-west-2.amazonaws.com/static/img/imdblogo.png"
+                        class="imdb"></a>
             </div>
             {% endif %}
             {% if results["tagline"] %}

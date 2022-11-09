@@ -13,7 +13,8 @@ provider:
   name: aws
   runtime: python3.7
   region: eu-west-2
-  stage: devsls
+  environment:
+    STRIP_STAGE_PATH: yes
   iam:
     role:
       statements:
